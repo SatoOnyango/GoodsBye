@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  
+  <!-- 
+    CSSの読み込み順
+    ①Bootstrap
+    ②Font Awesome
+    ③独自CSS
+   -->
+  <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="assets/font-awesome/css/font-awesome.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/hoge.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/form_wizard.css">
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <section>
+          <div class="wizard">
+              <div class="wizard-inner">
+                  <div class="connecting-line"></div>
+                  <ul class="nav nav-tabs" role="tablist">
+
+                      <li role="presentation" class="active">
+                          <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="Step 1">
+                              <span class="round-tab">
+                                  <i class="glyphicon glyphicon-folder-open"></i>
+                              </span>
+                          </a>
+                      </li>
+
+                      <li role="presentation" class="disabled">
+                          <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="Step 2">
+                              <span class="round-tab">
+                                  <i class="glyphicon glyphicon-pencil"></i>
+                              </span>
+                          </a>
+                      </li>
+                      <li role="presentation" class="disabled">
+                          <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="Step 3">
+                              <span class="round-tab">
+                                  <i class="glyphicon glyphicon-picture"></i>
+                              </span>
+                          </a>
+                      </li>
+
+                      <li role="presentation" class="disabled">
+                          <a href="#complete" data-toggle="tab" aria-controls="complete" role="tab" title="Complete">
+                              <span class="round-tab">
+                                  <i class="glyphicon glyphicon-ok"></i>
+                              </span>
+                          </a>
+                      </li>
+                  </ul>
+              </div>
+
+              <form role="form">
+                  <div class="tab-content">
+                      <div class="tab-pane active" role="tabpanel" id="step1">
+                          <h3>Step 1</h3>
+                          <p>This is step 1</p>
+                          <ul class="list-inline pull-right">
+                              <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
+                          </ul>
+                      </div>
+                      <div class="tab-pane" role="tabpanel" id="step2">
+                          <h3>Step 2</h3>
+                          <p>This is step 2</p>
+                          <ul class="list-inline pull-right">
+                              <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
+                              <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
+                          </ul>
+                      </div>
+                      <div class="tab-pane" role="tabpanel" id="step3">
+                          <h3>Step 3</h3>
+                          <p>This is step 3</p>
+                          <ul class="list-inline pull-right">
+                              <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
+                              <li><button type="button" class="btn btn-default next-step">Skip</button></li>
+                              <li><button type="button" class="btn btn-primary btn-info-full next-step">Save and continue</button></li>
+                          </ul>
+                      </div>
+                      <div class="tab-pane" role="tabpanel" id="complete">
+                          <h3>Complete</h3>
+                          <p>You have successfully completed all steps.</p>
+                      </div>
+                      <div class="clearfix"></div>
+                  </div>
+              </form>
+          </div>
+      </section>
+     </div>
+  </div>
+  
+  <!-- 
+    JSの読み込み順
+    ①jQuery
+    ②jQuery-migrate
+    ③bootstrap
+    ④独自JS
+   -->
+  <script src="assets/js/jquery-3.1.1.js"></script>
+  <script src="assets/js/jquery-migrate-1.4.1.js"></script>
+  <script src="assets/js/bootstrap.js"></script>
+  <script src="assets/js/form_wizard.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
