@@ -4,8 +4,8 @@ session_start();
 $errors=[];
 //確認画面から戻ってきた場合
 if(isset($_GET['action'])&& $_GET['action']=='rewrite'){
-    $_POST['input_name']=$_SESSION['47_LearnSNS']['name'];
-    $_POST['input_password']=$_SESSION['47_LearnSNS']['password'];
+    $_POST['input_name']=$_SESSION['GoodsBye']['name'];
+    $_POST['input_password']=$_SESSION['GoodsBye']['password'];
 //check.phpに遷移しないように
     $errors['rewirte']=true;
 }
@@ -84,11 +84,11 @@ if (!empty($_POST)){
              //同じサーバー内であれば出し入れ自由
              //$_SESSION 連想配列形式で値を保持
              //使用するためにはsession_start();をファイルの頭に記述する必要がある
-               $_SESSION['47_LearnSNS']['name']=$name;
-               $_SESSION['47_LearnSNS']['password']=$password;
-               $_SESSION['47_LearnSNS']['img_name']=$submit_file_name;
+               $_SESSION['GoodsBye']['name']=$name;
+               $_SESSION['GoodsBye']['password']=$password;
+               $_SESSION['GoodsBye']['img_name']=$submit_file_name;
 
-            // ３次のページに遷移する
+            // ３次のページに遷移するw
             // header('Location:遷移先')
              header('Location: check.php');
              exit();

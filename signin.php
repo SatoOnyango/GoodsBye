@@ -30,7 +30,7 @@ if (!empty($_POST)){
         if(password_verify($password,$record['password'])){
         // 3パスワードが一致したらサインイン処理
         // セッションにユーザーIDのID追加
-            $_SESSION['47_LearnSNS']['id']=$record['id'];
+            $_SESSION['GoodsBye']['id']=$record['id'];
             header('Location: timeline.php');
             exit();
             echo'complete！';
