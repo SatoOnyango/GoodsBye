@@ -14,6 +14,12 @@ if (!empty($_POST)){
     if($password==''){
         $errors['password']='blank';
     }
+
+    echo "<pre>";
+    var_dump($_POST);
+    echo "</pre>";
+
+
     if (empty($errors)){
 
         $sql='SELECT *FROM`users`WHERE`name`=?';
@@ -22,6 +28,9 @@ if (!empty($_POST)){
         $stml->execute($data);
         $record=$stml->fetch(PDO::FETCH_ASSOC);
 
+        // echo '<pre>';
+        // var_dump($record);
+        // echo'</pre>';
         // 名前での本人確認
         if($record==false){
             $errors['signin']='failed';
@@ -31,7 +40,7 @@ if (!empty($_POST)){
         // 3パスワードが一致したらサインイン処理
         // セッションにユーザーIDのID追加
             $_SESSION['GoodsBye']['id']=$record['id'];
-            header('Location: timeline.php');
+            header('Location: main.php');
             exit();
             echo'complete！';
         }else{
@@ -39,7 +48,8 @@ if (!empty($_POST)){
             $errors['signin']='failed';
         }
     }
-    
+
+
 }
 
 ?>
@@ -64,7 +74,7 @@ if (!empty($_POST)){
                 <form method="POST" action="signin.php" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="name">Username*</label>
-                        <input type="text" name="input_name" class="form-control" id="name" placeholder="input text"
+                        <input type="name" name="input_name" class="form-control" id="name" placeholder="input text"
                         <?php if(isset($errors['name']) && $errors['name']== 'blank'):?>>
                             <p class ="text-danger"> Can't be blank/ ユーザー名を入力してください</p>
                         <?php endif ;?>
