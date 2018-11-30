@@ -2,7 +2,7 @@
 session_start();
 require('dbconnect.php');
 
-if (!isset($_SESSION['GoodeBye'])) {
+if (!isset($_SESSION['GoodsBye'])) {
    header('Location:signup.php');
    exit();
 }
@@ -16,7 +16,7 @@ if (!empty($_POST)) {
     $data=[$name,password_hash($password,PASSWORD_DEFAULT),$img_name];
     $stmt=$dbh->prepare($sql);
     $stmt->execute($data);
-    unset($_SESSION['GoodeBye']);
+    unset($_SESSION['GoodsBye']);
     header('Location:thanks.php');
     exit();
 }
