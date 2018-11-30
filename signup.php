@@ -136,7 +136,10 @@ if (!empty($_POST)){
                         <?php if(isset($errors['password']) && $errors['password']== 'length'):?>
                             <p class ="text-danger">4文字以上で入力/Must have at least 4 characters</p>
                         <?php endif ;?>
-
+                        <?php if (!empty($errors)):?>
+                            <p class ="text-danger">
+                                パスワードを再度入力してください</p>
+                    <?php endif;?>
                     </div>
                     <div class="form-group">
                         <label for="img_name">Profile image*</label>
