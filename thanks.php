@@ -18,7 +18,7 @@
                 <h2 class="text-center content_header">Your Account was created !!</h2>
                 <div class="text-center">
                     <p>ユーザーアカウントの作成が完了しました。</p>
-                    <a href="../signin.php" class="btn btn-info">Sign-In</a>
+                    <a href="signin.php" class="btn btn-info">Sign-In</a>
                 </div>
             </div>
         </div>
