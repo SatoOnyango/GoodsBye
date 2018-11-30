@@ -31,14 +31,11 @@
     <!-- TH1 -->
         <div class="col-sm-4">
             <div class="thumbnail">
-              <a href="#" class="">
+
                 <div class="caption">
-                     <h4 class="">Thumbnail Headline</h4>
+                     <h4 class="">comment</h4>
 
-                    <p class="">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-
-
-</p>
+                    
                 </div>
                 <img src="http://placehold.it/350x250" alt="..." class="">
                </a>
@@ -48,17 +45,14 @@
         <!-- TH2 -->
         <div class="col-sm-4">
             <div class="thumbnail">
-              <a href="#" class="">
+
                 <div class="caption">
-                     <h4 class="">Thumbnail Headline</h4>
+                     <h4 class="">comment</h4>
 
-                    <p class="">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium
-
-
-
-</p>
+                   
                 </div>
                 <img src="http://placehold.it/350x250" alt="..." class="">
+                    
                 </a>
             </div>
         </div>
@@ -66,13 +60,11 @@
         <!-- TH2 -->
         <div class="col-sm-4">
             <div class="thumbnail">
-              <a href="#" class="">
+
                 <div class="caption">
-                     <h4 class="">Thumbnail Headline</h4>
+                     <h4 class="">comment</h4>
 
-                    <p class="">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
-
-            </p>
+                    
                 </div>
                 <img src="http://placehold.it/350x250" alt="..." class="">
       </a>
@@ -83,11 +75,11 @@
         <div class="col-sm-4">
             <div class="thumbnail">
                 <div class="caption">
-                     <h4 class="">Thumbnail Headline</h4>
+                     <h4 class="">comment</h4>
 
                     <p class="">
 
-<a href="#" class="label label-default">Open</a>
+
 
 </p>
                 </div>
@@ -99,11 +91,10 @@
         <div class="col-sm-4">
             <div class="thumbnail">
                 <div class="caption">
-                     <h4 class="">Thumbnail Headline</h4>
+                     <h4 class="">comment</h4>
 
                     <p class="">
 
-<a href="#" class="label label-default">Open</a>
 
 </p>
                 </div>
@@ -116,17 +107,425 @@
         <div class="col-sm-4">
             <div class="thumbnail">
                 <div class="caption">
-                     <h4 class="">Thumbnail Headline</h4>
+                     <h4 class="">comment</h4>
 
                     <p class="">
 
-<a href="#" class="label label-default">Open</a>
+
 
 </p>
                 </div>
                 <img src="http://placehold.it/350x250" alt="..." class="">
             </div>
         </div>
+
+
+                   <div class="col-sm-4">
+            <div class="thumbnail">
+                <div class="caption">
+                     <h4 class="">comment</h4>
+
+                    <p class="">
+
+
+
+</p>
+                </div>
+                <img src="http://placehold.it/350x250" alt="..." class="">
+            </div>
+        </div>
+
+
+       <div class="col-sm-4">
+            <div class="thumbnail">
+                <div class="caption">
+                     <h4 class="">comment</h4>
+
+                    <p class="">
+
+
+
+</p>
+                </div>
+                <img src="http://placehold.it/350x250" alt="..." class="">
+            </div>
+        </div>
+
+
+
+       <div class="col-sm-4">
+            <div class="thumbnail">
+                <div class="caption">
+                     <h4 class="">comment</h4>
+
+                    <p class="">
+
+
+
+</p>
+                </div>
+                <img src="http://placehold.it/350x250" alt="..." class="">
+            </div>
+        </div>
+
+
+
+       <div class="col-sm-4">
+            <div class="thumbnail">
+                <div class="caption">
+                     <h4 class="">comment</h4>
+
+                    <p class="">
+
+
+
+</p>
+                </div>
+                <img src="http://placehold.it/350x250" alt="..." class="">
+            </div>
+        </div>
+
+
+
+       <div class="col-sm-4">
+            <div class="thumbnail">
+                <div class="caption">
+                     <h4 class="">comment</h4>
+
+                    <p class="">
+
+
+
+</p>
+                </div>
+                <img src="http://placehold.it/350x250" alt="..." class="">
+            </div>
+        </div>
+
+
+
+       <div class="col-sm-4">
+            <div class="thumbnail">
+                <div class="caption">
+                     <h4 class="">comment</h4>
+
+                    <p class="">
+
+
+
+</p>
+                </div>
+                <img src="http://placehold.it/350x250" alt="..." class="">
+            </div>
+        </div>
+
+
+
+        <div class="col-sm-4">
+            <div class="thumbnail">
+                <div class="caption">
+                     <h4 class="">comment</h4>
+
+                    <p class="">
+
+
+
+</p>
+                </div>
+                <img src="http://placehold.it/350x250" alt="..." class="">
+            </div>
+        </div>
+
+
+                   <div class="col-sm-4">
+            <div class="thumbnail">
+                <div class="caption">
+                     <h4 class="">comment</h4>
+
+                    <p class="">
+
+
+
+</p>
+                </div>
+                <img src="http://placehold.it/350x250" alt="..." class="">
+            </div>
+        </div>
+
+
+       <div class="col-sm-4">
+            <div class="thumbnail">
+                <div class="caption">
+                     <h4 class="">comment</h4>
+
+                    <p class="">
+
+
+
+</p>
+                </div>
+                <img src="http://placehold.it/350x250" alt="..." class="">
+            </div>
+        </div>
+
+
+
+       <div class="col-sm-4">
+            <div class="thumbnail">
+                <div class="caption">
+                     <h4 class="">comment</h4>
+
+                    <p class="">
+
+
+
+</p>
+                </div>
+                <img src="http://placehold.it/350x250" alt="..." class="">
+            </div>
+        </div>
+
+
+
+       <div class="col-sm-4">
+            <div class="thumbnail">
+                <div class="caption">
+                     <h4 class="">comment</h4>
+
+                    <p class="">
+
+
+
+</p>
+                </div>
+                <img src="http://placehold.it/350x250" alt="..." class="">
+            </div>
+        </div>
+
+
+
+       <div class="col-sm-4">
+            <div class="thumbnail">
+                <div class="caption">
+                     <h4 class="">comment</h4>
+
+                    <p class="">
+
+
+
+</p>
+                </div>
+                <img src="http://placehold.it/350x250" alt="..." class="">
+            </div>
+        </div>
+
+
+
+       <div class="col-sm-4">
+            <div class="thumbnail">
+                <div class="caption">
+                     <h4 class="">comment</h4>
+
+                    <p class="">
+
+
+
+</p>
+                </div>
+                <img src="http://placehold.it/350x250" alt="..." class="">
+            </div>
+        </div>
+
+
+
+        <div class="col-sm-4">
+            <div class="thumbnail">
+                <div class="caption">
+                     <h4 class="">comment</h4>
+
+                    <p class="">
+
+
+
+</p>
+                </div>
+                <img src="http://placehold.it/350x250" alt="..." class="">
+            </div>
+        </div>
+
+
+                   <div class="col-sm-4">
+            <div class="thumbnail">
+                <div class="caption">
+                     <h4 class="">comment</h4>
+
+                    <p class="">
+
+
+
+</p>
+                </div>
+                <img src="http://placehold.it/350x250" alt="..." class="">
+            </div>
+        </div>
+
+
+       <div class="col-sm-4">
+            <div class="thumbnail">
+                <div class="caption">
+                     <h4 class="">comment</h4>
+
+                    <p class="">
+
+
+
+</p>
+                </div>
+                <img src="http://placehold.it/350x250" alt="..." class="">
+            </div>
+        </div>
+
+
+
+       <div class="col-sm-4">
+            <div class="thumbnail">
+                <div class="caption">
+                     <h4 class="">comment</h4>
+
+                    <p class="">
+
+
+
+</p>
+                </div>
+                <img src="http://placehold.it/350x250" alt="..." class="">
+            </div>
+        </div>
+
+
+
+       <div class="col-sm-4">
+            <div class="thumbnail">
+                <div class="caption">
+                     <h4 class="">comment</h4>
+
+                    <p class="">
+
+
+
+</p>
+                </div>
+                <img src="http://placehold.it/350x250" alt="..." class="">
+            </div>
+        </div>
+
+
+
+       <div class="col-sm-4">
+            <div class="thumbnail">
+                <div class="caption">
+                     <h4 class="">comment</h4>
+
+                    <p class="">
+
+
+
+</p>
+                </div>
+                <img src="http://placehold.it/350x250" alt="..." class="">
+            </div>
+        </div>
+
+
+
+       <div class="col-sm-4">
+            <div class="thumbnail">
+                <div class="caption">
+                     <h4 class="">comment</h4>
+
+                    <p class="">
+
+
+
+</p>
+                </div>
+                <img src="http://placehold.it/350x250" alt="..." class="">
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="thumbnail">
+                <div class="caption">
+                     <h4 class="">comment</h4>
+
+                    <p class="">
+
+
+
+</p>
+                </div>
+                <img src="http://placehold.it/350x250" alt="..." class="">
+            </div>
+        </div>
+
+
+                   <div class="col-sm-4">
+            <div class="thumbnail">
+                <div class="caption">
+                     <h4 class="">comment</h4>
+
+                    <p class="">
+
+
+
+</p>
+                </div>
+                <img src="http://placehold.it/350x250" alt="..." class="">
+            </div>
+        </div>
+
+
+       <div class="col-sm-4">
+            <div class="thumbnail">
+                <div class="caption">
+                     <h4 class="">comment</h4>
+
+                    <p class="">
+
+
+
+</p>
+                </div>
+                <img src="http://placehold.it/350x250" alt="..." class="">
+            </div>
+        </div>
+
+
+
+       <div class="col-sm-4">
+            <div class="thumbnail">
+                <div class="caption">
+                     <h4 class="">comment</h4>
+
+                    <p class="">
+
+
+
+</p>
+                </div>
+                <img src="http://placehold.it/350x250" alt="..." class="">
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
 
         <!-- TH6 -->
 
