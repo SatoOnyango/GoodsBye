@@ -21,57 +21,47 @@
 
   <body>
 
-
-    <div class="container">
-      <div class="header clearfix bg-danger">
-        <nav>
-          <ul class="nav nav-pills pull-right">
-            <li class="nav-item">
-              <a class="nav-link active" href="signup.php">登録画面<span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="signin.php">ログイン画面</a>
-            </li>
-          </ul>
-        </nav>
-      </div>
-
-      <div class="jumbotron" style="background:url(img/mizuhoDSC_1334.jpg);">
-        <h1 class="display-3 text-center">Goods Bye</h1>
-        <p class="lead text-center">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-        <p><a class="btn btn-lg btn-success" href="#" role="button">Sign up today</a></p>
-      </div>
-
-      <div class="row marketing">
-        <div class="col-lg-6">
-          <h4>Subheading</h4>
-          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-          <h4>Subheading</h4>
-          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-          <h4>Subheading</h4>
-          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+  <div class="navbar navbar-default">
+        <div class="container bg-default">
+            <div class="navbar-header">
+                <a class="navbar-brand" style="padding:25px" href="index.php">GoodsBye</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-collapse1">
+                <ul class="nav navbar-nav pull-right">
+                    <li><a href="signup.php">登録画面<br>
+                     (sign up)</a></li>
+                    <li><a href="signin.php">ログイン画面<br>
+                     (sign in)</a></li>
+                </ul>
+            </div>
         </div>
+    </div>
 
-        <div class="col-lg-6">
-          <h4>Subheading</h4>
-          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
 
-          <h4>Subheading</h4>
-          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-          <h4>Subheading</h4>
-          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-        </div>
+      <div class="jumbotron" style="background:url(img_us/index1.jpg);">
+        <h1 class="display-3 text-center">GoodsBye</h1>
+        <p class="lead text-center">「GoodsBye」は NexSeedにいる方々のためのサービスです<br>
+          <br>
+          「GoodsBye」を通して、不要なものを出品し、手に入れることができます。<br>
+          <br>
+        さあ今日から「GoodsBye」を通して、留学生活の無駄を解消しませんか。</p>
       </div>
 
-      <footer class="footer">
-        <p>© Company 2017</p>
-      </footer>
+      <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter hdpe">
+          <img src="http://fakeimg.pl/365x365/" class="img-responsive">
+      </div>
+
+      <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter sprinkle">
+          <img src="http://fakeimg.pl/365x365/" class="img-responsive">
+      </div>
+
+      <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter hdpe">
+          <img src="http://fakeimg.pl/365x365/" class="img-responsive">
+          <p1><br></p>
+          <p2><br></p2>
+      </div>
 
     </div> <!-- /container -->
-  
 
 </body>
 </html>
