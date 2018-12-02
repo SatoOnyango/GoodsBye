@@ -21,9 +21,15 @@ if (!empty($_POST)) {
     exit();
 }
 
-if(empty($_SESSION['img_name'])){
+if(empty($_SESSION['GoodsBye']['img_name'])){
     $user_img = 'default.png';
+}else{
+        $user_img = $_SESSION['GoodsBye']['img_name'];
 }
+
+// echo '<pre>';
+// var_dump($_SESSION['GoodsBye']['img_name']);
+// echo '</pre>';
 
 ?>
 <!DOCTYPE html>
