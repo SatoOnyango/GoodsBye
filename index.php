@@ -38,7 +38,7 @@
     </div>
 
 
-      <div class="jumbotron" style="background:url(index_img/index1.jpg);">
+      <div class="jumbotron" style="background:url(img_us/index1.jpg);">
         <h1 class="display-3 text-center">GoodsBye</h1>
         <p class="lead text-center">「GoodsBye」は NexSeedにいる方々のためのサービスです<br>
           <br>
@@ -57,10 +57,11 @@
 
       <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter hdpe">
           <img src="http://fakeimg.pl/365x365/" class="img-responsive">
+          <p1><br></p>
+          <p2><br></p2>
       </div>
 
     </div> <!-- /container -->
-  
 
 </body>
 </html>
