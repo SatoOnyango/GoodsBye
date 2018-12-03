@@ -19,7 +19,7 @@
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse1">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a class="smothscroll" href="#post" title="post">POST(投稿)</a></li>
+                    <li class="active"><a class="smothscroll" href="main.php#post" title="post">POST(投稿)</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
