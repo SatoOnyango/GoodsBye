@@ -11,6 +11,13 @@ $name=$_SESSION['GoodsBye']['name'];
 $password=$_SESSION['GoodsBye']['password'];
 $img_name=$_SESSION['GoodsBye']['img_name'];
 
+// echo '<pre>';
+// var_dump($_SESSION['GoodsBye']['img_name']);
+// echo '</pre>';
+// die();
+
+
+
 if (!empty($_POST)) {
     $sql='INSERT INTO `users`(`name`,`password`,`img_name`,`created`) VALUES(?,?,?,NOW());';
     $data=[$name,password_hash($password,PASSWORD_DEFAULT),$img_name];
@@ -21,9 +28,13 @@ if (!empty($_POST)) {
     exit();
 }
 
-if(empty($_SESSION['img_name'])){
-    $user_img = 'default.png';
-}
+
+
+
+
+// echo '<pre>';
+// var_dump($_SESSION['GoodsBye']['img_name']);
+// echo '</pre>';
 
 ?>
 <!DOCTYPE html>
@@ -42,7 +53,7 @@ if(empty($_SESSION['img_name'])){
                 <h2 class="text-center content_header">入力内容確認</h2>
                 <div class="row">
                     <div class="col-xs-4">
-                        <img src="user_profile_img/<?php echo htmlspecialchars($user_img);?>" class="img-responsive img-thumbnail">
+                        <img src="user_profile_img/<?php echo htmlspecialchars($img_name);?>" class="img-responsive img-thumbnail">
                     </div>
                     <div class="col-xs-8">
                         <div>
