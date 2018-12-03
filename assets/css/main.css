@@ -1,4 +1,5 @@
 
+
 .goodsbye-title
 {
     font-size: 50px;
@@ -7,6 +8,7 @@
     font-weight: 500;
     margin-bottom: 25px;
 }
+/*main.phpのタイトルの部分*/
 .goodsbye-title:after {
     content: "";
     position: absolute;
@@ -49,4 +51,8 @@
 .gallery_product
 {
     margin-bottom: 30px;
+}
+.caption>h4{
+    font-size:50px;
+    background: pink;
 }
