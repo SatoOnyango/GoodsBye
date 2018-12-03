@@ -14,7 +14,11 @@ if(!empty($_POST)){
         $errors['name'] = 'blank';
     }
 
-    $count = strlen($password);
+
+    echo "<pre>";
+    var_dump($_POST);
+    echo "</pre>";
+
 
     if($password == ''){
         $errors['password'] = 'blank';
@@ -71,7 +75,6 @@ if(!empty($_POST)){
             //認証失敗
             $errors['signin'] = 'failed';
         }
-
     }
 }
 
@@ -102,7 +105,7 @@ if(!empty($_POST)){
                 <form method="POST" action="signin.php" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="name">Username*</label>
-                        <input type="text" name="input_name" class="form-control" id="name" placeholder="input text"
+                        <input type="name" name="input_name" class="form-control" id="name" placeholder="input text"
                         <?php if(isset($errors['name']) && $errors['name']== 'blank'):?>>
                             <p class ="text-danger"> Can't be blank/ ユーザー名を入力してください</p>
                         <?php endif ;?>
