@@ -106,30 +106,32 @@
         <!-- end/row2 -->
 
         <!-- 投稿エリア -->
-        <div class="container">
-            <div class="row">
-                    <div class="post">
-                        <div class="feed_form thumbnail">
-                            <form method="POST" action="">
-                                <div class="form-group" style="margin-bottom: 0px;">
-                                    <textarea name="feed" class="form-control" rows="2" placeholder="Your Comment Here" style="font-size: 24px; text-align: center;"></textarea><br>
-                                <?php if(isset($errors['feed']) && $errors['feed'] == 'blank'): ?>
-                                    <p class="text-danger">投稿を入力してください</p>
-                                <?php endif; ?>
-                                </div>
-                                <div class="form-group">
-                                    <label for="img_name">Your Googs Image</label>
-                                    <input type="file" name="input_img_name" id="img_name" style="margin-left: 250px" accept="image/*"><!-- accept="image/*"画像以外選択できない -->
-                                    <?php if(isset($errors['img_name']) && $errors['img_name']== 'type'):?>
-                                    <p class ="text-danger">拡張子が違います</p>
-                                    <?php endif ;?>
-                                </div>
-                                <input type="submit" value="POST (投稿する)" class="btn btn-primary">
-                            </form>
-                        </div>
-                </div>
-            </div> <!-- /row -->
-        </div> <!-- /container -->
+        <section id="post" name="post">
+            <div class="container">
+                <div class="row">
+                        <div class="post">
+                            <div class="feed_form thumbnail">
+                                <form method="POST" action="">
+                                    <div class="form-group" style="margin-bottom: 0px;">
+                                        <textarea name="feed" class="form-control" rows="2" placeholder="Your Comment Here" style="font-size: 24px; text-align: center;"></textarea><br>
+                                    <?php if(isset($errors['feed']) && $errors['feed'] == 'blank'): ?>
+                                        <p class="text-danger">投稿を入力してください</p>
+                                    <?php endif; ?>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="img_name">Your Googs Image</label>
+                                        <input type="file" name="input_img_name" id="img_name" style="margin-left: 250px" accept="image/*"><!-- accept="image/*"画像以外選択できない -->
+                                        <?php if(isset($errors['img_name']) && $errors['img_name']== 'type'):?>
+                                        <p class ="text-danger">拡張子が違います</p>
+                                        <?php endif ;?>
+                                    </div>
+                                    <input type="submit" value="POST (投稿する)" class="btn btn-primary">
+                                </form>
+                            </div>
+                    </div>
+                </div> <!-- /row -->
+            </div> <!-- /container -->
+        </section>
         <!-- /投稿エリア -->
 
     </div><!--/row -->
