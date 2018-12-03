@@ -5,52 +5,83 @@ require('dbconnect.php');
 // エラーを格納する配列
 $errors=[];
 
+// POST送信時のみ
+if(!empty($_POST)){
+    $name = $_POST['input_name'];
+    $password = $_POST['input_password'];
 
-if (!empty($_POST)){
-    $name=$_POST['input_name'];
-    $password=$_POST['input_password']; 
-    if($name==''){
-        $errors['name']='blank';}
-    if($password==''){
-        $errors['password']='blank';
+    if($name == ''){
+        $errors['name'] = 'blank';
     }
+
 
     echo "<pre>";
     var_dump($_POST);
     echo "</pre>";
 
 
-    if (empty($errors)){
+    if($password == ''){
+        $errors['password'] = 'blank';
+    }
+    if(empty($errors)){
+        // echo '入力完了！！！';
+        //バリデーション通過時の処理
+        //1.DBからレコードを取得
+        //宿題
+        //SELECT文を考えてくる
+        //ただし、パスワードは使わない
+        $sql = 'SELECT * FROM `users` WHERE `name`= ? ';
+        //sql文のなかに？があるのでそこを$dataで指定する
+        $data = [$name];
+        $stmt = $dbh->prepare($sql);
+        $stmt->execute($data);
+        //DBから取得した値を$recordに入れる
+        //$recordには連想配列が入ってくる
+        //値がない場合はfalseが入る
+        $record = $stmt->fetch(PDO::FETCH_ASSOC);
+        // $record = $stmt->fetch(PDO::FETCH_ASSOC)があれば連想配列、なければfalseを勝手にやってくれる
 
-        $sql='SELECT *FROM`users`WHERE`name`=?';
-        $data=[$name];
-        $stml=$dbh->prepare($sql);
-        $stml->execute($data);
-        $record=$stml->fetch(PDO::FETCH_ASSOC);
+        echo '<pre>';
+        var_dump($password);
+        echo '</pre>';
+        echo '<pre>';
+        var_dump($record['password']);
+        echo '</pre>';
 
-        // echo '<pre>';
-        // var_dump($record);
-        // echo'</pre>';
-        // 名前での本人確認
-        if($record==false){
-            $errors['signin']='failed';
+        //メールアドレスでの本人確認
+        if($record == false){
+            $errors['signin'] = 'failed';
         }
-        // 2パスワードが一致するか確認
-        if(password_verify($password,$record['password'])){
-        // 3パスワードが一致したらサインイン処理
-        // セッションにユーザーIDのID追加
-            $_SESSION['GoodsBye']['id']=$record['id'];
+
+        //2.パスワードが一致するか確認
+        if(password_verify($password, $record['password'])){
+        //認証成功
+        //3.パスワード一致した場合、サインイン処理
+        //3-1. セッションにユーザーのID追加
+            $_SESSION['GoodsBye']['id'] = $record['id'];
+
+        //3-2. timeline.phpに遷移
+            echo '認証成功';
+            echo '<pre>';
+            var_dump($_SESSION);
+            echo '</pre>';
+
+
             header('Location: main.php');
             exit();
-            echo'complete！';
+            die();
+
         }else{
             //認証失敗
-            $errors['signin']='failed';
+            $errors['signin'] = 'failed';
         }
     }
-
-
 }
+
+// echo '<pre>';
+// var_dump();
+// echo '</pre>';
+
 
 ?>
 <!DOCTYPE html>
