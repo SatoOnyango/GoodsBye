@@ -9,36 +9,7 @@ const CONTENT_PER_PAGE = 10;
 // }
 
 
-$sql = 'SELECT * FROM `users` WHERE `id` = ?';
-$data = [$_SESSION['GoodsBye']['id']];
-$stmt = $dbh->prepare($sql);
-$stmt->execute($data);
 
-$signin_user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-$errors = [];
-
-if (!empty($_POST)) {
-    //投稿データを取得
-    $feed = $_POST['feed'];
-
-    }
-
-
-$stmt = $dbh->prepare($sql);
-$stmt->execute($data);
-
-//投稿情報全てを入れる配列定義
-$feeds = [];
-while (true) {
-    //$recordは要するにfeed一件の情報
-    //fetchとは一つの行を
-    $record = $stmt->fetch(PDO::FETCH_ASSOC);
-    if ($record == false) {
-        //レコードが取れなくなったらおしまい。
-        break;//←breakでも無限ループが終わる
-    }
-}
 
 
 ?>
@@ -64,6 +35,7 @@ while (true) {
             <div class="gallery col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h1 class="goodsbye-title">GoodsBye</h1>
             </div>
+
             <!-- １行目×３グッズ row1 -->
             <div class="row">
                 <!-- TH1 -->
@@ -72,17 +44,16 @@ while (true) {
                       <a href="detail.php?item_id=1" class="">
                         <div class="caption">
                              <h4 class="">COMMENT</h4>
-                            <p class="">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore</p>
+                            <p class=""></p>
                         </div>
-                        <img src="user_profile_img/default.png" alt="..." class="">
+                        <img src="user_profile_img/default.png" alt="..." class="thumbnail">
                        </a>
                     </div>
                 </div>
             </a>
 
                 <!-- TH2 -->
-<?php if ($signin_user['id'] == $users['user_id']): ?>
-    <p href="detail.php?comment_id=<?php echo $users['id']; ?>" class="btn btn-success btn-xs">
+
                 <div class="col-sm-4">
                     <div class="thumbnail">
                       <a href="detail.php?item_id=2" class="">
@@ -90,12 +61,12 @@ while (true) {
                              <h4 class="">COMMENT</h4>
                             <p class=""></p>
                         </div>
-                        <img src="user_profile_img/petbotles.jpeg" alt="..." class="">
+                        <img src="user_profile_img/petbotles.jpeg" alt="..." class="thumbnail">
                         </p>
                     </div>
                 </div>
 
-<?php endif;?>
+
                 <!-- TH3 -->
                 <div class="col-sm-4">
                     <div class="thumbnail">
@@ -104,7 +75,7 @@ while (true) {
                             <h4 class="">COMMENT</h4>
                             <p class=""></p>
                         </div>
-                        <img src="user_profile_img/test_signin_user_img.jpg" alt="..." class="">
+                        <img src="user_profile_img/test_signin_user_img.jpg" alt="..." class="thumbnail ">
                         </a>
                     </div>
                 </div>
@@ -172,7 +143,7 @@ while (true) {
                                     </div>
                                     <div class="form-group">
                                         <label for="img_name">Your Googs Image</label>
-                                        <input type="file" name="input_img_name" id="img_name" style="margin-left: 250px" accept="image/*"><!-- accept="image/*"画像以外選択できない -->
+                                        <input type="file" name="input_img_name" id="img_name" accept="image/*"><!-- accept="image/*"画像以外選択できない -->
                                         <?php if(isset($errors['img_name']) && $errors['img_name']== 'type'):?>
                                         <p class ="text-danger">拡張子が違います</p>
                                         <?php endif ;?>
