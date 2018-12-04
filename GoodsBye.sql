@@ -62,7 +62,7 @@ CREATE TABLE `items` (
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `name` varchar(50) NOT NULL,
+  `name` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
   `img_name` varchar(255) DEFAULT 'default.png',
   `created` datetime NOT NULL,
