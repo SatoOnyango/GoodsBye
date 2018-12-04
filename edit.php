@@ -85,14 +85,7 @@
 // }
 
 ?>
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="utf-8">
-    <title>GoodsBye</title>
-    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="assets/font-awesome/css/font-awesome.css">
-</head>
+<?php include('layouts/header.php'); ?>
 <body style="margin-top: 60px;">
     <?php include('navbar.php'); ?>
     <div class="container">
