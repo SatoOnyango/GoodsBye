@@ -10,7 +10,7 @@ const CONTENT_PER_PAGE = 10;
 
 
 $sql = 'SELECT * FROM `users` WHERE `id` = ?';
-$data = [$_SESSION['Goodsye']['id']];
+$data = [$_SESSION['GoodsBye']['id']];
 $stmt = $dbh->prepare($sql);
 $stmt->execute($data);
 
@@ -22,31 +22,27 @@ if (!empty($_POST)) {
     //投稿データを取得
     $feed = $_POST['feed'];
 
-    //投稿の空チェック
-    if ($feed !='') {
-
-            $sql = 'INSERT INTO `coments`(`comment`,`user_id`,`created`)VALUES(?,?,NOW())';
+    }
 
 
-            $data = [$comment,$signin_user['id']];
+$stmt = $dbh->prepare($sql);
+$stmt->execute($data);
 
-            //3.SQL文をセットする
-            $stmt = $dbh->prepare($sql);
-            //4.SQL文を実行する
-            $stmt->execute($data);
-
-            header('Location: timeline.php');
-            exit();
-
-            }else{
-                //バリデーション処理
-                $errors['comment'] = 'blank';
-
+//投稿情報全てを入れる配列定義
+$feeds = [];
+while (true) {
+    //$recordは要するにfeed一件の情報
+    //fetchとは一つの行を
+    $record = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($record == false) {
+        //レコードが取れなくなったらおしまい。
+        break;//←breakでも無限ループが終わる
     }
 }
 
 
 ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -82,8 +78,11 @@ if (!empty($_POST)) {
                        </a>
                     </div>
                 </div>
+            </a>
 
                 <!-- TH2 -->
+<?php if ($signin_user['id'] == $users['user_id']): ?>
+    <p href="detail.php?comment_id=<?php echo $users['id']; ?>" class="btn btn-success btn-xs">
                 <div class="col-sm-4">
                     <div class="thumbnail">
                       <a href="detail.php?item_id=2" class="">
@@ -92,10 +91,11 @@ if (!empty($_POST)) {
                             <p class=""></p>
                         </div>
                         <img src="user_profile_img/petbotles.jpeg" alt="..." class="">
-                        </a>
+                        </p>
                     </div>
                 </div>
 
+<?php endif;?>
                 <!-- TH3 -->
                 <div class="col-sm-4">
                     <div class="thumbnail">
