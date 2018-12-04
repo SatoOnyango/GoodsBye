@@ -1,10 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>navbar</title>
-    <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="assets/css/navbar.css">
-</head>
 <body>
     <div class="navbar navbar-default navbar-fixed-top">
         <div class="container">
@@ -37,6 +30,5 @@
             </div>
         </div>
     </div>
-    <?php include('layouts/footer.php'); ?>
 </body>
 </html>
