@@ -1,7 +1,9 @@
 <?php
 session_start();
+require('dbconnect.php');
 //1.エラーの内容を保持する配列変数を定義
 $errors=[];
+
 //確認画面から戻ってきた場合
 if(isset($_GET['action'])&& $_GET['action']=='rewrite'){
     $_POST['input_name']=$_SESSION['GoodsBye']['name'];
@@ -14,20 +16,24 @@ $name='';
 $password='';
 //2送信されたデータと比較
 //post送信時のみ（get送信時は処理されない）
+// $file_name='default.png'
+
 if (!empty($_POST)){
     $name=$_POST['input_name'];
     $password=$_POST['input_password']; 
 
     //3入力項目に不備があった場合、配列変数に格納
     if ($name==''){
-        $errors['name']='blank';}
+        $errors['name']='blank';
+    }
 
     $count =strlen($password);
-    if($password==''){
-        $errors['password']='blank';}
 
-    elseif($count < 4){
-        $errors['password']='length';}
+    if($password==''){
+        $errors['password']='blank';
+    }elseif($count < 4){
+        $errors['password']='length';
+    }
 
     $file_name='';
     if(!isset($_GET['action'])){
@@ -37,25 +43,33 @@ if (!empty($_POST)){
 
         $file_type = substr($file_name,-3);
         $file_type = strtolower($file_type);//png
-        // $file_type = strtoupper($file_type);//PNG<-大文字化
+    // $file_type = strtoupper($file_type);//PNG<-大文字化
 
     // ３、jpg,png,gifと比較し、当てはまらない場合$errors['img_name']に格納
-        if($file_type!='jpg' && $file_type!='png' && $file_type!='gif'){
-        $errors['img_name'] ='type';
-        }
-    } 
-    // バリデーション成功時の処理＝入力不備がなかった時
-    if(empty($errors)){
-        echo 'complete！<br>';
 
-           // １プロフィール画像のアップロード
-           // まず書き込み権限があるか、ない場合変更する
-        $date_str = date('YmdHis');
+        if($file_type!='jpg' && $file_type!='png' && $file_type!='gif'){
+            $errors['img_name'] ='type';
+        }
+    }else{
+            $img_name='default.png';
+    }
+
+    if(empty($errors) && $img_name=='default.png'){
+    $_SESSION['GoodsBye']['name']=$name;
+    $_SESSION['GoodsBye']['password']=$password;
+    $_SESSION['GoodsBye']['img_name']=$img_name;
+
+    header('Location: check.php');
+    exit();
+
+    }elseif(empty($errors)){
+
+    $date_str = date('YmdHis');
             // <-datephp参照
-        $submit_file_name = $date_str .$file_name;
+    $submit_file_name = $date_str .$file_name;
             //アップロード
             //move_uploaded_file(画像ファイル、アップロード先)
-        move_uploaded_file($_FILES['input_img_name']['tmp_name'],'user_profile_img/'.$submit_file_name);
+    move_uploaded_file($_FILES['input_img_name']['tmp_name'],'user_profile_img/'.$submit_file_name);
              //$_FILES[キー]['name']         画像名
              //$_FILES[キー]['tmp＿name']    画像データそのもの
 
@@ -64,19 +78,19 @@ if (!empty($_POST)){
              //同じサーバー内であれば出し入れ自由
              //$_SESSION 連想配列形式で値を保持
              //使用するためにはsession_start();をファイルの頭に記述する必要がある
-        $_SESSION['GoodsBye']['name']=$name;
-        $_SESSION['GoodsBye']['password']=$password;
-        $_SESSION['GoodsBye']['img_name']=$submit_file_name;
-    echo "<pre>";
-    var_dump($_SESSION);
-    echo "</pre>";
-            // ３次のページに遷移するw
-            // header('Location:遷移先')
-        header('Location: check.php');
-        exit();
-     }
+    $_SESSION['GoodsBye']['name']=$name;
+    $_SESSION['GoodsBye']['password']=$password;
+    $_SESSION['GoodsBye']['img_name']=$submit_file_name;
+
+    header('Location: check.php');
+    exit();
+    }else{
+        $errors['img_name'] = 'blank';
+    }
 }
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -119,7 +133,7 @@ if (!empty($_POST)){
                     <?php endif;?>
                     </div>
                     <div class="form-group">
-                        <label for="img_name">Profile image*</label>
+                        <label for="img_name">Profile image</label>
                         <input type="file" name="input_img_name" id="img_name" accept="image/*"><!-- accept="image/*"画像以外選択できない -->
                         <?php if(isset($errors['img_name']) && $errors['img_name']== 'type'):?>
                             <p class ="text-danger">拡張子が違います</p>
