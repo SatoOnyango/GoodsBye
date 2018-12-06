@@ -56,16 +56,7 @@ if(!empty($_POST)){
 }
  
  ?>
- <!DOCTYPE html>
- <html lang="ja">
- <head>
-     <meta charset="utf-8">
-    <title>GoodsBye</title>
-    <title>GoodsBye</title>
-     <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
-     <link rel="stylesheet" type="text/css" href="assets/font-awesome/css/font-awesome.css">
-     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
- </head>
+　<?php include('layouts/header.php'); ?>
  <body style="margin-top: 100px;">
      <?php include('navbar.php'); ?>
      <div class="container">
@@ -85,3 +76,6 @@ if(!empty($_POST)){
              </div>
          </div>
     </div>
+ </body>
+<?php include('layouts/footer.php'); ?>
+</html> 
