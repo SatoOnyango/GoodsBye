@@ -11,21 +11,34 @@ if(isset($_GET['action'])&& $_GET['action']=='rewrite'){
 //check.phpに遷移しないように
     $errors['rewirte']=true;
 }
-//空で変数を定義
+
 $name='';
 $password='';
-//2送信されたデータと比較
-//post送信時のみ（get送信時は処理されない）
-// $file_name='default.png'
 
 if (!empty($_POST)){
     $name=$_POST['input_name'];
     $password=$_POST['input_password']; 
-
     //3入力項目に不備があった場合、配列変数に格納
     if ($name==''){
         $errors['name']='blank';
     }
+    //既に登録されているデータかどうか参照
+    $sql = 'SELECT * FROM `users` WHERE `name`= ? ';
+    $data = [$name];
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute($data);
+    $record = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($name==$record['name']){
+        $errors['name'] = 'conflict';
+    }
+    // echo'<pre>';
+    // var_dump($name);
+    // echo'</pre>';
+
+    // echo'<pre>';
+    // var_dump($record['name']);
+    // echo'</pre>';
 
     $count =strlen($password);
 
@@ -58,7 +71,7 @@ if (!empty($_POST)){
     $_SESSION['GoodsBye']['name']=$name;
     $_SESSION['GoodsBye']['password']=$password;
     $_SESSION['GoodsBye']['img_name']=$img_name;
-
+    // die();
     header('Location: check.php');
     exit();
 
@@ -81,7 +94,7 @@ if (!empty($_POST)){
     $_SESSION['GoodsBye']['name']=$name;
     $_SESSION['GoodsBye']['password']=$password;
     $_SESSION['GoodsBye']['img_name']=$submit_file_name;
-
+    // die();
     header('Location: check.php');
     exit();
     }else{
@@ -115,28 +128,31 @@ if (!empty($_POST)){
                         <!-- 4不備が配列変数に格納されている場合、画面に出力 -->
                         <!-- isset(変数)変数が定義されていればtrue -->
                         <?php if(isset($errors['name']) && $errors['name']== 'blank'):?>
-                            <p class ="text-danger">ユーザー名を入力してください/Can't be blank</p>
+                            <p class ="text-danger">ユーザー名を入力してください/ Can't be blank</p>
+                        <?php endif ;?>
+                        <?php if(isset($errors['name']) && $errors['name']== 'conflict'):?>
+                            <p class ="text-danger">既に使用されています/ Already in use</p>
                         <?php endif ;?>
                     </div>
                     <div class="form-group">
                         <label for="password">Password*</label>
                         <input type="password" name="input_password" class="form-control" id="password" placeholder="at least 4 characters">
                         <?php if(isset($errors['password']) && $errors['password']== 'blank'):?>
-                            <p class ="text-danger">passwordを入力してください/Can't be blank</p>
+                            <p class ="text-danger">passwordを入力してください/ Can't be blank</p>
                         <?php endif ;?>
                         <?php if(isset($errors['password']) && $errors['password']== 'length'):?>
-                            <p class ="text-danger">4文字以上で入力/Must have at least 4 characters</p>
+                            <p class ="text-danger">4文字以上で入力/ Must have at least 4 characters</p>
                         <?php endif ;?>
                         <?php if (!empty($errors)):?>
                             <p class ="text-danger">
-                                パスワードを再度入力してください</p>
+                                パスワードを再度入力してください/ Reenter password</p>
                     <?php endif;?>
                     </div>
                     <div class="form-group">
                         <label for="img_name">Profile image</label>
                         <input type="file" name="input_img_name" id="img_name" accept="image/*"><!-- accept="image/*"画像以外選択できない -->
                         <?php if(isset($errors['img_name']) && $errors['img_name']== 'type'):?>
-                            <p class ="text-danger">拡張子が違います</p>
+                            <p class ="text-danger">拡張子が違います/ Wrong file extension</p>
                         <?php endif ;?>
                     </div>
                     <input type="submit" class="btn btn-default" value="confirm">
@@ -148,5 +164,5 @@ if (!empty($_POST)){
         </div>
     </div>
 </body>
-　
+
 </html>
