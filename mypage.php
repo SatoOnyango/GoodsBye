@@ -117,7 +117,7 @@ $item_cnt = $item_stmt->fetch(PDO::FETCH_ASSOC);
                             <hr class="bold-line">
                         </div>
                         <a href="detail.php?item_id=<?php echo $item['id']; ?>" class="">
-                        <img src="<?php echo $item['item_img'] ?>" alt="..." class="" style="max-width: 100%; max-height: 200px; height: auto; vertical-align: bottom; padding-bottom: 10px;">
+                        <img src="user_profile_img/<?php echo $item['item_img'] ?>" alt="..." class="" style="max-width: 100%; max-height: 200px; height: auto; vertical-align: bottom; padding-bottom: 10px;">
                         </a>
                         <!-- ログインしているユーザーだけ編集できるようにしたい -->
                         <?php if($signin_user['id'] == $item['user_id']): ?>

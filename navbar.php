@@ -26,9 +26,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                         <span hidden id="signin-user"></span>
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="user_profile_img/test_signin_user_img.jpg" width="18" class="img-circle">しゅんたろう
-                            <!-- <?php //echo $signin_user['img_name']; ?> -->
-                            <!-- <?php //echo $signin_user['name']; ?> -->
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="user_profile_img/<?php echo $signin_user['img_name']; ?>" width="18" class="img-circle"><?php echo $signin_user['name']; ?>
                         <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="mypage.php?user_id=<?php echo $signin_user['id']; ?>">My page</a></li>
