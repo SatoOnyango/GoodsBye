@@ -7,21 +7,22 @@ require('dbconnect.php');
 // echo '</pre>';
 
 
-$sql = 'SELECT * FROM `items` WHERE `id` = ?';
+$sql = 'SELECT * FROM `users` WHERE `id` = ?';
 $data = [$_SESSION['GoodsBye']['id']];
 $stmt = $dbh->prepare($sql);
 $stmt->execute($data);
 $signin_user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 // // echo '<pre>';
-// // var_dump($_GET['feed_id']);
+// // var_dump($_SESSION);
 // // echo '</pre>';
 
 if(isset($_GET['item_id'])){
-//     // 1. GETパラメーターを定義
+    // 1. GETパラメーターを定義
     $item_id = $_GET['item_id'];
-//     // 2. SQL文定義
-    $sql = 'SELECT `i`.*, `u`.`name` 
+
+    // 2. SQL文定義
+    $sql = 'SELECT `i`.*, `u`.`name`,`u`.`id` 
     FROM `items` AS `i` LEFT JOIN `users` AS `u` 
     ON `i`.`user_id` = `u`.`id` WHERE `i`.`id`= ?';
 
@@ -36,9 +37,8 @@ if(isset($_GET['item_id'])){
 }
 
 if(!empty($_POST)){
-// // 2. SQL文
-
-    $sql = 'UPDATE `feeds` SET `feed`= ? WHERE `id` = ?';
+    // 2. SQL文
+    $sql = 'UPDATE `items` SET `content`= ? WHERE `id` = ?';
     //POST送信されているので、
     $data = [$_POST['feed'],$_POST['feed_id']];
     $stmt = $dbh->prepare($sql);
@@ -61,11 +61,11 @@ if(!empty($_POST)){
              <div class="col-xs-12 ">
                 <form class="form-group" method="post" action="edit.php">
                     <div align="center">
-                        Updated/<?php echo $content['updated'];?><br>
-                    <img src="user_profile_img/<?php echo $content['item_img'];?>" width="500" style="padding-left: auto;padding-right: auto;"><br>
+                        Updated/<?php echo $item['updated'];?><br>
+                    <img src="user_profile_img/<?php echo $item['item_img'];?>" width="500" style="padding-left: auto;padding-right: auto;"><br>
 
                         <div class="content_form thumbnail" style="font-size: 24px;text-align: center border 100px;padding-left: auto;padding-right: auto;width: 500.988636px;height: 109.988636px;">
-                            <textarea name="content" class="form-control" placeholder="Edit your comment agout your item" style="height: 68.988636px;"><?php echo $content['content']?></textarea>
+                            <textarea name="content" class="form-control" placeholder="Edit your comment agout your item" style="height: 68.988636px;"><?php echo $item['content']?></textarea>
                             <input type="submit" value="Update(更新)" class="btn btn-warning ">
                         </div>
                     </div>
