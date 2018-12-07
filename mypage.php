@@ -58,9 +58,9 @@ $stmt->execute($data);
 
 $record = $stmt->fetch(PDO::FETCH_ASSOC);
 
-echo '<pre>';
-var_dump($record);
-echo '</pre>';
+// echo '<pre>';
+// var_dump($record);
+// echo '</pre>';
 
 // 投稿情報全てを入れる配列定義
 $users = [];
@@ -120,10 +120,9 @@ $item_cnt = $item_stmt->fetch(PDO::FETCH_ASSOC);
                         <!-- ログインしているユーザーだけ編集できるようにしたい -->
                         <?php if($signin_user['id'] == $item['user_id']): ?>
                         <div>
-                            <a href="edit.php" class="btn btn-success btn-xs">EDIT<br><span style="font-size: 10px;">（編集）</span></a>
-                            <!-- href="edit.php?item_id=<?php //echo $content['id']; ?>" -->
+                            <a href="edit.php?item_id=<?php echo $item['id']; ?>" class="btn btn-success btn-xs">EDIT<br><span style="font-size: 10px;">（編集）</span></a>
+                            
                             <a onclick="return confirm('Are you sure to delete?（本当に削除しますか？）');" href="delete.php?item_id=<?php echo $item['id']; ?>" class="btn btn-danger btn-xs">DELETE<br><span style="font-size: 10px;">（削除）</span></a>
-                            <!-- ?item_id=<?php //echo $content['id']; ?> -->
                         </div>
                         <?php endif;?>
                     </div>
