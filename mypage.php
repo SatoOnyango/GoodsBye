@@ -98,8 +98,9 @@ $item_cnt = $item_stmt->fetch(PDO::FETCH_ASSOC);
                 <img src="user_profile_img/<?php echo $signin_user['img_name']; ?>" class="img-thumbnail" style="text-align: center;max-width: 100%; max-height: 200px; height: auto; vertical-align: bottom;">
             </div>
 
-            <div class="col-xs-12" style="margin-top: 230px;">
-                <span class="comment_count">Numbers of your (アイテム数)：<?php echo $item_cnt['cnt']; ?></span>
+            <div class="col-xs-12">
+                <!--  style="margin-top: 230px;" -->
+                <span class="comment_count">Numbers of your posts (現在の投稿数)：<?php echo $item_cnt['cnt']; ?></span>
                 <hr>
             </div>
 
@@ -110,18 +111,19 @@ $item_cnt = $item_stmt->fetch(PDO::FETCH_ASSOC);
                 <div class="col-sm-4">
                     <div class="thumbnail">
                         <div class="caption">
-                            feeded: 2018-12-02 <br>
-                            <p class=""><?php echo $item['content']; ?></p>
+                            created: <?php echo $item['created']; ?><br>
+                            deadline: <?php echo $item['deadline']; ?><br>
+                            <p class=""><br><?php echo $item['content']; ?></p>
+                            <hr class="bold-line">
                         </div>
                         <a href="detail.php?item_id=<?php echo $item['id']; ?>" class="">
                         <img src="<?php echo $item['item_img'] ?>" alt="..." class="" style="max-width: 100%; max-height: 200px; height: auto; vertical-align: bottom; padding-bottom: 10px;">
                         </a>
-
                         <!-- ログインしているユーザーだけ編集できるようにしたい -->
                         <?php if($signin_user['id'] == $item['user_id']): ?>
                         <div>
                             <a href="edit.php?item_id=<?php echo $item['id']; ?>" class="btn btn-success btn-xs">EDIT<br><span style="font-size: 10px;">（編集）</span></a>
-                            
+
                             <a onclick="return confirm('Are you sure to delete?（本当に削除しますか？）');" href="delete.php?item_id=<?php echo $item['id']; ?>" class="btn btn-danger btn-xs">DELETE<br><span style="font-size: 10px;">（削除）</span></a>
                         </div>
                         <?php endif;?>
