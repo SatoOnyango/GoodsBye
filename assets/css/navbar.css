@@ -5,3 +5,7 @@
     /*margin-right: 15px;*/
     margin-left: -60px;
 }
+
+.bold-line {
+  border-top: 1px solid #000000;
+}
