@@ -1,66 +1,90 @@
 <?php
-// session_start();
-// require('dbconnect.php');
+session_start();
+require('dbconnect.php');
 
-// $sql = 'SELECT * FROM `users` WHERE `id` = ?';
-// // $id = $_SESSION['47_LernSNS']['id'];
-// // $data = $id;
+$sql = 'SELECT * FROM `users` WHERE `id` = ?';
+// $id = $_SESSION['47_LernSNS']['id'];
+// $data = $id;
 // $data = [$_SESSION['GoodsBye']['id']];
+$data = [2];
 
-// $stmt = $dbh->prepare($sql);
-// $stmt->execute($data);
+$stmt = $dbh->prepare($sql);
+$stmt->execute($data);
 
-// //ログインしているユーザーの情報
-// $signin_user = $stmt->fetch(PDO::FETCH_ASSOC);
+//ログインしているユーザーの情報
+$signin_user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-// //どんなデータが何型で入ってる？
-// //野原ひろしの情報が配列型（連想配列）で入っている
-// //SELECTでとってきたものは必ずこうなる
-// // echo'<pre>';
-// //var_dump($signin_user);
-// // echo'</pre>';
+// echo '<pre>';
+// var_dump($signin_user);
+// echo '</pre>';
 
-
-// //ユーザーの一覧取得
-// $sql = 'SELECT `name`,`img_name`,`created`,`id` FROM `users`';
-
-
-// //今までは$data = [$email];
-// //sqlの中に？がないので変数で指定する必要がないいから$dataは使わない
-
+// 選択されたitemの情報を取得し配列化
+// 選択されたitemって→パラメーターに与えられたitem_idから導き出せる。
+// $sql = 'SELECT * FROM `items` ';
 // $stmt = $dbh->prepare($sql);
 // $stmt->execute();
 
-// // 投稿情報全てを入れる配列定義
-// $users = [];
-// while(true){
-//     $record = $stmt->fetch(PDO::FETCH_ASSOC);
-//     //fetchは一つの行を取り出すこと
-//     if($record == false){
-//         break;
-//     }
-//     // echo '<pre>';
-//     // var_dump($record);
-//     // echo '</pre>';
+//画面に名前、画像を出力する
 
-//     $content_sql = 'SELECT COUNT(*) AS `cnt` FROM `items` WHERE `user_id` = ? ';
-//     // `feeds`テーブルに何個ユーザーidがあるか、その数を数える
-//     $content_data = [$record['id']];
-//     $content_stmt = $dbh->prepare($content_sql);
-//     $content_stmt->execute($content_data);
+// echo '<pre>';
+// var_dump($_GET);
+// echo '</pre>';
 
-//     $content = $content_stmt->fetch(PDO::FETCH_ASSOC);
-//     //コメント(comment)の数が入っている
-//     $record['content_cnt'] = $content['cnt'];
-//     $items[] = $record;
-// }
+// $item_sql = 'SELECT * FROM `items` WHERE `id` = ?';
+// // $item_data = [$_GET['item_id']];
+// $item_data = [1];
+// $item_stmt = $dbh->prepare($item_sql);
 
-// echo'<pre>';
-// var_dump($users);
-// echo'</pre>';
+// $item_stmt->execute($item_data);
 
-// echo $user['name'];
-// echo $user[0]['name'];
+// $items = $item_stmt->fetch(PDO::FETCH_ASSOC);
+
+// echo '<pre>';
+// var_dump($items);
+// echo '</pre>';
+
+//アイテムの一覧取得
+$sql = 'SELECT * FROM `items` WHERE `user_id` = ?';
+
+// $sql = 'SELECT `i`.*,`u`.`id` AS `hoge` FROM `items` AS `i`
+//         LEFT JOIN `users` AS `u`
+//         ON `i`.`user_id` = `u`.`id`
+//         WHERE `u`.`id` = ?';
+
+
+$data = [$signin_user['id']];
+$stmt = $dbh->prepare($sql);
+$stmt->execute($data);
+
+$record = $stmt->fetch(PDO::FETCH_ASSOC);
+
+echo '<pre>';
+var_dump($record);
+echo '</pre>';
+
+// 投稿情報全てを入れる配列定義
+$users = [];
+while(true){
+    $record = $stmt->fetch(PDO::FETCH_ASSOC);
+    //fetchは一つの行を取り出すこと
+    if($record == false){
+        break;
+    }
+
+    $items[] = $record;
+}
+
+$item_sql = 'SELECT COUNT(*) AS `cnt` FROM `items` WHERE `user_id` = ? ';
+// `items`テーブルに何個ユーザーidがあるか、その数を数える
+$item_data = [$signin_user['id']];
+$item_stmt = $dbh->prepare($item_sql);
+$item_stmt->execute($item_data);
+//itemの数が入っている
+$item_cnt = $item_stmt->fetch(PDO::FETCH_ASSOC);
+
+// echo '<pre>';
+// var_dump($items);
+// echo '</pre>';
 
 ?>
 
@@ -70,77 +94,44 @@
     <div class="container">
         <div class="row text-center">
             <div class="col-xs-3 text-center" style ="width: 100%; height: 10%">
-                しゅんたろう(サインインユーザーネーム)<br>
-                <img src="user_profile_img/test_signin_user_img.jpg" class="img-thumbnail" style="text-align: center;max-width: 100%; max-height: 200px; height: auto; vertical-align: bottom;">
-                <!-- <img src="user_profile_img/<?php //echo $profile_user['img_name']; ?>" class="img-thumbnail" /> -->
-                <!-- <h2><?php //echo $profile_user['name']; ?></h2> -->
+                <h2><?php echo $signin_user['name']; ?></h2>
+                <img src="user_profile_img/<?php echo $signin_user['img_name']; ?>" class="img-thumbnail" style="text-align: center;max-width: 100%; max-height: 200px; height: auto; vertical-align: bottom;">
             </div>
 
-            <div class="col-xs-12">
-                <span class="comment_count">Numbers of your (アイテム数)：10</span>
+            <div class="col-xs-12" style="margin-top: 230px;">
+                <span class="comment_count">Numbers of your (アイテム数)：<?php echo $item_cnt['cnt']; ?></span>
                 <hr>
             </div>
 
-
+            <!-- row 1  -->
             <div class="row">
-                <?php foreach($items as $content): ?>
+                <?php foreach($items as $item): ?>
                 <!-- TH1 -->
                 <div class="col-sm-4">
                     <div class="thumbnail">
-                      <a href="#" class="">
                         <div class="caption">
                             feeded: 2018-12-02 <br>
-                            <p class="">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore</p>
+                            <p class=""><?php echo $item['content']; ?></p>
                         </div>
-                        <img src="user_profile_img/default.png" alt="..." class="" style="max-width: 100%; max-height: 200px; height: auto; vertical-align: bottom; padding-bottom: 10px;">
-                            <div>
-                                <a href="edit.php" class="btn btn-success btn-xs">編集</a>
-                                <!-- ?item_id=<?php //echo $content['id']; ?>" -->
-                                <a onclick="return confirm('ほんとに消すの？');" href="delete.php" class="btn btn-danger btn-xs">削除</a>
-                                <!-- ?item_id=<?php //echo $content['id']; ?> -->
-                            </div>
-                       </a>
+                        <a href="detail.php?item_id=<?php echo $item['id']; ?>" class="">
+                        <img src="<?php echo $item['item_img'] ?>" alt="..." class="" style="max-width: 100%; max-height: 200px; height: auto; vertical-align: bottom; padding-bottom: 10px;">
+                        </a>
+
+                        <!-- ログインしているユーザーだけ編集できるようにしたい -->
+                        <?php if($signin_user['id'] == $item['user_id']): ?>
+                        <div>
+                            <a href="edit.php" class="btn btn-success btn-xs">EDIT<br><span style="font-size: 10px;">（編集）</span></a>
+                            <!-- href="edit.php?item_id=<?php //echo $content['id']; ?>" -->
+                            <a onclick="return confirm('Are you sure to delete?（本当に削除しますか？）');" href="delete.php?item_id=<?php echo $item['id']; ?>" class="btn btn-danger btn-xs">DELETE<br><span style="font-size: 10px;">（削除）</span></a>
+                            <!-- ?item_id=<?php //echo $content['id']; ?> -->
+                        </div>
+                        <?php endif;?>
                     </div>
                 </div>
                 <?php endforeach; ?>
-
-                <!-- TH2 -->
-                <div class="col-sm-4">
-                    <div class="thumbnail">
-                      <a href="#" class="">
-                        <div class="caption">
-                            feeded: 2018-12-02 <br>
-                            <h4 class="">COMMENT</h4>
-                            <p class=""></p>
-                        </div>
-                        <img src="user_profile_img/petbotles.jpeg" alt="..." class="" style="max-width: 100%; max-height: 200px; height: auto; vertical-align: bottom; padding-bottom: 10px;">
-                        </a>
-                    </div>
-                </div>
-
-                <!-- TH3 -->
-                <div class="col-sm-4">
-                    <div class="thumbnail">
-                        <div class="caption">
-                            feeded: 2018-12-02 <br>
-                            <h4 class="">COMMENT</h4>
-                            <p class=""></p>
-                        </div>
-                        <img src="user_profile_img/petbotles.jpeg" alt="..." class="" style="max-width: 100%;max-height: 200px;height: auto;vertical-align: bottom; padding-bottom: 10px;">
-                        <div>
-                            <a href="edit.php" class="btn btn-success btn-xs">編集</a>
-                            <!-- ?content_id=<?php //echo $feed['id']; ?>" -->
-                            <a onclick="return confirm('ほんとに消すの？');" href="delete.php" class="btn btn-danger btn-xs">削除</a>
-                            <!-- ?feed_id=<?php //echo $feed['id']; ?> -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- end/row1 -->
-
-
-        </div>
-    </div>
+            </div><!-- end/row1 -->
+        </div><!-- end/row text-comtainer -->
+    </div><!-- end/container -->
 </body>
 <?php include('layouts/footer.php'); ?>
 </html>
