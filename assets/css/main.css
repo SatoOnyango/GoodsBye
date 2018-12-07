@@ -1,4 +1,6 @@
 
+
+
 .goodsbye-title
 {
     font-size: 50px;
@@ -7,6 +9,7 @@
     font-weight: 500;
     margin-bottom: 25px;
 }
+/*main.phpのタイトルの部分*/
 .goodsbye-title:after {
     content: "";
     position: absolute;
@@ -50,6 +53,44 @@
 {
     margin-bottom: 30px;
 }
+
 .feed_form{
     text-align: center;
 }
+.caption>h4{
+    font-size:30px;
+    text-align: center;
+}
+
+.parent {/*親要素*/
+position: relative;
+background: orange;
+height: 200px;
+}
+
+
+#img_name{
+    /*styleを使うときは#を使う.
+    ちな、styleは最終手段*/
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.thumbnail a>img {
+  width: auto;
+  height: 300px;
+
+  max-width: 100%;
+
+}
+
+
+
+
+
+
+
+
+
+
+
