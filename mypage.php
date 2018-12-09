@@ -2,11 +2,27 @@
 session_start();
 require('dbconnect.php');
 
+// ログインしてない状態でのアクセス禁止
+// if(!isset($_SESSION['GoodsBye']['id']) ){
+//     header('Location: signin.php');
+//     exit();
+// }
+
+// echo '<pre>';
+// var_dump($_SESSION);
+// echo '</pre>';
+// die;
+
 $sql = 'SELECT * FROM `users` WHERE `id` = ?';
 // $id = $_SESSION['47_LernSNS']['id'];
 // $data = $id;
 // $data = [$_SESSION['GoodsBye']['id']];
 $data = [2];
+
+// echo '<pre>';
+// var_dump($_SESSION);
+// echo '</pre>';
+// die;
 
 $stmt = $dbh->prepare($sql);
 $stmt->execute($data);
