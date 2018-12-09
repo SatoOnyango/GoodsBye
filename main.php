@@ -110,16 +110,7 @@ $start = ($page - 1) * CONTENT_PER_PAGE
 
 ?>
 
-
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>GoodsBye</title>
-    <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet"> -->
-    <link href="assets/css/bootstrap.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="assets/css/main.css">
-</head>
+<?php include('layouts/header.php'); ?>
 <body>
     <?php include('navbar.php'); ?>
     <div class="container">
@@ -143,9 +134,9 @@ $start = ($page - 1) * CONTENT_PER_PAGE
                             </div>
                             <img src="user_profile_img/<?php echo $content['item_img'];?>" alt="..." class="thumbnail">
                           </a>
-                          <?php if(empty($content)):?>
+                          <!-- <?php //if(empty($content)):?>
                             <img src="user_profile_img/petbotles.jpeg" alt="..." class="thumbnail">
-                          <?php endif;?>
+                          <?php //endif;?> -->
                            <?php if($signin_user['id']==$content['user_id']):?>
                                     <a href="edit.php?item_id2=<?php echo$content['id'];?>" class="btn btn-success btn-xs">編集</a>
                                     <a onclick="return confirm('ほんとに消すの？');" href="delete.php" class="btn btn-danger btn-xs">削除</a>
@@ -239,8 +230,6 @@ $start = ($page - 1) * CONTENT_PER_PAGE
         <!-- /投稿エリア -->
         </div><!--/row -->
     </div> <!-- end container -->
-    
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 </body>
+<?php include('layouts/footer.php'); ?>
 </html>
