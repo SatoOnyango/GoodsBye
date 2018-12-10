@@ -2,6 +2,8 @@
 session_start();
 require('dbconnect.php');
 
+// 1ページあたりの表示件数
+const CONTENT_PER_PAGE = 30;
 //ログインしてない状態でアクセス禁止
 if(!isset($_SESSION['GoodsBye']['id'])){
    header('Location:signin.php');
@@ -83,18 +85,33 @@ while(true){
     $contents[] = $record;
 }
 
+if (isset($_GET['page'])) {
+    // ページの指定がある場合
+    $page = $_GET['page'];
+} else {
+    // ページの指定がない場合(初期値)
+    $page = 1;
+}
+// -1などの不正な値を渡された際の対策
+$page = max($page, 1);
+// feedsテーブルのレコード数を取得する
+// COUNT() 何レコードあるか集計するSQLの関数
+$sql = 'SELECT COUNT(*) AS `cnt` FROM `items`';
+$stmt = $dbh->prepare($sql);
+$stmt->execute();
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
+$cnt = $result['cnt'];
+// 最後のページ数を取得
+// 最後のページ = 取得したページ数 ÷ 1ページあたりのページ数
+$last_page = ceil($cnt / CONTENT_PER_PAGE);
+// 最後のページより大きい値を渡された際の対策
+$page = min($page, $last_page);
+// スキップするレコード数 = (指定ページ - 1) * 表示件数
+$start = ($page - 1) * CONTENT_PER_PAGE
+
 ?>
 
-
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>GoodsBye</title>
-    <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet"> -->
-    <link href="assets/css/bootstrap.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="assets/css/main.css">
-</head>
+<?php include('layouts/header.php'); ?>
 <body>
     <?php include('navbar.php'); ?>
     <div class="container">
@@ -117,7 +134,10 @@ while(true){
                                 <p class=""></p>
                             </div>
                             <img src="user_profile_img/<?php echo $content['item_img'];?>" alt="..." class="thumbnail">
-                           </a>
+                          </a>
+                          <!-- <?php //if(empty($content)):?>
+                            <img src="user_profile_img/petbotles.jpeg" alt="..." class="thumbnail">
+                          <?php //endif;?> -->
                            <?php if($signin_user['id']==$content['user_id']):?>
                                     <a href="edit.php?item_id2=<?php echo$content['id'];?>" class="btn btn-success btn-xs">編集</a>
                                     <a onclick="return confirm('ほんとに消すの？');" href="delete.php" class="btn btn-danger btn-xs">削除</a>
@@ -138,9 +158,37 @@ while(true){
                 </div>
             </div>
         </div>
+        <!-- ページ遷移部分 -->
+        <div aria-label="Page navigation">
+                    <ul class="pager">
+                        <?php if ($page == 1): ?>
+                            <!-- Newer押せない時 -->
+                            <!-- 最初のページより前は禁止 -->
+                            <li class="previous disabled">
+                                <a><span aria-hidden="true">&larr;</span> Newer
+                                </a>
+                            </li>
+                        <?php else: ?>
+                            <!-- Newer押せる時 -->
+                            <li class="previous">
+                                <a href="main.php?page=<?php echo $page - 1; ?>"><span aria-hidden="true">&larr;</span> Newer
+                                </a>
+                            </li>
+                        <?php endif; ?>
 
-
-
+                        <?php if ($page == $last_page): ?>
+                            <li class="next disabled">
+                                <a>Older <span aria-hidden="true">&rarr;</span>
+                                </a>
+                            </li>
+                        <?php else: ?>
+                            <li class="next">
+                                <a href="main.php?page=<?php echo $page + 1; ?>">Older <span aria-hidden="true">&rarr;</span>
+                                </a>
+                            </li>
+                        <?php endif; ?>
+                    </ul>
+        </div>
         <!-- 投稿エリア -->
         <section id="post" name="post">
             <div class="container">
@@ -181,12 +229,6 @@ while(true){
         <!-- /投稿エリア -->
         </div><!--/row -->
     </div> <!-- end container -->
-    
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 </body>
+<?php include('layouts/footer.php'); ?>
 </html>
-
-
-
-折りたたむ 
