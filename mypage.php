@@ -79,7 +79,7 @@ $record = $stmt->fetch(PDO::FETCH_ASSOC);
 // echo '</pre>';
 
 // 投稿情報全てを入れる配列定義
-$users = [];
+$items = [];
 while(true){
     $record = $stmt->fetch(PDO::FETCH_ASSOC);
     //fetchは一つの行を取り出すこと
