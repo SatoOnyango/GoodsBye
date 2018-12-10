@@ -14,10 +14,7 @@ require('dbconnect.php');
 // die;
 
 $sql = 'SELECT * FROM `users` WHERE `id` = ?';
-// $id = $_SESSION['47_LernSNS']['id'];
-// $data = $id;
-// $data = [$_SESSION['GoodsBye']['id']];
-$data = [2];
+$data = [$_SESSION['GoodsBye']['id']];
 
 // echo '<pre>';
 // var_dump($_SESSION);
