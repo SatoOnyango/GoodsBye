@@ -3,10 +3,10 @@ session_start();
 require('dbconnect.php');
 
 // ログインしてない状態でのアクセス禁止
-// if(!isset($_SESSION['GoodsBye']['id']) ){
-//     header('Location: signin.php');
-//     exit();
-// }
+if(!isset($_SESSION['GoodsBye']['id']) ){
+    header('Location: signin.php');
+    exit();
+}
 
 // echo '<pre>';
 // var_dump($_SESSION);
