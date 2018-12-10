@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../../../favicon.ico">
 
-    <title>Narrow Jumbotron Template for Bootstrap</title>
+    <title>GoodsBye top page</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
@@ -38,7 +38,7 @@
     </div>
 
 
-      <div class="jumbotron" style="background:url(img_us/index1.jpg);">
+      <div class="jumbotron" style="background:url(img/);">
         <h1 class="display-3 text-center">GoodsBye</h1>
         <p class="lead text-center">「GoodsBye」は NexSeedにいる方々のためのサービスです<br>
           <br>
