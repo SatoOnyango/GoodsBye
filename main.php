@@ -10,6 +10,10 @@ if(!isset($_SESSION['GoodsBye']['id'])){
    exit();
 }
 
+echo'<pre>';
+var_dump($_POST);
+echo'</pre>';
+
 //サインインユーザーの読み出し
 $sql='SELECT *FROM`users`WHERE`id`=?';
 $data=[$_SESSION['GoodsBye']['id']];
@@ -55,12 +59,12 @@ if (!empty($_POST)){
         move_uploaded_file($_FILES['input_img_name']['tmp_name'],'user_profile_img/' . $submit_file_name);
         $file_name=$submit_file_name;
 
-        $sql='INSERT INTO`items`(`content`,`item_img`,`user_id`,`created`)VALUES(?,?,?,NOW());';
-        $data= [$content,$file_name,$signin_user['id']];
+        $sql='INSERT INTO`items`(`content`,`item_img`,`user_id`, `deadline`, `created`)VALUES(?,?,?,?,NOW());';
+        $data= [$content,$file_name,$signin_user['id'], $_POST['deadline']];
         $stmt=$dbh->prepare($sql);
         $stmt->execute($data);
 // die();
-        header('Location:main.php');
+        // header('Location:main.php');
     }
 }
 // echo'<pre>';
@@ -135,23 +139,7 @@ $start = ($page - 1) * CONTENT_PER_PAGE
                             </div>
                             <img src="user_profile_img/<?php echo $content['item_img'];?>" alt="..." class="thumbnail">
                           </a>
-                          <!-- <?php //if(empty($content)):?>
-                            <img src="user_profile_img/petbotles.jpeg" alt="..." class="thumbnail">
-                          <?php //endif;?> -->
-                           <?php if($signin_user['id']==$content['user_id']):?>
-                                    <a href="edit.php?item_id2=<?php echo$content['id'];?>" class="btn btn-success btn-xs">編集</a>
-                                    <a onclick="return confirm('ほんとに消すの？');" href="delete.php" class="btn btn-danger btn-xs">削除</a>
-                                    <!-- get送信時はURL?(キー＝値)=パラメーター -->
-                           <?php endif;?>
-    <!--                   <?php 
-                           // echo'<pre>';
-                           // var_dump($signin_user['id']);
-                           // echo'</pre>';
 
-                           // echo'<pre>';
-                           // var_dump($content['user_id']);
-                           // echo'</pre>';
-                           ?> -->
                         </div>
                     </div>
                     <?php endforeach; ?>
@@ -161,6 +149,8 @@ $start = ($page - 1) * CONTENT_PER_PAGE
         <!-- ページ遷移部分 -->
         <div aria-label="Page navigation">
                     <ul class="pager">
+
+
                         <?php if ($page == 1): ?>
                             <!-- Newer押せない時 -->
                             <!-- 最初のページより前は禁止 -->
@@ -217,7 +207,26 @@ $start = ($page - 1) * CONTENT_PER_PAGE
                                         <?php if(isset($errors['input_img_name']) && $errors['input_img_name'] == 'type'): ?>
                                             <p class="text-danger">拡張子が違います/ Wrong file extension</p>
                                         <?php endif; ?>
+
+
                                     </div>
+
+                                <?php
+                                    // 'Y/m/d'
+                                $date1 = date('Y/m/d');
+
+                                // 'Y/m/d'曜日
+                                $w = date('w');
+                                $week = ['日', '月', '火', '水', '木', '金', '土'];
+                                // $date4 = date('Y/m/d').$week[$w];
+                                // 時刻を出力
+                                echo $date1.'<br>';
+
+
+                                ?>
+                                    <input type="date" name="deadline" value="2018/12/10">
+
+
                                     <input type="submit" value="POST (投稿する)" class="btn btn-primary">
                                 </form>
 
@@ -229,6 +238,10 @@ $start = ($page - 1) * CONTENT_PER_PAGE
         <!-- /投稿エリア -->
         </div><!--/row -->
     </div> <!-- end container -->
+
+
+
+
 </body>
 <?php include('layouts/footer.php'); ?>
 </html>
