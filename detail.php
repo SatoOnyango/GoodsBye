@@ -10,7 +10,6 @@ if(!isset($_SESSION['GoodsBye']['id'])){
 $item_id = $_GET['item_id'];
 
 $sql = 'SELECT * FROM `items` WHERE `id` = ?';
-//選択されたユーザーって⇒パラメーターに与えられたuser_idから導き出せるぜ！
 $data = [$item_id];
 $stmt = $dbh->prepare($sql);
 $stmt->execute($data);
@@ -29,20 +28,19 @@ $comment = '';
 if (!empty($_POST)){
     // 商品説明があるか
     $comment =$_POST['comment'];
+
     if ($comment == '') {
         $errors['comment'] = 'blank';
+    }else{
+        $sql='INSERT INTO`comments`(`comment`,`user_id`,`item_id`,`created`)VALUES(?,?,?,NOW());';
+        $data= [$comment,$signin_user['id'],$item_id];
+        $stmt=$dbh->prepare($sql);
+        $stmt->execute($data);
     }
 }
 
-if (empty($errors)) {
-
-    $sql='INSERT INTO`comments`(`comment`,`user_id`,`item_id`,`created`)VALUES(?,?,?,NOW());';
-    $data= [$comment,$signin_user['id'],$item_id];
-    $stmt=$dbh->prepare($sql);
-    $stmt->execute($data);
-}
-
-$sql = 'SELECT `c`.*, `u`.`name`,`u`.`img_name` FROM `comments` AS `c` LEFT JOIN `users` AS `u` ON `c`.`user_id` = `u`.`id`';
+$sql = 'SELECT `c`.*, `u`.`name`,`u`.`img_name` FROM `comments` AS `c` LEFT JOIN `users` AS `u` ON `c`.`user_id` = `u`.`id` WHERE `c`.`item_id`=?';
+$data = [$item_id];
 $stmt = $dbh->prepare($sql);
 $stmt->execute($data);
 // 投稿情報全てを入れる配列定義
@@ -83,6 +81,10 @@ while(true){
 
 <form action="" method="post"　class="center-block thumbnail">
     <textarea name="comment" class="center-block" style="width:66.5%;height:60px" placeholder="コメントを入力してください(Please comment)" cols="80" rows="4"></textarea>
+        <?php if (isset($errors['comment'])&& $errors
+            ['comment'] == 'blank'):?>
+            <p class="text-danger text-center">文字を入力してください/ Can't be blank</p>
+        <?php endif; ?>
     <div class="form-group center-block">
         <button type="submit" class="btn btn-sm btn-primary center-block" style="margin-top: 10px">返信する</button>
     </div>
@@ -94,7 +96,7 @@ while(true){
         <p style="margin-top: 10px; margin-bottom: 10px">
             <img src="user_profile_img/<?php echo $content['img_name']; ?>" width="40" class="img-circle">
             <span style="border-radius: 100px!important; -webkit-appearance:none;background-color:#eff1f3;padding:10px;margin-top:10px;">
-                <a href="profile.php"><?php echo $content['name']; ?></a>
+                <?php echo $content['name']; ?>:
                     <?php echo $content['comment']; ?>
             </span>
         </p>
@@ -102,5 +104,7 @@ while(true){
 <?php endforeach; ?>
 
 
+
 <?php include('layouts/footer.php'); ?>
+
 </html>
