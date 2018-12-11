@@ -211,7 +211,7 @@ $start = ($page - 1) * CONTENT_PER_PAGE
 
                                     </div>
 
-                                <?php
+<!--                                 <?php
                                     // 'Y/m/d'
                                 $date1 = date('Y/m/d');
 
@@ -223,8 +223,9 @@ $start = ($page - 1) * CONTENT_PER_PAGE
                                 echo $date1.'<br>';
 
 
-                                ?>
-                                    <input type="date" name="deadline" value="2018/12/10">
+                                ?> -->
+
+                                    <input type="date" name="deadline" value="2018/12/10"><br>
 
 
                                     <input type="submit" value="POST (投稿する)" class="btn btn-primary">
