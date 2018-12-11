@@ -90,7 +90,7 @@ $item_cnt = $item_stmt->fetch(PDO::FETCH_ASSOC);
                         <div class="caption">
                             created: <?php echo $item['created']; ?><br>
                             deadline: <?php echo $item['deadline']; ?><br>
-                            <p class=""><br><?php echo $item['content']; ?></p>
+                            <p class="" style="word-break: break-all;"><br><?php echo $item['content']; ?></p>
                             <hr class="bold-line">
                         </div>
                         <a href="detail.php?item_id=<?php echo $item['id']; ?>" class="">
