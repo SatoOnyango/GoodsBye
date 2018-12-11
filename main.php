@@ -36,10 +36,18 @@ if (!empty($_POST)){
     if (isset($_FILES['input_img_name'])) {
         $file_name = $_FILES['input_img_name']['name'];
     }
+
+    $deadline =$_POST['deadline'];
+    if ($deadline == '') {
+    $errors['deadline'] = 'blank';
+    }
+
+        
+    
     // echo'<pre>';
     // var_dump($content);
     // echo'</pre>';
-    // echo'<pre>';
+    // echo'<pre>';KB
     // var_dump($file_name);
     // echo'</pre>';
     if (!empty($file_name)) {
@@ -63,8 +71,8 @@ if (!empty($_POST)){
         $data= [$content,$file_name,$signin_user['id'], $_POST['deadline']];
         $stmt=$dbh->prepare($sql);
         $stmt->execute($data);
-// die();
-        // header('Location:main.php');
+
+        header('Location:main.php');
     }
 }
 // echo'<pre>';
@@ -228,7 +236,14 @@ $start = ($page - 1) * CONTENT_PER_PAGE
                                     <input type="date" name="deadline" value="2018/12/10"><br>
 
 
+                                        <div class="form-group">
+
+                                        <?php if (isset($errors['deadline']) && $errors['deadline'] =='blank'): ?>
+                                            <p class="text-danger">日付を選択してください/Pleae choowse date</p>
+                                        <?php endif; ?>
                                     <input type="submit" value="POST (投稿する)" class="btn btn-primary">
+
+                                         </div>
                                 </form>
 
                             </div>
