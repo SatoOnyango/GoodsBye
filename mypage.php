@@ -2,12 +2,14 @@
 session_start();
 require('dbconnect.php');
 
-$sql = 'SELECT * FROM `users` WHERE `id` = ?';
-// $id = $_SESSION['47_LernSNS']['id'];
-// $data = $id;
-// $data = [$_SESSION['GoodsBye']['id']];
-$data = [2];
+// ログインしてない状態でのアクセス禁止
+if(!isset($_SESSION['GoodsBye']['id']) ){
+    header('Location: signin.php');
+    exit();
+}
 
+$sql = 'SELECT * FROM `users` WHERE `id` = ?';
+$data = [$_SESSION['GoodsBye']['id']];
 $stmt = $dbh->prepare($sql);
 $stmt->execute($data);
 
@@ -20,50 +22,25 @@ $signin_user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 // 選択されたitemの情報を取得し配列化
 // 選択されたitemって→パラメーターに与えられたitem_idから導き出せる。
-// $sql = 'SELECT * FROM `items` ';
-// $stmt = $dbh->prepare($sql);
-// $stmt->execute();
-
-//画面に名前、画像を出力する
-
-// echo '<pre>';
-// var_dump($_GET);
-// echo '</pre>';
-
-// $item_sql = 'SELECT * FROM `items` WHERE `id` = ?';
-// // $item_data = [$_GET['item_id']];
-// $item_data = [1];
-// $item_stmt = $dbh->prepare($item_sql);
-
-// $item_stmt->execute($item_data);
-
-// $items = $item_stmt->fetch(PDO::FETCH_ASSOC);
-
-// echo '<pre>';
-// var_dump($items);
-// echo '</pre>';
 
 //アイテムの一覧取得
-$sql = 'SELECT * FROM `items` WHERE `user_id` = ?';
-
-// $sql = 'SELECT `i`.*,`u`.`id` AS `hoge` FROM `items` AS `i`
-//         LEFT JOIN `users` AS `u`
-//         ON `i`.`user_id` = `u`.`id`
-//         WHERE `u`.`id` = ?';
-
-
+// ORDER BY で表示する画像を並べ替える
+$sql = 'SELECT * FROM `items` WHERE `user_id` = ? ORDER BY `created` DESC';
 $data = [$signin_user['id']];
 $stmt = $dbh->prepare($sql);
 $stmt->execute($data);
 
-$record = $stmt->fetch(PDO::FETCH_ASSOC);
+// $record = $stmt->fetch(PDO::FETCH_ASSOC);
+// このfetchのせいで最初の一件が表示されてなかった。
+// fetchに一件入ってるとポインターが次のレコードに移ってしまうから、次のレコードからしかとってこれなくなってしまう。
+
 
 // echo '<pre>';
 // var_dump($record);
 // echo '</pre>';
 
 // 投稿情報全てを入れる配列定義
-$users = [];
+$items = [];
 while(true){
     $record = $stmt->fetch(PDO::FETCH_ASSOC);
     //fetchは一つの行を取り出すこと
@@ -117,7 +94,7 @@ $item_cnt = $item_stmt->fetch(PDO::FETCH_ASSOC);
                             <hr class="bold-line">
                         </div>
                         <a href="detail.php?item_id=<?php echo $item['id']; ?>" class="">
-                        <img src="user_profile_img/<?php echo $item['item_img'] ?>" alt="..." class="" style="max-width: 100%; max-height: 200px; height: auto; vertical-align: bottom; padding-bottom: 10px;">
+                        <img src="user_profile_img/<?php echo $item['item_img'] ?>" alt="..." class="thumbnail" style="max-width: 100%; max-height: 200px; height: auto; vertical-align: bottom; padding-bottom: 10px;">
                         </a>
                         <!-- ログインしているユーザーだけ編集できるようにしたい -->
                         <?php if($signin_user['id'] == $item['user_id']): ?>
