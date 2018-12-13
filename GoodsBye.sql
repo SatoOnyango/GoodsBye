@@ -49,6 +49,7 @@ CREATE TABLE `items` (
   `item_img` varchar(255) NOT NULL,
   `comment_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
+  `done_flag` int(11) NOT NULL DEFAULT '0',
   `deadline` date NOT NULL,
   `created` datetime NOT NULL,
   `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP

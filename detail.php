@@ -7,7 +7,13 @@ if(!isset($_SESSION['GoodsBye']['id'])){
    exit();
 }
 
-$item_id = $_GET['item_id'];
+
+$item_id =$_GET['item_id'];
+
+// echo '<pre>';
+// var_dump($_GET['item_id']);
+// echo '</pre>';
+
 
 $sql = 'SELECT * FROM `items` WHERE `id` = ?';
 $data = [$item_id];
@@ -53,7 +59,11 @@ while(true){
     $contents[] = $record;
 }
 
-
+$sql='SELECT `done_flag` FROM `items` WHERE `id`=?';
+$data = [$item_id];
+$stmt = $dbh->prepare($sql);
+$stmt->execute($data);
+$sold=$stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 <head>
     <meta charset="utf-8">
@@ -85,11 +95,27 @@ while(true){
             ['comment'] == 'blank'):?>
             <p class="text-danger text-center">文字を入力してください/ Can't be blank</p>
         <?php endif; ?>
+    <?php if($sold['done_flag'] == 0): ?>
     <div class="form-group center-block">
         <button type="submit" class="btn btn-sm btn-primary center-block" style="margin-top: 10px">返信する</button>
     </div>
+    <?php endif; ?>
 </form>
 
+
+<?php if($signin_user['id']==$detail['user_id']): ?>
+    <?php if($sold['done_flag'] == 0): ?>
+        <div class="form-group center-block">
+        <a href="done.php?item_id=<?php echo $item_id; ?>">
+        <button type="submit" class="btn btn-sm btn-success center-block" style="margin-top: 10px">取引完了</button></a>
+        </div>
+    <?php else: ?>
+        <div class="form-group center-block">
+        <a href="done.php?item_id=<?php echo $item_id; ?>& unsold=true">
+        <button type="submit" class="btn btn-sm btn-success center-block" style="margin-top: 10px">完了取り消し</button></a>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>
 
 <?php foreach($contents as $content): ?>
     <div class="col-xs-6 col-xs-offset-3 thumbnail" style="margin-top:10px" >
