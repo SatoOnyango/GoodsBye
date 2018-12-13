@@ -66,7 +66,7 @@ $item_cnt = $item_stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 
 <?php include('layouts/header.php'); ?>
-<body style="margin-top: 60px; margin-right: auto;left: auto; background: #E4E6EB;">
+<body class="background_design col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <?php include("navbar.php"); ?>
     <div class="container">
         <div class="row text-center">
@@ -85,16 +85,18 @@ $item_cnt = $item_stmt->fetch(PDO::FETCH_ASSOC);
             <div class="row">
                 <?php foreach($items as $item): ?>
                 <!-- TH1 -->
-                <div class="col-sm-4">
+                <div class="col-sm-4" >
                     <div class="thumbnail">
                         <div class="caption">
                             created: <?php echo $item['created']; ?><br>
                             deadline: <?php echo $item['deadline']; ?><br>
-                            <p class="" style="word-break: break-all;"><br><?php echo $item['content']; ?></p>
-                            <hr class="bold-line">
+                            <div class="wrapper caption">
+                                <p class="content" style="word-break: break-all;"><?php echo $item['content']; ?></p>
+                                <!-- <hr class="bold-line"> -->
+                            </div>
                         </div>
                         <a href="detail.php?item_id=<?php echo $item['id']; ?>" class="">
-                        <img src="user_profile_img/<?php echo $item['item_img'] ?>" alt="..." class="thumbnail" style="max-width: 100%; max-height: 200px; height: auto; vertical-align: bottom; padding-bottom: 10px;">
+                        <img src="user_profile_img/<?php echo $item['item_img'] ?>" alt="..." class="thumbnail" style="max-width: 100%;max-height: 200px; height: auto; vertical-align: bottom; margin-top: 20px; margin-bottom: 10px; border-top-width: 0px;border-right-width: 0px;border-left-width: 0px;border-bottom-width: 0px; padding: 0px">
                         </a>
                         <!-- ログインしているユーザーだけ編集できるようにしたい -->
                         <?php if($signin_user['id'] == $item['user_id']): ?>

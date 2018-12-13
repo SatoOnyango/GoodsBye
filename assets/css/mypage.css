@@ -1,0 +1,63 @@
+
+
+#wrapper {
+    position: relative;
+    width: 100%;
+}
+#wrapper:before {
+    content:"";
+    display: block;
+    padding-top: 75%; /* 高さを幅の75%に固定 */
+}
+#content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.caption {
+  background: #eee;
+  overflow: hidden;
+  width: 100%;
+}
+
+.content{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-break: break-all;
+    margin-bottom: 0px;
+    margin-top: 20px;"
+}
+
+/*.thumbnail a>img {
+  width: auto;
+  height: 300px;
+}
+
+#img_name{
+width: auto;
+height: auto;
+}*/
+
+
+.background_design{
+   margin-top: 60px;
+   margin-right: auto;
+   left: auto;
+   background: #E4E6EB;" 
+}
+
+
+
+
+
+
+
+
+
+
+
+
