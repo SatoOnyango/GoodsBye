@@ -14,26 +14,7 @@
                 <ul class="nav navbar-nav">
                     <li class="active"><a class="smothscroll" href="main.php#post" title="post">POST(投稿)</a></li>
                 </ul>
-                <ul class="nav navbar-nav navbar-left">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">How to
-                        <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <p style="width: 900px;height: 500px; word-break: break-all;">
-                                もらう人(taker)<br>
-                                <img src="img_us/01howto.png" style="width: 290px;height: 200px;">
-                                <img src="img_us/02howto.png" style="width: 290px;height: 200px;">
-                                <img src="img_us/03howto.png" style="width: 290px;height: 180px;"><br>
-                                <br>
-                                あげる人(giver)<br><br>
-                                <img src="img_us/04howto.png" style="width: 290px;height: 180px;">
-                                <img src="img_us/05howto.png" style="width: 290px;height: 180px;">
-                                <img src="img_us/06howto.png" style="width: 200px;height: 180px;"><br>
-                                期日までにものを渡そう<br>
-                            </p>
-                        </ul>
-                    </li>
-                </ul>
+                
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                         <span hidden id="signin-user"></span>
