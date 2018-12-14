@@ -10,9 +10,6 @@ if(!isset($_SESSION['GoodsBye']['id'])){
    exit();
 }
 
-echo'<pre>';
-var_dump($_POST);
-echo'</pre>';
 
 //サインインユーザーの読み出し
 $sql='SELECT *FROM`users`WHERE`id`=?';
@@ -68,7 +65,7 @@ if (!empty($_POST)){
         $file_name=$submit_file_name;
 
         $sql='INSERT INTO`items`(`content`,`item_img`,`user_id`, `deadline`, `created`)VALUES(?,?,?,?,NOW());';
-        $data= [$content,$file_name,$signin_user['id'], $_POST['deadline']];
+        $data= [$content,$file_name,$signin_user['id'],$_POST['deadline']];
         $stmt=$dbh->prepare($sql);
         $stmt->execute($data);
 
@@ -83,7 +80,7 @@ if (!empty($_POST)){
 // echo'</pre>';
 
 //アイテム投稿情報(ユーザー情報含む)をすべて取得
-$sql = 'SELECT `i`.*, `u`.`name` FROM `items` AS `i` LEFT JOIN `users` AS `u` ON `i`.`user_id` = `u`.`id`';
+$sql = 'SELECT `i`.*, `u`.`name` FROM `items` AS `i` LEFT JOIN `users` AS `u` ON `i`.`user_id` = `u`.`id` WHERE`deadline`>= CURRENT_DATE()';
 $data = [];
 $stmt = $dbh->prepare($sql);
 $stmt->execute($data);
@@ -121,6 +118,8 @@ $page = min($page, $last_page);
 // スキップするレコード数 = (指定ページ - 1) * 表示件数
 $start = ($page - 1) * CONTENT_PER_PAGE
 
+
+
 ?>
 
 <?php include('layouts/header.php'); ?>
@@ -131,9 +130,8 @@ $start = ($page - 1) * CONTENT_PER_PAGE
             <div>
                 <h1></h1><br>
             </div>
-            <div class="gallery col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h1 class="goodsbye-title">GoodsBye</h1>
-            </div>
+           
+           <br>
 
                 <div class="row">
                     <?php foreach($contents as $content): ?>
@@ -145,7 +143,7 @@ $start = ($page - 1) * CONTENT_PER_PAGE
 
                                 <p class=""></p>
                             </div>
-                            <img src="user_profile_img/<?php echo $content['item_img'];?>" alt="..." class="thumbnail">
+                            <img src="user_profile_img/<?php echo $content['item_img'];?>" class="thumbnail">
                           </a>
 
                         </div>
@@ -153,12 +151,8 @@ $start = ($page - 1) * CONTENT_PER_PAGE
                     <?php endforeach; ?>
                 </div>
             </div>
-        </div>
-        <!-- ページ遷移部分 -->
-        <div aria-label="Page navigation">
+                   <div aria-label="Page navigation">
                     <ul class="pager">
-
-
                         <?php if ($page == 1): ?>
                             <!-- Newer押せない時 -->
                             <!-- 最初のページより前は禁止 -->
@@ -187,8 +181,13 @@ $start = ($page - 1) * CONTENT_PER_PAGE
                         <?php endif; ?>
                     </ul>
         </div>
+        </div>
+        <!-- ページ遷移部分 -->
+         </div>
+
         <!-- 投稿エリア -->
         <section id="post" name="post">
+
             <div class="container">
                 <div class="row">
                         <div class="post">
@@ -214,32 +213,22 @@ $start = ($page - 1) * CONTENT_PER_PAGE
                                     <div class="form-group" style="margin-bottom: 0px;">
                                         <?php if(isset($errors['input_img_name']) && $errors['input_img_name'] == 'type'): ?>
                                             <p class="text-danger">拡張子が違います/ Wrong file extension</p>
+
                                         <?php endif; ?>
 
 
                                     </div>
 
-<!--                                 <?php
-                                    // 'Y/m/d'
-                                $date1 = date('Y/m/d');
 
-                                // 'Y/m/d'曜日
-                                $w = date('w');
-                                $week = ['日', '月', '火', '水', '木', '金', '土'];
-                                // $date4 = date('Y/m/d').$week[$w];
-                                // 時刻を出力
-                                echo $date1.'<br>';
+                                    <input type="date" name="deadline" value="today">
 
-
-                                ?> -->
-
-                                    <input type="date" name="deadline" value="2018/12/10"><br>
+                                    <br>
 
 
                                         <div class="form-group">
 
                                         <?php if (isset($errors['deadline']) && $errors['deadline'] =='blank'): ?>
-                                            <p class="text-danger">日付を選択してください/Pleae choowse date</p>
+                                            <p class="text-danger">日付を選択してください/Pleae choose date</p>
                                         <?php endif; ?>
                                     <input type="submit" value="POST (投稿する)" class="btn btn-primary">
 
