@@ -93,7 +93,8 @@ if(!empty($_POST)){
   <link rel="stylesheet" type="text/css" href="assets/font-awesome/css/font-awesome.css">
 
 </head>
-<body style="margin-top: 60px">
+<body style="margin-top: 60px;background-color:#E6E6E6">
+    <h1 class="text-center content_header">Goodsbye</h1>
     <div class="container">
         <div class="row">
             <div class="col-xs-8 col-xs-offset-2 thumbnail">
@@ -103,7 +104,7 @@ if(!empty($_POST)){
                         <?php endif ;?>
                 <form method="POST" action="signin.php" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label for="name">Username*</label>
+                        <label for="name">User name*</label>
                         <input type="name" name="input_name" class="form-control" id="name" placeholder="input text"
                         <?php if(isset($errors['name']) && $errors['name']== 'blank'):?>>
                             <p class ="text-danger"> Can't be blank/ ユーザー名を入力してください</p>

@@ -11,7 +11,8 @@
     <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="assets/font-awesome/css/font-awesome.css">
 </head>
-<body style="margin-top: 60px">
+<body style="margin-top: 60px;background-color:#E6E6E6">
+    <h1 class="text-center content_header">Goodsbye</h1>
     <div class="container">
         <div class="row">
             <div class="col-xs-8 col-xs-offset-2 thumbnail">

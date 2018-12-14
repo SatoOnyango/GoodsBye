@@ -122,14 +122,15 @@ if (!empty($_POST)){
     <link rel="stylesheet" type="text/css" href="assets/font-awesome/css/font-awesome.css">
 
 </head>
-<body style="margin-top: 60px">
+<body style="margin-top: 60px;background-color:#E6E6E6">
+    <h1 class="text-center content_header">Goodsbye</h1>
     <div class="container">
         <div class="row">
             <div class="col-xs-8 col-xs-offset-2 thumbnail">
-                <h2 class="text-center content_header">Sign up for GoodsBye for Free!</h2>
+                <h2 class="text-center content_header">Sign up</h2>
                 <form method="POST" action="signup.php?input_name=$name" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label for="name">Username*</label>
+                        <label for="name">User name*</label>
                         <input type="text" name="input_name" class="form-control" id="name" placeholder="input text"
                             value="<?php echo htmlspecialchars($name);?>">
                         <!-- 4不備が配列変数に格納されている場合、画面に出力 -->
