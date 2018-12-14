@@ -47,7 +47,7 @@ if (!empty($_POST)){
     }
 }
 
-$sql = 'SELECT `c`.*, `u`.`name`,`u`.`img_name` FROM `comments` AS `c` LEFT JOIN `users` AS `u` ON `c`.`user_id` = `u`.`id` WHERE `c`.`item_id`=?';
+$sql = 'SELECT `c`.*, `u`.`name`,`u`.`img_name` FROM `comments` AS `c` LEFT JOIN `users` AS `u` ON `c`.`user_id` = `u`.`id` WHERE `c`.`item_id`=? ORDER BY `c`.`created` DESC';
 $data = [$item_id];
 $stmt = $dbh->prepare($sql);
 $stmt->execute($data);
