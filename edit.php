@@ -3,8 +3,14 @@ session_start();
 require('dbconnect.php');
 
 // echo '<pre>';
-// var_dump($_SESSION);
+// var_dump($_POST);
 // echo '</pre>';
+
+// edit.phpにアクセスする際は必ずitem_idというパラメータが必要だ
+if(!isset($_GET['item_id'])){
+    header('Location: mypage.php');
+    exit();
+}
 
 $sql = 'SELECT * FROM `users` WHERE `id` = ?';
 $data = [$_SESSION['GoodsBye']['id']];
@@ -14,78 +20,37 @@ $signin_user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 $errors = [];
 $content = '';
+
 //マイページから遷移した場合
-if(isset($_GET['item_id'])){
-    $item_id = $_GET['item_id'];
+$item_id = $_GET['item_id'];
 
-    //編集したい投稿アイテムの読み出し
-    $sql = 'SELECT `i`.*, `u`.`name` 
-    FROM `items` AS `i` LEFT JOIN `users` AS `u` 
-    ON `i`.`user_id` = `u`.`id` WHERE `i`.`id`= ?';
+//編集したい投稿アイテムの読み出し
+$sql = 'SELECT `i`.*, `u`.`name` 
+FROM `items` AS `i` LEFT JOIN `users` AS `u` 
+ON `i`.`user_id` = `u`.`id` WHERE `i`.`id`= ?';
 
-    $data = [$item_id];
-    $stmt = $dbh->prepare($sql);
-    $stmt->execute($data);
-    $item = $stmt->fetch(PDO::FETCH_ASSOC);
+$data = [$item_id];
+$stmt = $dbh->prepare($sql);
+$stmt->execute($data);
+$item = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if(!empty($_POST)){
-        $content =$_POST['content'];
-        if ($content == '') {
+if(!empty($_POST)){
+    $content =$_POST['content'];
+    if ($content == '') {
         $errors['content'] = 'blank';
-        }
-        if(empty($errors)){
-            //更新ボタンを押すとupdate
-            $sql = 'UPDATE `items` SET `content`= ? WHERE `id` = ?';
-            $data = [$_POST['content'],$_POST['item_id']];
-            $stmt = $dbh->prepare($sql);
-            $stmt->execute($data);
 
-            //マイページから遷移してるのでマイページへ返す
-            header('Location: mypage.php');
-            exit();
-        }else{
-            header('Location: edit.php');
-            exit();
-        }
     }
-//メインから遷移した場合
-}elseif(isset($_GET['item_id2'])){
-    $item_id = $_GET['item_id2'];
+    if(empty($errors)){
+        //更新ボタンを押すとupdate
+        $sql = 'UPDATE `items` SET `content`= ? WHERE `id` = ?';
+        $data = [$_POST['content'],$_POST['item_id']];
+        $stmt = $dbh->prepare($sql);
+        $stmt->execute($data);
 
-    //編集したい投稿アイテムの読み出し
-    $sql = 'SELECT `i`.*, `u`.`name` 
-    FROM `items` AS `i` LEFT JOIN `users` AS `u` 
-    ON `i`.`user_id` = `u`.`id` WHERE `i`.`id`= ?';
-
-    $data = [$item_id];
-    $stmt = $dbh->prepare($sql);
-    $stmt->execute($data);
-    $item = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if(!empty($_POST)){
-        $content =$_POST['content'];
-        if ($content == '') {
-        $errors['content'] = 'blank';
-        }
-        if(empty($errors)){
-            //更新ボタンを押すとupdate
-            $sql = 'UPDATE `items` SET `content`= ? WHERE `id` = ?';
-            $data = [$_POST['content'],$_POST['item_id']];
-            $stmt = $dbh->prepare($sql);
-            $stmt->execute($data);
-
-        //メインから遷移してるのでメインへ返す
-        header('Location: main.php');
+        //マイページから遷移してるのでマイページへ返す
+        header('Location: mypage.php');
         exit();
-        }else{
-            header('Location: edit.php');
-            exit();
-        }
     }
-}else{
-    //直接editへ来たらmainへ返す
-   header('Location: main.php');
-   exit();
 }
 
 
@@ -99,7 +64,7 @@ if(isset($_GET['item_id'])){
      <div class="container">
          <div class="row">
              <div class="col-xs-12 ">
-                <form class="form-group" method="post" action="edit.php">
+                <form class="form-group" method="post" action="edit.php?item_id=<?php echo $item_id ;?>">
                     <div align="center">
                         Updated/<?php echo $item['updated'];?><br>
                     <img src="user_profile_img/<?php echo $item['item_img'];?>" width="500" style="padding-left: auto;padding-right: auto;"><br>

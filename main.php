@@ -221,6 +221,7 @@ $start = ($page - 1) * CONTENT_PER_PAGE
 
 
                                     <input type="date" name="deadline" value="today">
+                                    
 
                                     <br>
 
