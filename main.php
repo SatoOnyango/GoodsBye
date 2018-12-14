@@ -124,6 +124,8 @@ $start = ($page - 1) * CONTENT_PER_PAGE
 
 <?php include('layouts/header.php'); ?>
 <body>
+
+
     <?php include('navbar.php'); ?>
     <div class="container">
         <div class="row">
@@ -133,6 +135,7 @@ $start = ($page - 1) * CONTENT_PER_PAGE
            
            <br>
 
+                                    </div>
                 <div class="row">
                     <?php foreach($contents as $content): ?>
                     <!-- TH1 -->
@@ -184,6 +187,46 @@ $start = ($page - 1) * CONTENT_PER_PAGE
         </div>
         <!-- ページ遷移部分 -->
          </div>
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/general.css" />
+
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/app.js"></script>
+</head>
+<body>
+
+<!-- ヘッダー部 -->
+
+
+<div class="container-fluid">
+    <div class="row">
+    <div class="clearfix"></div>
+    <div class="col-sm-3 col-md-2 sidebar">
+        <ul class="nav nav-sidebar">
+            <li class="active"><a href="">あいうえお</a></li>
+            <li>あいうえお</li>
+            <li>あいうえお</li>
+            <li>あいうえお</li>
+        </ul>
+    </div>
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <!-- メインコンテンツ -->
+    </div>
+
+</div><!-- container-fluid -->
+</body>
+</html>
+
+</div>
 
         <!-- 投稿エリア -->
         <section id="post" name="post">
