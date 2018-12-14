@@ -14,10 +14,9 @@ if(!empty($_POST)){
         $errors['name'] = 'blank';
     }
 
-
-    echo "<pre>";
-    var_dump($_POST);
-    echo "</pre>";
+    // echo "<pre>";
+    // var_dump($_POST);
+    // echo "</pre>";
 
 
     if($password == ''){
@@ -41,12 +40,12 @@ if(!empty($_POST)){
         $record = $stmt->fetch(PDO::FETCH_ASSOC);
         // $record = $stmt->fetch(PDO::FETCH_ASSOC)があれば連想配列、なければfalseを勝手にやってくれる
 
-        echo '<pre>';
-        var_dump($password);
-        echo '</pre>';
-        echo '<pre>';
-        var_dump($record['password']);
-        echo '</pre>';
+        // echo '<pre>';
+        // var_dump($password);
+        // echo '</pre>';
+        // echo '<pre>';
+        // var_dump($record['password']);
+        // echo '</pre>';
 
         //メールアドレスでの本人確認
         if($record == false){
@@ -61,10 +60,10 @@ if(!empty($_POST)){
             $_SESSION['GoodsBye']['id'] = $record['id'];
 
         //3-2. timeline.phpに遷移
-            echo '認証成功';
-            echo '<pre>';
-            var_dump($_SESSION);
-            echo '</pre>';
+            // echo '認証成功';
+            // echo '<pre>';
+            // var_dump($_SESSION);
+            // echo '</pre>';
 
 
             header('Location: main.php');
@@ -119,7 +118,8 @@ if(!empty($_POST)){
                     </div>
                     <input type="submit" class="btn btn-info" value="Sign in">
                     <span style="float: right; padding-top: 6px;">
-                        <a href="index.php">Back</a>
+                        <a href="signup.php" class="btn btn-default">Signup</a>
+                        <a href="index.php" class="btn btn-default">Top</a>
                     </span>
                 </form>
             </div>

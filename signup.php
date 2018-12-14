@@ -156,8 +156,9 @@ if (!empty($_POST)){
                         <?php endif ;?>
                     </div>
                     <input type="submit" class="btn btn-default" value="confirm">
-                    <span style="float: right; padding-top: 6px;">Username/Password<br>
-                        <a href="signin.php">Signin</a>
+                    <span style="float: right; padding-top: 6px;"><br>
+                        <a href="signin.php" class="btn btn-info">Signin</a> <a href="index.php" class="btn btn-default">Top</a>
+
                     </span>
                 </form>
             </div>

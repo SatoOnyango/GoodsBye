@@ -46,28 +46,28 @@ if (!empty($_POST)) {
     <link rel="stylesheet" type="text/css" href="assets/font-awesome/css/font-awesome.css">
 </head>
 <body style="margin-top: 60px">
-    <h1 class="text-center content_header">GoodsBye</h1>
+    <h1 class="text-center content_header"></h1>
     <div class="container">
         <div class="row">
             <div class="col-xs-8 col-xs-offset-2 thumbnail">
-                <h2 class="text-center content_header">入力内容確認</h2>
+                <h2 class="text-center content_header">Checkout</h2>
                 <div class="row">
                     <div class="col-xs-4">
                         <img src="user_profile_img/<?php echo htmlspecialchars($img_name);?>" class="img-responsive img-thumbnail">
                     </div>
                     <div class="col-xs-8">
                         <div>
-                            <span>ユーザー名</span>
+                            <span>Username</span>
                             <p class="lead"><?php echo htmlspecialchars($name); ?></p>
                         </div>
                         <div>
-                            <span>パスワード</span>
+                            <span>Password</span>
                             <p class="lead">●●●●●●●●</p>
                         </div>
                         <form method="POST" action="check.php">
-                            <a href="signup.php?action=rewrite" class="btn btn-default">&laquo;&nbsp;戻る</a> | 
+                            <a href="signup.php?action=rewrite" class="btn btn-default">&laquo;&nbsp;back</a> | 
                             <input type="hidden" name="action" value="submit">
-                            <input type="submit" class="btn btn-primary" value="ユーザー登録">
+                            <input type="submit" class="btn btn-success" value="Register">
                         </form>
                     </div>
                 </div>
