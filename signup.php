@@ -29,16 +29,21 @@ if (!empty($_POST)){
     $stmt->execute($data);
     $record = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($name==$record['name']){
+    if ($name===$record['name']){
+        // echo'<pre>';
+        // var_dump($record['name']);
+        // echo'</pre>';
+        // echo'<pre>';
+        // var_dump($name);
+        // echo'</pre>';
         $errors['name'] = 'conflict';
     }
-    // echo'<pre>';
-    // var_dump($name);
-    // echo'</pre>';
 
-    // echo'<pre>';
-    // var_dump($record['name']);
-    // echo'</pre>';
+    
+
+    
+
+    
 
     $count =strlen($password);
 
@@ -101,7 +106,9 @@ if (!empty($_POST)){
         $errors['img_name'] = 'blank';
     }
 }
-
+// echo'<pre>';
+// var_dump($errors['name']);
+// echo'</pre>';
 ?>
 
 
@@ -120,7 +127,7 @@ if (!empty($_POST)){
         <div class="row">
             <div class="col-xs-8 col-xs-offset-2 thumbnail">
                 <h2 class="text-center content_header">Sign up for GoodsBye for Free!</h2>
-                <form method="POST" action="signup.php" enctype="multipart/form-data">
+                <form method="POST" action="signup.php?input_name=$name" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="name">Username*</label>
                         <input type="text" name="input_name" class="form-control" id="name" placeholder="input text"
