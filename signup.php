@@ -29,16 +29,21 @@ if (!empty($_POST)){
     $stmt->execute($data);
     $record = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($name==$record['name']){
+    if ($name===$record['name']){
+        // echo'<pre>';
+        // var_dump($record['name']);
+        // echo'</pre>';
+        // echo'<pre>';
+        // var_dump($name);
+        // echo'</pre>';
         $errors['name'] = 'conflict';
     }
-    // echo'<pre>';
-    // var_dump($name);
-    // echo'</pre>';
 
-    // echo'<pre>';
-    // var_dump($record['name']);
-    // echo'</pre>';
+    
+
+    
+
+    
 
     $count =strlen($password);
 
@@ -101,7 +106,9 @@ if (!empty($_POST)){
         $errors['img_name'] = 'blank';
     }
 }
-
+// echo'<pre>';
+// var_dump($errors['name']);
+// echo'</pre>';
 ?>
 
 
@@ -115,14 +122,15 @@ if (!empty($_POST)){
     <link rel="stylesheet" type="text/css" href="assets/font-awesome/css/font-awesome.css">
 
 </head>
-<body style="margin-top: 60px">
+<body style="margin-top: 60px;background-color:#E6E6E6">
+    <h1 class="text-center content_header">Goodsbye</h1>
     <div class="container">
         <div class="row">
             <div class="col-xs-8 col-xs-offset-2 thumbnail">
-                <h2 class="text-center content_header">Sign up for GoodsBye for Free!</h2>
-                <form method="POST" action="signup.php" enctype="multipart/form-data">
+                <h2 class="text-center content_header">Sign up</h2>
+                <form method="POST" action="signup.php?input_name=$name" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label for="name">Username*</label>
+                        <label for="name">User name*</label>
                         <input type="text" name="input_name" class="form-control" id="name" placeholder="input text"
                             value="<?php echo htmlspecialchars($name);?>">
                         <!-- 4不備が配列変数に格納されている場合、画面に出力 -->
@@ -156,8 +164,9 @@ if (!empty($_POST)){
                         <?php endif ;?>
                     </div>
                     <input type="submit" class="btn btn-default" value="confirm">
-                    <span style="float: right; padding-top: 6px;">Username/Password<br>
-                        <a href="signin.php">Signin</a>
+                    <span style="float: right; padding-top: 6px;"><br>
+                        <a href="signin.php" class="btn btn-info">Signin</a> <a href="index.php" class="btn btn-default">Top</a>
+
                     </span>
                 </form>
             </div>
