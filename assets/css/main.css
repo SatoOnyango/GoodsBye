@@ -118,10 +118,25 @@ div{
   padding: 1%;
 }
 
-
-
-
-
-
-
-
+.container {
+  width: 1000px;
+  display: -webkit-flex;
+  display: flex;
+}
+.main {
+  display: block;
+  width: 660px;
+  margin-right: 20px;
+}
+.sidebar {
+  width: 320px;
+}
+.sidebar__item {
+  margin-bottom: 20px;
+}
+.sidebar__item--fixed {
+  position: sticky;
+  margin-bottom: 0;
+  top: 10px;
+  z-index: 1;
+}
