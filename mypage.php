@@ -77,7 +77,7 @@ $date_str = date('Ymd');
 // echo '</pre>';
 
 
-$sql = 'SELECT * FROM `items` WHERE `deadline` < ? AND `user_id` = ? ORDER BY `deadline` DESC';
+$sql = 'SELECT * FROM `items` WHERE `deadline` < ? AND `user_id` = ? ORDER BY `created` DESC';
 $data = [$date_str,$signin_user['id']];
 $stmt = $dbh->prepare($sql);
 $stmt->execute($data);
@@ -91,12 +91,12 @@ while(true){
     $before_deadline_items[] = $record;
 }
 
-$sql = 'SELECT * FROM `items` WHERE `deadline` >= ? AND `user_id` = ? ORDER BY `deadline` DESC';
+$sql = 'SELECT * FROM `items` WHERE `deadline` >= ? AND `user_id` = ? ORDER BY `created` DESC';
 $data = [$date_str,$signin_user['id']];
 $stmt = $dbh->prepare($sql);
 $stmt->execute($data);
 
-$after_deadline_items;
+$after_deadline_items = [];
 while(true){
     $record = $stmt->fetch(PDO::FETCH_ASSOC);
     if($record == false){
@@ -114,25 +114,26 @@ while(true){
     <div class="container">
         <div class="row text-center">
             <div class="col-xs-3 text-center">
-                <!-- style ="width: 100%; height: 10%" -->
-                <h2><?php echo $signin_user['name']; ?></h2>
+                <!-- width:630px; -> 830px on CSS-->
                 <img src="user_profile_img/<?php echo $signin_user['img_name']; ?>" class="img-thumbnail">
-                <!-- style="text-align: center;max-width: 100%; max-height: 200px; height: auto; vertical-align: bottom;" -->
+                <div style="float: right; margin-right: 100px;margin-top: 50px; text-align: left;">
+                    <h2><?php echo $signin_user['name']; ?></h2>
+                    <br>
+                    <p class="comment_count">Numbers of your posts (現在の投稿数)：<?php echo $item_cnt['cnt']; ?></p>
+                </div>
             </div>
 
-            <div class="col-xs-12">
-                <!--  style="margin-top: 230px;" -->
-                <span class="comment_count">Numbers of your posts (現在の投稿数)：<?php echo $item_cnt['cnt']; ?></span>
+            <div class="col-xs-12" style="height: 25px;">
                 <hr>
             </div>
 
             <div class="col-xs-9">
                 <ul class="nav nav-tabs">
                     <li class="active">
-                        <a href="#tab1" data-toggle="tab">Before</a>
+                        <a href="#tab1" data-toggle="tab">Posting</a>
                     </li>
                     <li>
-                        <a href="#tab2" data-toggle="tab">Posting</a>
+                        <a href="#tab2" data-toggle="tab">Timeover</a>
                     </li>
                 </ul>
 
@@ -141,38 +142,8 @@ while(true){
 
                     <div id="tab1" class="tab-pane fade in active">
                         <div class="row"><!-- row 1  -->
-                            <?php foreach($before_deadline_items as $before_deadline_item): ?><!-- before_deadline_item 期限前 -->
+                            <?php foreach($after_deadline_items as $after_deadline_item): ?><!-- after_deadline_item 期限前 -->
                                 <div class="col-sm-4" ><!-- TH1 -->
-                                    <div class="thumbnail">
-                                        <div class="caption">
-                                            created: <?php echo $before_deadline_item['created']; ?><br>
-                                            deadline: <?php echo $before_deadline_item['deadline']; ?><br>
-                                            <div class="wrapper caption">
-                                                <p class="content" style="word-break: break-all;"><?php echo $before_deadline_item['content']; ?></p>
-                                            </div>
-                                        </div>
-                                        <a href="detail.php?item_id=<?php echo $before_deadline_item['id']; ?>" class="item_img">
-                                            <img src="user_profile_img/<?php echo $before_deadline_item['item_img'] ?>" alt="..." class="item_deteil" style="">
-                                            <!-- max-width: 100%;max-height: 200px; height: auto; vertical-align: bottom; margin-top: 20px; margin-bottom: 10px; border-top-width: 0px;border-right-width: 0px;border-left-width: 0px;border-bottom-width: 0px; padding: 0px -->
-                                        </a>
-                                        <!-- ログインしているユーザーだけ編集できるようにしたい -->
-                                        <?php if($signin_user['id'] == $before_deadline_item['user_id']): ?>
-                                        <div>
-                                            <a href="edit.php?item_id=<?php echo $before_deadline_item['id']; ?>" class="btn btn-success btn-xs">EDIT<br><span style="">（編集）</span></a>
-
-                                            <a onclick="return confirm('Are you sure to delete?（本当に削除しますか？）');" href="delete.php?item_id=<?php echo $before_deadline_item['id']; ?>" class="btn btn-danger btn-xs">DELETE<br><span style="">（削除）</span></a>
-                                        </div>
-                                        <?php endif;?>
-                                    </div><!-- end/thumbnail -->
-                                </div><!-- end/TH1 -->
-                            <?php endforeach; ?><!-- <?php //endforeach; ?> -->
-                        </div><!-- end/row1 -->
-                    </div> <!-- tab1 -->
-
-                    <div id="tab2" class="tab-pane fade in">
-                        <div class="row"><!-- row 2  -->
-                            <?php foreach($after_deadline_items as $after_deadline_item): ?> <!-- after_deadline_item 期限まだ -->
-                                <div class="col-sm-4" ><!-- TH2 -->
                                     <div class="thumbnail">
                                         <div class="caption">
                                             created: <?php echo $after_deadline_item['created']; ?><br>
@@ -187,10 +158,40 @@ while(true){
                                         </a>
                                         <!-- ログインしているユーザーだけ編集できるようにしたい -->
                                         <?php if($signin_user['id'] == $after_deadline_item['user_id']): ?>
-                                            <div>
-                                                <a href="edit.php?item_id=<?php echo $after_deadline_item['id']; ?>" class="btn btn-success btn-xs">EDIT<br><span style="font-size: 10px;">（編集）</span></a>
+                                        <div>
+                                            <a href="edit.php?item_id=<?php echo $after_deadline_item['id']; ?>" class="btn btn-success btn-xs">EDIT<br><span style="">（編集）</span></a>
 
-                                                <a onclick="return confirm('Are you sure to delete?（本当に削除しますか？）');" href="delete.php?item_id=<?php echo $after_deadline_item['id']; ?>" class="btn btn-danger btn-xs">DELETE<br><span style="font-size: 10px;">（削除）</span></a>
+                                            <a onclick="return confirm('Are you sure to delete?（本当に削除しますか？）');" href="delete.php?item_id=<?php echo $after_deadline_item['id']; ?>" class="btn btn-danger btn-xs">DELETE<br><span style="">（削除）</span></a>
+                                        </div>
+                                        <?php endif;?>
+                                    </div><!-- end/thumbnail -->
+                                </div><!-- end/TH1 -->
+                            <?php endforeach; ?><!-- <?php //endforeach; ?> -->
+                        </div><!-- end/row1 -->
+                    </div> <!-- tab1 -->
+
+                    <div id="tab2" class="tab-pane fade in">
+                        <div class="row"><!-- row 2  -->
+                            <?php foreach($before_deadline_items as $before_deadline_item): ?> <!-- before_deadline_item 期限まだ -->
+                                <div class="col-sm-4" ><!-- TH2 -->
+                                    <div class="thumbnail">
+                                        <div class="caption">
+                                            created: <?php echo $before_deadline_item['created']; ?><br>
+                                            deadline: <?php echo $before_deadline_item['deadline']; ?><br>
+                                            <div class="wrapper caption">
+                                                <p class="content" style="word-break: break-all;"><?php echo $before_deadline_item['content']; ?></p>
+                                            </div>
+                                        </div>
+                                        <a href="detail.php?item_id=<?php echo $before_deadline_item['id']; ?>" class="item_img">
+                                            <img src="user_profile_img/<?php echo $before_deadline_item['item_img'] ?>" alt="..." class="item_deteil" style="">
+                                            <!-- max-width: 100%;max-height: 200px; height: auto; vertical-align: bottom; margin-top: 20px; margin-bottom: 10px; border-top-width: 0px;border-right-width: 0px;border-left-width: 0px;border-bottom-width: 0px; padding: 0px -->
+                                        </a>
+                                        <!-- ログインしているユーザーだけ編集できるようにしたい -->
+                                        <?php if($signin_user['id'] == $before_deadline_item['user_id']): ?>
+                                            <div>
+                                                <a href="edit.php?item_id=<?php echo $before_deadline_item['id']; ?>" class="btn btn-success btn-xs">EDIT<br><span style="font-size: 10px;">（編集）</span></a>
+
+                                                <a onclick="return confirm('Are you sure to delete?（本当に削除しますか？）');" href="delete.php?item_id=<?php echo $before_deadline_item['id']; ?>" class="btn btn-danger btn-xs">DELETE<br><span style="font-size: 10px;">（削除）</span></a>
                                             </div>
                                         <?php endif;?>
                                     </div><!-- thumbnail -->

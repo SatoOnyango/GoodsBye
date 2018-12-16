@@ -51,7 +51,9 @@ height: auto;
 }
 
 div .col-xs-3{
-  width: 100%; height: 10%
+  height: 10%;
+  width:830px;
+
 }
 
 div .col-xs-3>img{
@@ -82,4 +84,19 @@ div .col-xs-3>img{
 .col-xs-9{
   width: 100%;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
