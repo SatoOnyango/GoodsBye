@@ -7,10 +7,15 @@ if(!isset($_SESSION['GoodsBye']['id'])){
    exit();
 }
 
-$item_id = $_GET['item_id'];
+
+$item_id =$_GET['item_id'];
+
+// echo '<pre>';
+// var_dump($_GET['item_id']);
+// echo '</pre>';
+
 
 $sql = 'SELECT * FROM `items` WHERE `id` = ?';
-//選択されたユーザーって⇒パラメーターに与えられたuser_idから導き出せるぜ！
 $data = [$item_id];
 $stmt = $dbh->prepare($sql);
 $stmt->execute($data);
@@ -29,20 +34,21 @@ $comment = '';
 if (!empty($_POST)){
     // 商品説明があるか
     $comment =$_POST['comment'];
+
     if ($comment == '') {
         $errors['comment'] = 'blank';
+    }else{
+        $sql='INSERT INTO`comments`(`comment`,`user_id`,`item_id`,`created`)VALUES(?,?,?,NOW());';
+        $data= [$comment,$signin_user['id'],$item_id];
+        $stmt=$dbh->prepare($sql);
+        $stmt->execute($data);
+
+        header('Location:detail.php?item_id='.$item_id);
     }
 }
 
-if (empty($errors)) {
-
-    $sql='INSERT INTO`comments`(`comment`,`user_id`,`item_id`,`created`)VALUES(?,?,?,NOW());';
-    $data= [$comment,$signin_user['id'],$item_id];
-    $stmt=$dbh->prepare($sql);
-    $stmt->execute($data);
-}
-
-$sql = 'SELECT `c`.*, `u`.`name`,`u`.`img_name` FROM `comments` AS `c` LEFT JOIN `users` AS `u` ON `c`.`user_id` = `u`.`id`';
+$sql = 'SELECT `c`.*, `u`.`name`,`u`.`img_name` FROM `comments` AS `c` LEFT JOIN `users` AS `u` ON `c`.`user_id` = `u`.`id` WHERE `c`.`item_id`=? ORDER BY `c`.`created` DESC';
+$data = [$item_id];
 $stmt = $dbh->prepare($sql);
 $stmt->execute($data);
 // 投稿情報全てを入れる配列定義
@@ -55,7 +61,11 @@ while(true){
     $contents[] = $record;
 }
 
-
+$sql='SELECT `done_flag` FROM `items` WHERE `id`=?';
+$data = [$item_id];
+$stmt = $dbh->prepare($sql);
+$stmt->execute($data);
+$sold=$stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 <head>
     <meta charset="utf-8">
@@ -72,7 +82,7 @@ while(true){
 <body style="margin-top:150px">
     <h1 class="text-center content_header">GoodsBye</h1>
         <div class="col-xs-8 col-xs-offset-2 thumbnail">
-            <img class="center-block " src="user_profile_img/<?php echo $detail['item_img'];?>">
+            <img class="center-block " src="user_profile_img/<?php echo $detail['item_img'];?>" style="max-width: 500px; max-height:500px;">
         </div>
         <div class="col-xs-8 col-xs-offset-2 thumbnail">
             <p><?php echo $detail['content']?></p>
@@ -83,18 +93,38 @@ while(true){
 
 <form action="" method="post"　class="center-block thumbnail">
     <textarea name="comment" class="center-block" style="width:66.5%;height:60px" placeholder="コメントを入力してください(Please comment)" cols="80" rows="4"></textarea>
+        <?php if (isset($errors['comment'])&& $errors
+            ['comment'] == 'blank'):?>
+            <p class="text-danger text-center">文字を入力してください/ Can't be blank</p>
+        <?php endif; ?>
+    <?php if($sold['done_flag'] == 0): ?>
     <div class="form-group center-block">
         <button type="submit" class="btn btn-sm btn-primary center-block" style="margin-top: 10px">返信する</button>
     </div>
+    <?php endif; ?>
 </form>
 
+
+<?php if($signin_user['id']==$detail['user_id']): ?>
+    <?php if($sold['done_flag'] == 0): ?>
+        <div class="form-group center-block">
+        <a href="done.php?item_id=<?php echo $item_id; ?>">
+        <button type="submit" class="btn btn-sm btn-success center-block" style="margin-top: 10px">取引完了</button></a>
+        </div>
+    <?php else: ?>
+        <div class="form-group center-block">
+        <a href="done.php?item_id=<?php echo $item_id; ?>& unsold=true">
+        <button type="submit" class="btn btn-sm btn-success center-block" style="margin-top: 10px">完了取り消し</button></a>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>
 
 <?php foreach($contents as $content): ?>
     <div class="col-xs-6 col-xs-offset-3 thumbnail" style="margin-top:10px" >
         <p style="margin-top: 10px; margin-bottom: 10px">
             <img src="user_profile_img/<?php echo $content['img_name']; ?>" width="40" class="img-circle">
-            <span style="border-radius: 100px!important; -webkit-appearance:none;background-color:#eff1f3;padding:10px;margin-top:10px;">
-                <a href="profile.php"><?php echo $content['name']; ?></a>
+            <span style="line-height:300%; word-break: break-all; border-radius: 100px!important; -webkit-appearance:none;background-color:#eff1f3;padding:10px;margin-top:10px;">
+                <?php echo $content['name']; ?>:
                     <?php echo $content['comment']; ?>
             </span>
         </p>
@@ -102,5 +132,7 @@ while(true){
 <?php endforeach; ?>
 
 
+
 <?php include('layouts/footer.php'); ?>
+
 </html>

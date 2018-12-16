@@ -207,18 +207,20 @@ $start = ($page - 1) * CONTENT_PER_PAGE
 <!-- ヘッダー部 -->
 
 
-<div class="container-fluid">
+<!-- <div class="container-fluid">
     <div class="row">
     <div class="clearfix"></div>
     <div class="col-sm-3 col-md-2 sidebar">
         <ul class="nav nav-sidebar">
-            <li class="active"><a href="">あいうえお</a></li>
+
+            <li class="active">あいうえお</li>
             <li>あいうえお</li>
             <li>あいうえお</li>
             <li>あいうえお</li>
         </ul>
     </div>
-    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"> -->
         <!-- メインコンテンツ -->
     </div>
 
