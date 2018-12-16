@@ -77,60 +77,59 @@ $sold=$stmt->fetch(PDO::FETCH_ASSOC);
 </head>
 
 
-<?php include('navbar.php'); ?>
+<?php include('layouts/header.php'); ?>
 
-<body style="margin-top:150px">
-    <h1 class="text-center content_header">GoodsBye</h1>
-        <div class="col-xs-8 col-xs-offset-2 thumbnail">
-            <img class="center-block " src="user_profile_img/<?php echo $detail['item_img'];?>" style="max-width: 500px; max-height:500px;">
-        </div>
-        <div class="col-xs-8 col-xs-offset-2 thumbnail">
-            <p><?php echo $detail['content']?></p>
-        </div>
-    <div class="container">
+
+<body style="margin-top:65px">
+    <?php include('navbar.php'); ?>
+    <div class="container col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+            <div class="col-xs-5 col-xs-offset-0 thumbnail">
+                <img class="center-block " src="user_profile_img/<?php echo $detail['item_img'];?>" style="float: center; margin: center; max-width: 450px; max-height:330px;">
+                <p style="margin-top:15px" class="thumbnail"><?php echo $detail['content']?></p>
+            <?php if($signin_user['id']==$detail['user_id']): ?>
+                <?php if($sold['done_flag'] == 0): ?>
+                    <div class="form-group center-block">
+                    <a href="done.php?item_id=<?php echo $item_id; ?>">
+                    <button type="submit" class="btn btn-sm btn-success center-block" style="margin-top: 10px">取引完了</button></a>
+                    </div>
+                <?php else: ?>
+                    <div class="form-group center-block">
+                    <a href="done.php?item_id=<?php echo $item_id; ?>& unsold=true">
+                    <button type="submit" class="btn btn-sm btn-success center-block" style="margin-top: 10px">完了取り消し</button></a>
+                    </div>
+                <?php endif; ?>
+            <?php endif; ?>
+            </div>
+
+
+            <form action="" method="post" style="float: right; margin: right; width: 509.988636px;height: auto;" class="center-block ">
+
+                <textarea name="comment" class="center-block" style="width:66.5%;height:60px" placeholder="コメントを入力してください(Please comment)" cols="80" rows="4"></textarea>
+                    <?php if (isset($errors['comment'])&& $errors
+                        ['comment'] == 'blank'):?>
+                        <p class="text-danger text-center">文字を入力してください/ Can't be blank</p>
+                    <?php endif; ?>
+                <?php if($sold['done_flag'] == 0): ?>
+                <div class="form-group center-block">
+                    <button type="submit" class="btn btn-sm btn-primary center-block" style="margin-top: 10px">返信する</button>
+                </div>
+                <?php endif; ?>
+
+                <?php foreach($contents as $content): ?>
+                    <div class="col-xs-6 col-xs-offset-3 thumbnail " style="margin: right; margin-top:10px" >
+                        <p style="margin-top: 10px; margin-bottom: 10px">
+                            <img src="user_profile_img/<?php echo $content['img_name']; ?>" width="40" class="img-circle">
+                            <span style="line-height:300%; word-break: break-all; border-radius: 100px!important; -webkit-appearance:none;background-color:#eff1f3;padding:10px;margin-top:10px;">
+                                <?php echo $content['name']; ?>:
+                                    <?php echo $content['comment']; ?>
+                            </span>
+                        </p>
+                    </div>
+                <?php endforeach; ?>
+            </form>
     </div>
 </body>
-
-<form action="" method="post"　class="center-block thumbnail">
-    <textarea name="comment" class="center-block" style="width:66.5%;height:60px" placeholder="コメントを入力してください(Please comment)" cols="80" rows="4"></textarea>
-        <?php if (isset($errors['comment'])&& $errors
-            ['comment'] == 'blank'):?>
-            <p class="text-danger text-center">文字を入力してください/ Can't be blank</p>
-        <?php endif; ?>
-    <?php if($sold['done_flag'] == 0): ?>
-    <div class="form-group center-block">
-        <button type="submit" class="btn btn-sm btn-primary center-block" style="margin-top: 10px">返信する</button>
-    </div>
-    <?php endif; ?>
-</form>
-
-
-<?php if($signin_user['id']==$detail['user_id']): ?>
-    <?php if($sold['done_flag'] == 0): ?>
-        <div class="form-group center-block">
-        <a href="done.php?item_id=<?php echo $item_id; ?>">
-        <button type="submit" class="btn btn-sm btn-success center-block" style="margin-top: 10px">取引完了</button></a>
-        </div>
-    <?php else: ?>
-        <div class="form-group center-block">
-        <a href="done.php?item_id=<?php echo $item_id; ?>& unsold=true">
-        <button type="submit" class="btn btn-sm btn-success center-block" style="margin-top: 10px">完了取り消し</button></a>
-        </div>
-    <?php endif; ?>
-<?php endif; ?>
-
-<?php foreach($contents as $content): ?>
-    <div class="col-xs-6 col-xs-offset-3 thumbnail" style="margin-top:10px" >
-        <p style="margin-top: 10px; margin-bottom: 10px">
-            <img src="user_profile_img/<?php echo $content['img_name']; ?>" width="40" class="img-circle">
-            <span style="line-height:300%; word-break: break-all; border-radius: 100px!important; -webkit-appearance:none;background-color:#eff1f3;padding:10px;margin-top:10px;">
-                <?php echo $content['name']; ?>:
-                    <?php echo $content['comment']; ?>
-            </span>
-        </p>
-    </div>
-<?php endforeach; ?>
-
 
 
 <?php include('layouts/footer.php'); ?>
