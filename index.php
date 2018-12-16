@@ -38,29 +38,29 @@
     </div>
 
 
-      <div class="jumbotron" style="background:url(img/);">
+    <div class="jumbotron" style="background:url(user_profile_img/index1.jpg);">
         <h1 class="display-3 text-center">GoodsBye</h1>
         <p class="lead text-center">「GoodsBye」は NexSeedにいる方々のためのサービスです<br>
-          <br>
+        <br>
           「GoodsBye」を通して、不要なものを出品し、手に入れることができます。<br>
-          <br>
+        <br>
         さあ今日から「GoodsBye」を通して、留学生活の無駄を解消しませんか。</p>
-      </div>
+    </div>
 
-      <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter hdpe">
-          <img src="http://fakeimg.pl/365x365/" class="img-responsive">
-      </div>
+    <div class="container-fruid" style="background-color:#FFFFCC;">
+        <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter hdpe" style="width:20%">
+              <img src="user_profile_img/register.jpg" class="img-responsive" style="max-width: 100%; max-height: 100px; height: auto; vertical-align: bottom; padding-bottom: 10px;">
+        </div>
 
-      <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter sprinkle">
-          <img src="http://fakeimg.pl/365x365/" class="img-responsive">
-      </div>
+        <div class="gallery_product" style="width:20%" filter sprinkle">
+              <img src="user_profile_img/negotiate.jpg" class="img-responsive" style="max-width: 100%; max-height: 150px; height: auto; vertical-align: bottom; padding-bottom: 10px; ">
+        </div>
 
-      <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter hdpe">
-          <img src="http://fakeimg.pl/365x365/" class="img-responsive">
-          <p1><br></p>
-          <p2><br></p2>
-      </div>
-
+        <div class="gallery_product" style="width:20%" filter hdpe">
+            <img src="user_profile_img/complete.jpg" class="img-responsive" style="max-width: 100%; max-height: 150px; height: auto; vertical-align: bottom; padding-bottom: 10px;">
+            <p1><br></p>
+            <p2><br></p2>
+          </div>
     </div> <!-- /container -->
 
 </body>
