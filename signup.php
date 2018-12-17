@@ -65,7 +65,8 @@ if (!empty($_POST)){
 
     // ３、jpg,png,gifと比較し、当てはまらない場合$errors['img_name']に格納
 
-        if($file_type!='jpg' && $file_type!='png' && $file_type!='gif'){
+        if($file_type!='jpg' && $file_type!='png' && $file_type!='gif'
+            && $file_type!='peg'){
             $errors['img_name'] ='type';
         }
     }else{

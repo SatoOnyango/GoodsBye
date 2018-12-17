@@ -67,10 +67,10 @@ if(!empty($_POST)){
                 <form class="form-group" method="post" action="edit.php?item_id=<?php echo $item_id ;?>">
                     <div align="center">
                         Updated/<?php echo $item['updated'];?><br>
-                    <img src="user_profile_img/<?php echo $item['item_img'];?>" width="500" style="padding-left: auto;padding-right: auto;"><br>
+                    <img src="user_profile_img/<?php echo $item['item_img'];?>" width="400" style="padding-left: auto;padding-right: auto;"><br>
 
-                        <div class="content_form thumbnail" style="text-align: center; border :100px;padding-left: auto;padding-right: auto;width: 500.988636px;height: 109.988636px;">
-                            <textarea name="content" class="form-control" placeholder="Edit your comment agout your item" style="height: 68.988636px;"><?php echo $item['content']?></textarea>
+                        <div class="content_form thumbnail" style=" margin: 0 auto; border :100px;padding-left: auto;padding-right: auto;width: 400.988636px;height: 109.988636px;">
+                            <textarea name="content" class="form-control" placeholder="Edit your comment agout your item" style="height: 90.988636px;"><?php echo $item['content']?></textarea>
                             <?php if (isset($errors['content'])&& $errors
                                 ['content'] == 'blank'):?>
                                 <p class="text-danger">文字を入力してください/ Can't be blank</p>
