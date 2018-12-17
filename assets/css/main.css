@@ -201,6 +201,15 @@ section#post>div.container {
 #Dead>div.col-sm-4 {
     height: 300px; margin-bottom: 30px;
 }
+#Expired>div.col-sm-4 {
+    height: 300px; margin-bottom: 30px;
+}
+
+#Expired {
+    display: block;
+    border-right-width: 0px;
+    width: 80%;
+}
 
 
 

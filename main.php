@@ -246,8 +246,8 @@ body {font-family: "Lato", sans-serif;}
   <!-- 左横タブ -->
   <div class="tab">
     <button class="tablinks" onclick="openCity(event, 'New')" id="defaultOpen">New</button>
-    <button class="tablinks" onclick="openCity(event, 'Dead')">Deadline</button>
-    <button class="tablinks" onclick="openCity(event, 'End')">End</button>
+    <button class="tablinks" onclick="openCity(event, 'Dead')">Almost Expired</button>
+    <button class="tablinks" onclick="openCity(event, 'Expired')">Expired</button>
     <button class="tablinks" onclick="openCity(event, 'guide')">Guide</button>
   </div>
   <!-- 左横タブ　終了 -->
@@ -301,9 +301,8 @@ body {font-family: "Lato", sans-serif;}
     <?php endforeach; ?>
   </div>
 
-  <div id="End" class="tabcontent">
+  <div id="Expired" class="tabcontent">
     <h2 style="color: #0099E8">Before trade</h2>
-    <h3>Expired</h3>
     <p>These items are expired.</p>
     <?php foreach($before_deadline_items as $before_deadline_item): ?>
       <div class="col-sm-4">
