@@ -10,6 +10,8 @@ if(!isset($_SESSION['GoodsBye']['id'])){
    exit();
 }
 
+$current_date = date('Y-m-d');
+
 //サインインユーザーの読み出し
 $sql='SELECT *FROM`users`WHERE`id`=?';
 $data=[$_SESSION['GoodsBye']['id']];
@@ -252,7 +254,6 @@ body {font-family: "Lato", sans-serif;}
     <h3>Tokyo</h3>
     <p>Tokyo is the capital of Japan.</p>
   </div>
-
     
   </div>
   <!-- ３行目 -->
@@ -278,6 +279,7 @@ body {font-family: "Lato", sans-serif;}
                           <a href="main.php?page=<?php echo $page - 1; ?>"><span aria-hidden="true">&larr;</span> Newer
                           </a>
                       </li>
+
                   <?php endif; ?>
 
                   <?php if ($page == $last_page): ?>
@@ -294,7 +296,8 @@ body {font-family: "Lato", sans-serif;}
                 </ul>
               </div>
 
-              <form method="POST" action="main.php" enctype="multipart/form-data">
+
+              <form method="POST" action="main.php#post" enctype="multipart/form-data">
                 <div class="form-group" style="margin-bottom: 0px;">
                     <textarea name="content" class="form-control" rows="2" placeholder=" アイテムの説明/ The details about item" style="font-size: 24px; text-align: center;"></textarea><br>
                     <?php if (isset($errors['content'])&& $errors['content'] == 'blank'):?>
@@ -310,6 +313,11 @@ body {font-family: "Lato", sans-serif;}
                     <?php endif; ?>
                 </div>
 
+                
+                
+                
+                
+                
                 <div class="form-group" style="margin-bottom: 0px;">
                     <?php if(isset($errors['input_img_name']) && $errors['input_img_name'] == 'type'): ?>
                         <p class="text-danger">拡張子が違います/ Wrong file extension</p>
@@ -318,7 +326,7 @@ body {font-family: "Lato", sans-serif;}
                     <label for="img_name">掲載期限/ Publication period </label>
                 </div>
 
-                <input type="date" name="deadline" value="today"><br>
+                <input type="date" name="deadline" value="today" min="<?php echo $current_date; ?>"><br>
                 <div class="form-group">
                     <?php if (isset($errors['deadline']) && $errors['deadline'] =='blank'): ?>
                         <p class="text-danger">日付を選択してください/Pleae choose date</p>
@@ -326,7 +334,7 @@ body {font-family: "Lato", sans-serif;}
                     <input type="submit" value="POST (投稿する)" class="btn btn-primary">
                 </div>
               </form>
-
+        
             </div>
 
           </div>
@@ -364,3 +372,5 @@ document.getElementById("defaultOpen").click();
 
 <?php include('layouts/footer.php'); ?>
 </html>
+
+
