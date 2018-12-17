@@ -237,10 +237,10 @@ body {font-family: "Lato", sans-serif;}
             <a href="detail.php?item_id=<?php echo $time['id'];?>" class="">
                 <p class=""></p>
                 <img src="user_profile_img/<?php echo $time['item_img'];?>" alt="..." class="thumbnail">
-              </a>
-            </div>
+            </a>
           </div>
         </div>
+      </div>
     <?php endforeach; ?>
   </div>
 
@@ -279,7 +279,6 @@ body {font-family: "Lato", sans-serif;}
                           <a href="main.php?page=<?php echo $page - 1; ?>"><span aria-hidden="true">&larr;</span> Newer
                           </a>
                       </li>
-
                   <?php endif; ?>
 
                   <?php if ($page == $last_page): ?>
@@ -313,11 +312,6 @@ body {font-family: "Lato", sans-serif;}
                     <?php endif; ?>
                 </div>
 
-                
-                
-                
-                
-                
                 <div class="form-group" style="margin-bottom: 0px;">
                     <?php if(isset($errors['input_img_name']) && $errors['input_img_name'] == 'type'): ?>
                         <p class="text-danger">拡張子が違います/ Wrong file extension</p>
@@ -334,7 +328,6 @@ body {font-family: "Lato", sans-serif;}
                     <input type="submit" value="POST (投稿する)" class="btn btn-primary">
                 </div>
               </form>
-        
             </div>
 
           </div>
@@ -342,13 +335,7 @@ body {font-family: "Lato", sans-serif;}
     </div>
   </section>
   </div>
-
 </div>
-
-
-  
-
-  
 </body>
 
 <script>
