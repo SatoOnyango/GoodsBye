@@ -123,7 +123,7 @@ $sold=$stmt->fetch(PDO::FETCH_ASSOC);
                     <div class="col-xs-auto col-xs-offset-auto thumbnail " style="margin: right ; margin-top:10px" >
                         <p style="margin-top: 10px; margin-bottom: 10px">
                             <img src="user_profile_img/<?php echo $content['img_name']; ?>" width="40" class="img-circle">
-                            <span style="line-height:300%; word-break: break-all; border-radius: 100px!important; -webkit-appearance:none;background-color:#eff1f3;padding:10px;margin-top:10px;">
+                            <span style="line-height:300%; word-break: break-all; border-radius: 100px!important; -webkit-appearance:none;padding:10px;margin-top:10px;">
                                 <?php echo $content['name']; ?>:
                                     <?php echo $content['comment']; ?>
                             </span>
