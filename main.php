@@ -149,173 +149,198 @@ body {font-family: "Lato", sans-serif;}
 
 
 <body>
-    <?php include('navbar.php'); ?>
-<!-- 上部スライド -->
-<div>
-  <img id="mypic" class="center" style="margin-top: 30px"src="user_profile_img/default.png" width="auto" height="350">
-  <input type="button" value="＞" onclick="slideshow_timer()">
-          <script>
-          var pics_src = new Array("user_profile_img/default.png","user_profile_img/petbotles.jpeg","user_profile_img/lux.jpeg");
-          var num = -1;
+<?php include('navbar.php'); ?>
 
-          slideshow_timer();
+<div class="container">
+  <!-- １行目 -->
+  <div class="row">
+    
+  <!-- 上部スライド -->
+    <div>
+      <img id="mypic" class="center" style="margin-top: 30px"src="user_profile_img/default.png" width="auto" height="350">
+      <input type="button" value="＞" onclick="slideshow_timer()">
+        <script>
+        var pics_src = new Array("user_profile_img/default.png","user_profile_img/petbotles.jpeg","user_profile_img/lux.jpeg");
+        var num = -1;
 
-          function slideshow_timer(){
-              if (num == 2){
-                  num = 0;
-              } 
-              else {
-                  num ++;
-              }
-              document.getElementById("mypic").src=pics_src[num];
-              setTimeout("slideshow_timer()",4000); 
-          }
-          </script>
-</div>
-<!-- スライド終了 -->
+        slideshow_timer();
 
-<p class="text-center">Click on the buttons inside the tabbed menu:</p>
-<!-- 左横タブ -->
-<div class="tab">
-  <button class="tablinks" onclick="openCity(event, 'New')" id="defaultOpen">New</button>
-  <button class="tablinks" onclick="openCity(event, 'Dead')">Deadline</button>
-  <button class="tablinks" onclick="openCity(event, 'End')">End</button>
-  <button class="tablinks" onclick="openCity(event, 'guide')">Guide</button>
-</div>
-<!-- 左横タブ　終了 -->
-
-<!-- タブの中身 -->
-<div id="New" class="tabcontent">
-  <h2 style="color: #0099E8">New!</h2>
-  <?php foreach($items as $item): ?>
-    <div class="col-sm-4">
-      <div class="thumbnail">
-        <div class="caption">
-        <?php if($item['done_flag']==1): ?>
-          <p class="text-danger text-center">終了しました<br>End</p><br>
-        <?php endif; ?>
-        <?php if($item['done_flag']==0): ?>
-         created: <?php echo $item['created']; ?><br>
-         deadline: <?php echo $item['deadline']; ?><br>
-        <?php endif; ?>
-        <a href="detail.php?item_id=<?php echo$item['id'];?>" class="">
-          <p class=""></p>
-        <img src="user_profile_img/<?php echo $item['item_img'];?>" alt="..." class="thumbnail">
-        </a>
-        </div>
-      </div>
+        function slideshow_timer(){
+            if (num == 2){
+                num = 0;
+            } 
+            else {
+                num ++;
+            }
+            document.getElementById("mypic").src=pics_src[num];
+            setTimeout("slideshow_timer()",4000); 
+        }
+        </script>
     </div>
-  <?php endforeach; ?>
-</div>
-
-<div id="Dead" class="tabcontent">
-  <h2 style="color: #0099E8">Expire Soon!</h2>
-  <?php foreach($times as $time): ?>
-    <div class="col-sm-4">
-      <div class="thumbnail">
-        <div class="caption">
-          <?php if($time['done_flag']==1): ?>
-           <p class="text-danger text-center">終了しました<br>End</p><br>
-          <?php endif; ?>
-          <?php if($time['done_flag']==0): ?>
-           created: <?php echo $time['created']; ?><br>
-           deadline: <?php echo $time['deadline']; ?><br>
-          <?php endif; ?>
-        <a href="detail.php?item_id=<?php echo$time['id'];?>" class="">
-            <p class=""></p>
-        <img src="user_profile_img/<?php echo $time['item_img'];?>" alt="..." class="thumbnail">
-        </a>
-        </div>
-      </div>
-    </div>
-  <?php endforeach; ?>
-</div>
-
-<div id="End" class="tabcontent">
-  <h2 style="color: #0099E8">過去の取引</h2>
-  <h3>Tokyo</h3>
-  <p>Tokyo is the capital of Japan.</p>
-</div>
-<div id="guide" class="tabcontent">
-  <h2 style="color: #0099E8">Guidance</h2>
-  <h3>Tokyo</h3>
-  <p>Tokyo is the capital of Japan.</p>
-</div>
-<!-- ページネーション -->
-<div aria-label="Page navigation" class="clear">
-  <ul class="pager">
-    <?php if ($page == 1): ?>
-        <li class="previous disabled">
-            <a><span aria-hidden="true">&larr;</span> Newer
-            </a>
-        </li>
-    <?php else: ?>
-        <li class="previous">
-            <a href="main.php?page=<?php echo $page - 1; ?>"><span aria-hidden="true">&larr;</span> Newer
-            </a>
-        </li>
-    <?php endif; ?>
-
-    <?php if ($page == $last_page): ?>
-        <li class="next disabled">
-            <a>Older <span aria-hidden="true">&rarr;</span>
-            </a>
-        </li>
-    <?php else: ?>
-        <li class="next">
-            <a href="main.php?page=<?php echo $page + 1; ?>">Older <span aria-hidden="true">&rarr;</span>
-            </a>
-        </li>
-    <?php endif; ?>
-  </ul>
-</div>
-
-
-
-<!-- 投稿エリア -->
-<section id="post" name="post">
-  <div class="container">
-    <div class="row">
-      <div class="post">
-        <div class="content_form thumbnail">
-          <form method="POST" action="main.php" enctype="multipart/form-data">
-              <div class="form-group" style="margin-bottom: 0px;">
-                  <textarea name="content" class="form-control" rows="2" placeholder=" アイテムの説明/ The details about item" style="font-size: 24px; text-align: center;"></textarea><br>
-                  <?php if (isset($errors['content'])&& $errors
-                  ['content'] == 'blank'):?>
-                      <p class="text-danger">アイテムの説明を入力してください/ Please write the details about item</p>
-                  <?php endif; ?>
-              </div>
-              <div class="form-group">
-                  <label for="img_name">Your item image</label>
-                  <input type="file" name="input_img_name" id="img_name" accept="image/*">
-                  <?php if(isset($errors['input_img_name']) && $errors['input_img_name'] == 'blank'): ?>
-                      <p class="text-danger">Imageを選択してください/ Please choose item image</p>
-                  <?php endif; ?>
-              </div>
-              <div class="form-group" style="margin-bottom: 0px;">
-                  <?php if(isset($errors['input_img_name']) && $errors['input_img_name'] == 'type'): ?>
-                      <p class="text-danger">拡張子が違います/ Wrong file extension</p>
-                  <?php endif; ?>
-                  <br>
-                  <label for="img_name">掲載期限/ Publication period </label>
-              </div>
-              <input type="date" name="deadline" value="today">
-                                    <br>
-                                        <div class="form-group">
-
-                                        <?php if (isset($errors['deadline']) && $errors['deadline'] =='blank'): ?>
-                                            <p class="text-danger">日付を選択してください/Pleae choose date</p>
-                                        <?php endif; ?>
-                <input type="submit" value="POST (投稿する)" class="btn btn-primary">
-                                         </div>
-          </form>
-        </div>
-      </div>
-    </div>
+      <!-- スライド終了 -->
+    
+    
   </div>
-</section>
+  <!-- ２行目 -->
+  <div class="row">
+    <p class="text-center">Click on the buttons inside the tabbed menu:</p>
+  <!-- 左横タブ -->
+  <div class="tab">
+    <button class="tablinks" onclick="openCity(event, 'New')" id="defaultOpen">New</button>
+    <button class="tablinks" onclick="openCity(event, 'Dead')">Deadline</button>
+    <button class="tablinks" onclick="openCity(event, 'End')">End</button>
+    <button class="tablinks" onclick="openCity(event, 'guide')">Guide</button>
+  </div>
+  <!-- 左横タブ　終了 -->
 
+  <!-- タブの中身 -->
+  <div id="New" class="tabcontent" style="width: 80%; border-right-width: 0px;border-bottom-width: 0px;">
+    <h2 style="color: #0099E8">New!</h2>
+    <?php foreach($items as $item): ?>
+      <div class="col-sm-4">
+        <div class="thumbnail">
+          <div class="caption">
+            <?php if($item['done_flag']==1): ?>
+                <p class="text-danger text-center">終了しました(End)</p>
+            <?php endif; ?>
+
+            <?php if($item['done_flag']==0): ?>
+                created: <?php echo $item['created']; ?><br>
+                deadline: <?php echo $item['deadline']; ?><br>
+            <?php endif; ?>
+            <a href="detail.php?item_id=<?php echo$item['id'];?>" class="">
+                <p class=""></p>
+                <img src="user_profile_img/<?php echo $item['item_img'];?>" alt="..." class="thumbnail">
+            </a>
+          </div>
+        </div>
+      </div>
+    <?php endforeach; ?>
+  </div>
+
+  <div id="Dead" class="tabcontent">
+    <h2 style="color: #0099E8">Expire Soon!</h2>
+    <?php foreach($times as $time): ?>
+      <div class="col-sm-4">
+        <div class="thumbnail">
+          <div class="caption">
+            <?php if($time['done_flag']==1): ?>
+                <p class="text-danger text-center">終了しました(End)</p>
+            <?php endif; ?>
+
+            <?php if($time['done_flag']==0): ?>
+                created: <?php echo $time['created']; ?><br>
+                deadline: <?php echo $time['deadline']; ?><br>
+            <?php endif; ?>
+            <a href="detail.php?item_id=<?php echo $time['id'];?>" class="">
+                <p class=""></p>
+                <img src="user_profile_img/<?php echo $time['item_img'];?>" alt="..." class="thumbnail">
+              </a>
+            </div>
+          </div>
+        </div>
+    <?php endforeach; ?>
+  </div>
+
+  <div id="End" class="tabcontent">
+    <h2 style="color: #0099E8">過去の取引</h2>
+    <h3>Tokyo</h3>
+    <p>Tokyo is the capital of Japan.</p>
+  </div>
+  <div id="guide" class="tabcontent">
+    <h2 style="color: #0099E8">Guidance</h2>
+    <h3>Tokyo</h3>
+    <p>Tokyo is the capital of Japan.</p>
+  </div>
+
+    
+  </div>
+  <!-- ３行目 -->
+  <div class="row">
+    <!-- 投稿エリア -->
+  <section id="post" name="post">
+    <div class="container">
+      <div class="row">
+          <div class="post">
+
+            <div class="content_form thumbnail">
+
+              <!-- ページネーション -->
+              <div aria-label="Page navigation" class="clear">
+                <ul class="pager">
+                  <?php if ($page == 1): ?>
+                      <li class="previous disabled">
+                          <a><span aria-hidden="true">&larr;</span> Newer
+                          </a>
+                      </li>
+                  <?php else: ?>
+                      <li class="previous">
+                          <a href="main.php?page=<?php echo $page - 1; ?>"><span aria-hidden="true">&larr;</span> Newer
+                          </a>
+                      </li>
+                  <?php endif; ?>
+
+                  <?php if ($page == $last_page): ?>
+                      <li class="next disabled">
+                          <a>Older <span aria-hidden="true">&rarr;</span>
+                          </a>
+                      </li>
+                  <?php else: ?>
+                      <li class="next">
+                          <a href="main.php?page=<?php echo $page + 1; ?>">Older <span aria-hidden="true">&rarr;</span>
+                          </a>
+                      </li>
+                  <?php endif; ?>
+                </ul>
+              </div>
+
+              <form method="POST" action="main.php" enctype="multipart/form-data">
+                <div class="form-group" style="margin-bottom: 0px;">
+                    <textarea name="content" class="form-control" rows="2" placeholder=" アイテムの説明/ The details about item" style="font-size: 24px; text-align: center;"></textarea><br>
+                    <?php if (isset($errors['content'])&& $errors['content'] == 'blank'):?>
+                      <p class="text-danger">アイテムの説明を入力してください/ Please write the details about item</p>
+                    <?php endif; ?>
+                </div>
+
+                <div class="form-group">
+                    <label for="img_name">Your item image</label>
+                    <input type="file" name="input_img_name" id="img_name" accept="image/*">
+                    <?php if(isset($errors['input_img_name']) && $errors['input_img_name'] == 'blank'): ?>
+                        <p class="text-danger">Imageを選択してください/ Please choose item image</p>
+                    <?php endif; ?>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 0px;">
+                    <?php if(isset($errors['input_img_name']) && $errors['input_img_name'] == 'type'): ?>
+                        <p class="text-danger">拡張子が違います/ Wrong file extension</p>
+                    <?php endif; ?>
+                    <br>
+                    <label for="img_name">掲載期限/ Publication period </label>
+                </div>
+
+                <input type="date" name="deadline" value="today"><br>
+                <div class="form-group">
+                    <?php if (isset($errors['deadline']) && $errors['deadline'] =='blank'): ?>
+                        <p class="text-danger">日付を選択してください/Pleae choose date</p>
+                    <?php endif; ?>
+                    <input type="submit" value="POST (投稿する)" class="btn btn-primary">
+                </div>
+              </form>
+
+            </div>
+
+          </div>
+      </div>
+    </div>
+  </section>
+  </div>
+
+</div>
+
+
+  
+
+  
 </body>
 
 <script>

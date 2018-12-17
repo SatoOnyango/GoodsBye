@@ -116,7 +116,7 @@ div{
 }
 
 .container {
-  padding: 1%;
+  /*padding: 1%;*/
 }
 
 .tab {
@@ -161,3 +161,55 @@ div{
   border-left: none;
   height:auto;
 }
+
+#New {
+    width: 80%;
+    border-right-width: 0px;
+    border-bottom-width: 0px;
+}
+
+#Dead {
+    width: 80%;
+    border-right-width: 0px;
+    border-bottom-width: 0px;
+}
+
+#End {
+    width: 80%;
+    border-right-width: 0px;
+    border-bottom-width: 0px;
+}
+
+#guide {
+    width: 80%;
+    border-right-width: 0px;
+    border-bottom-width: 0px;
+}
+
+div.post>div.content_form {
+    padding: 0px;
+    border: 0px
+}
+
+section#post>div.container {
+    padding: 0px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -70,8 +70,10 @@ $sold=$stmt->fetch(PDO::FETCH_ASSOC);
 <head>
     <meta charset="utf-8">
     <title>GoodsBye</title>
+
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet" type="text/css" href="assets/css/main.css">
+    <link rel="stylesheet" href="detail.css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 </head>
@@ -82,10 +84,10 @@ $sold=$stmt->fetch(PDO::FETCH_ASSOC);
 
 <body style="margin-top:65px">
     <?php include('navbar.php'); ?>
-    <div class="container col-lg-12 col-md-12 col-sm-12 col-xs-12">
-
-            <div class="col-xs-5 col-xs-offset-0 thumbnail">
-                <img class="center-block " src="user_profile_img/<?php echo $detail['item_img'];?>" style="float: center; margin: center; max-width: 450px; max-height:330px;">
+    <div class="container col-lg-auto col-md-auto col-sm-auto col-xs-auto" id="detail_top" name="detail_top">
+        <div class="sidebar__item sidebar__item--fixed">
+            <div class="col-xs-6 col-xs-offset-auto thumbnail">
+                <img class="center-block " src="user_profile_img/<?php echo $detail['item_img'];?>" style="float: center; margin: center; max-width: auto; max-height:330px;">
                 <p style="margin-top:15px" class="thumbnail"><?php echo $detail['content']?></p>
             <?php if($signin_user['id']==$detail['user_id']): ?>
                 <?php if($sold['done_flag'] == 0): ?>
@@ -101,11 +103,12 @@ $sold=$stmt->fetch(PDO::FETCH_ASSOC);
                 <?php endif; ?>
             <?php endif; ?>
             </div>
+        </div>
 
 
-            <form action="" method="post" style="float: right; margin: right; width: 509.988636px;height: auto;" class="center-block ">
+            <form action="" method="post" style="float: right; margin: right; width: 509.988636px;height: auto;" class="center-block " >
 
-                <textarea name="comment" class="center-block" style="width:66.5%;height:60px" placeholder="コメントを入力してください(Please comment)" cols="80" rows="4"></textarea>
+                <textarea name="comment" class="center-block" style="width:66.5%;height:60px; margin-top: 65px;" placeholder="コメントを入力してください(Please comment)" cols="80" rows="4" ></textarea>
                     <?php if (isset($errors['comment'])&& $errors
                         ['comment'] == 'blank'):?>
                         <p class="text-danger text-center">文字を入力してください/ Can't be blank</p>
@@ -117,7 +120,7 @@ $sold=$stmt->fetch(PDO::FETCH_ASSOC);
                 <?php endif; ?>
 
                 <?php foreach($contents as $content): ?>
-                    <div class="col-xs-6 col-xs-offset-3 thumbnail " style="margin: right; margin-top:10px" >
+                    <div class="col-xs-auto col-xs-offset-auto thumbnail " style="margin: right ; margin-top:10px" >
                         <p style="margin-top: 10px; margin-bottom: 10px">
                             <img src="user_profile_img/<?php echo $content['img_name']; ?>" width="40" class="img-circle">
                             <span style="line-height:300%; word-break: break-all; border-radius: 100px!important; -webkit-appearance:none;background-color:#eff1f3;padding:10px;margin-top:10px;">
@@ -127,6 +130,7 @@ $sold=$stmt->fetch(PDO::FETCH_ASSOC);
                         </p>
                     </div>
                 <?php endforeach; ?>
+                <a href="detail.php?item_id=<?php echo $item_id; ?>#detail_top" class="back-to-top">Back</a>
             </form>
     </div>
 </body>
