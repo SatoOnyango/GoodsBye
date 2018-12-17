@@ -133,7 +133,7 @@ while(true){
                         <a href="#tab1" data-toggle="tab">Posting</a>
                     </li>
                     <li>
-                        <a href="#tab2" data-toggle="tab">Timeover</a>
+                        <a href="#tab2" data-toggle="tab">Expired</a>
                     </li>
                 </ul>
 

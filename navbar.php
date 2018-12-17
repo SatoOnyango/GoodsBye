@@ -1,6 +1,6 @@
 <body>
     <div class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
+        <div class="container" style="padding: 0%;">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse1" aria-expanded="false">
                     <span class="sr-only">Toggle navigation</span>
