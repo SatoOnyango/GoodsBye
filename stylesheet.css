@@ -8,15 +8,21 @@ a {
 }
 
 .container {
-  width: 1170px;
-  height:470px;
+  height:100%;
+  width: 100%;
   padding: 0 15px;
   margin: 0 auto;
+}
+
+.wrapper {
+  width:100%;
+  overflow:hidden;
 }
 
 .top-wrapper {
   padding: 180px 0 100px 0;
   background-image: url(user_profile_img/index1.jpg);
+  -moz-background-size:cover;
   background-size: cover;
   color: black;
   text-align: center;
@@ -44,15 +50,6 @@ a {
   background-color: #239b76;
 }
 
-.facebook {
-  background-color: #3b5998;
-  margin-right: 10px;
-}
-
-.twitter {
-  background-color: #55acee;
-}
-
 .btn {
   padding: 8px 24px;
   color: white;
@@ -69,39 +66,9 @@ a {
   margin-right: 5px;
 }
 
-header {
-  height: 65px;
-  width: 100%;
-  background-color: rgba(255, 255, 204, 0.9);
-}
-
-.logo {
-  width: 124px;
-  margin-top: 20px;
-}
-
-.header-left {
-  float: left;
-}
-
-.header-right {
-  float: right;
-  background-color: rgba(255, 255, 204, 0.3);
-  transition: all 0.5s;
-}
-
-.header-right:hover {
-  background-color: rgba(255, 255, 204, 0.3);
-}
-
-li{
-  float: right;
-  list-style: none;
-  margin: 10px 10px 20px 10px;
-}
-
 .lesson-wrapper {
-  height: 500px;
+  height: 550px;
+  width: 100%;
   padding-bottom: 80px;
   background-color: #f7f7f7;
   text-align: center;
@@ -146,9 +113,15 @@ li{
 }
 
 .message-wrapper {
-  border-bottom: 1px solid #eee;
-  padding-bottom: 80px;
+  margin-bottom: 40px;
   text-align: center;
+
+}
+
+.href-wrapper{
+  height:350px;
+  text-align: center;
+  background-color: #f7f7f7;
 }
 
 .message {
@@ -162,4 +135,8 @@ li{
   position: relative;
   top: 7px;
   box-shadow: none;
+}
+
+.container{
+  margin-bottom:20px;
 }
