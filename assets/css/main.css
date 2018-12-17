@@ -109,15 +109,12 @@ div{
 
 
 .pager{
-/*    padding-right: 80px;
+    padding-right: 80px;
     padding-left: 80px;
-    padding: 30px 60px;*/
+    padding: 30px 60px;
     text-align: center;
 }
 
-.container {
-  padding: 1%;
-}
 
 .tab {
   float: left;

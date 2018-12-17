@@ -10,6 +10,8 @@ if(!isset($_SESSION['GoodsBye']['id'])){
    exit();
 }
 
+$current_date = date('Y-m-d');
+
 //サインインユーザーの読み出し
 $sql='SELECT *FROM`users`WHERE`id`=?';
 $data=[$_SESSION['GoodsBye']['id']];
@@ -278,7 +280,7 @@ body {font-family: "Lato", sans-serif;}
     <div class="row">
       <div class="post">
         <div class="content_form thumbnail">
-          <form method="POST" action="main.php" enctype="multipart/form-data">
+          <form method="POST" action="main.php#post" enctype="multipart/form-data">
               <div class="form-group" style="margin-bottom: 0px;">
                   <textarea name="content" class="form-control" rows="2" placeholder=" アイテムの説明/ The details about item" style="font-size: 24px; text-align: center;"></textarea><br>
                   <?php if (isset($errors['content'])&& $errors
@@ -300,7 +302,8 @@ body {font-family: "Lato", sans-serif;}
                   <br>
                   <label for="img_name">掲載期限/ Publication period </label>
               </div>
-              <input type="date" name="deadline" value="today">
+              
+              <input type="date" name="deadline" value="today" min="<?php echo $current_date; ?>">
                                     <br>
                                         <div class="form-group">
 
@@ -339,3 +342,5 @@ document.getElementById("defaultOpen").click();
 
 <?php include('layouts/footer.php'); ?>
 </html>
+
+
