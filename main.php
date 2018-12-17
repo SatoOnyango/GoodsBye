@@ -202,10 +202,9 @@ body {font-family: "Lato", sans-serif;}
     
   <!-- 上部スライド -->
     <div>
-      <img id="mypic" class="center" style="margin-top: 30px"src="user_profile_img/default.png" width="auto" height="350">
-      <input type="button" value="＞" onclick="slideshow_timer()">
+      <img id="mypic" class="center" style="margin-top: 30px"src="img/how1.png" width="auto" height="350">
         <script>
-        var pics_src = new Array("user_profile_img/default.png","user_profile_img/petbotles.jpeg","user_profile_img/lux.jpeg");
+        var pics_src = new Array("img/how1.png","img/how2.png","img/how3.png");
         var num = -1;
 
         slideshow_timer();
