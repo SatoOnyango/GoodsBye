@@ -87,7 +87,7 @@ $sold=$stmt->fetch(PDO::FETCH_ASSOC);
     <div class="container col-lg-auto col-md-auto col-sm-auto col-xs-auto" id="detail_top" name="detail_top">
         <div class="sidebar__item sidebar__item--fixed">
             <div class="col-xs-6 col-xs-offset-auto thumbnail">
-                <img class="center-block " src="user_profile_img/<?php echo $detail['item_img'];?>" style="float: center; margin: center; max-width: auto; max-height:330px;">
+                <img class="center-block " src="user_profile_img/<?php echo $detail['item_img'];?>" style="float: center; margin: center; max-width: auto; max-height:400px;">
                 <p style="margin-top:15px" class="thumbnail"><?php echo $detail['content']?></p>
             <?php if($signin_user['id']==$detail['user_id']): ?>
                 <?php if($sold['done_flag'] == 0): ?>

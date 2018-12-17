@@ -187,11 +187,10 @@ body {font-family: "Lato", sans-serif;}
   border-left: none;
   height:auto;
 }
-
-
 </style>
 </head>
 <!-- 参照終わり -->
+
 
 
 <body>
@@ -224,7 +223,6 @@ body {font-family: "Lato", sans-serif;}
     </div>
       <!-- スライド終了 -->
     
-    
   </div>
   <!-- ２行目 -->
   <div class="row">
@@ -246,7 +244,7 @@ body {font-family: "Lato", sans-serif;}
         <div class="thumbnail">
           <div class="caption">
             <?php if($item['done_flag']==1): ?>
-                <p class="text-danger text-center">終了しました(End)</p>
+                <p class="text-danger text-center">終了しました(End)<br></p>
             <?php endif; ?>
 
             <?php if($item['done_flag']==0): ?>
@@ -270,7 +268,7 @@ body {font-family: "Lato", sans-serif;}
         <div class="thumbnail">
           <div class="caption">
             <?php if($time['done_flag']==1): ?>
-                <p class="text-danger text-center">終了しました(End)</p>
+                <p class="text-danger text-center">終了しました(End)<br></p>
             <?php endif; ?>
 
             <?php if($time['done_flag']==0): ?>
@@ -280,10 +278,10 @@ body {font-family: "Lato", sans-serif;}
             <a href="detail.php?item_id=<?php echo $time['id'];?>" class="">
                 <p class=""></p>
                 <img src="user_profile_img/<?php echo $time['item_img'];?>" alt="..." class="thumbnail">
-              </a>
-            </div>
+            </a>
           </div>
         </div>
+      </div>
     <?php endforeach; ?>
   </div>
 
@@ -322,7 +320,6 @@ body {font-family: "Lato", sans-serif;}
                           <a href="main.php?page=<?php echo $page - 1; ?>"><span aria-hidden="true">&larr;</span> Newer
                           </a>
                       </li>
-
                   <?php endif; ?>
 
                   <?php if ($page == $last_page): ?>
@@ -342,30 +339,29 @@ body {font-family: "Lato", sans-serif;}
 
               <form method="POST" action="main.php#post" enctype="multipart/form-data">
                 <div class="form-group" style="margin-bottom: 0px;">
-                    <textarea name="content" class="form-control" rows="2" placeholder=" アイテムの説明/ The details about item" style="font-size: 24px; text-align: center;"></textarea><br>
+                  <div class="col-xs-6 col-xs-offset-3 border">
+                    <textarea name="content" class="form-control" rows="2" placeholder=" アイテムの説明/ The details about item" style="font-size: 22px; text-align: center;"></textarea><br>
                     <?php if (isset($errors['content'])&& $errors['content'] == 'blank'):?>
-                      <p class="text-danger">アイテムの説明を入力してください/ Please write the details about item</p>
+                      <p class="text-danger">アイテムの説明を入力してください/<br>Please write the details about item</p>
                     <?php endif; ?>
+                  </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="img_name">Your item image</label>
+                    
                     <input type="file" name="input_img_name" id="img_name" accept="image/*">
+                    <label for="img_name">Your item image</label>
                     <?php if(isset($errors['input_img_name']) && $errors['input_img_name'] == 'blank'): ?>
                         <p class="text-danger">Imageを選択してください/ Please choose item image</p>
                     <?php endif; ?>
+                    
                 </div>
 
-                
-                
-                
-                
-                
-                <div class="form-group" style="margin-bottom: 0px;">
+                <div class="form-group" style="margin-bottom: 0px; height: 30px;">
                     <?php if(isset($errors['input_img_name']) && $errors['input_img_name'] == 'type'): ?>
                         <p class="text-danger">拡張子が違います/ Wrong file extension</p>
                     <?php endif; ?>
-                    <br>
+                    <!-- <br> -->
                     <label for="img_name">掲載期限/ Publication period </label>
                 </div>
 
@@ -377,21 +373,14 @@ body {font-family: "Lato", sans-serif;}
                     <input type="submit" value="POST (投稿する)" class="btn btn-primary">
                 </div>
               </form>
-        
-            </div>
 
+            </div><!-- end / content_form thumbnail -->
           </div>
       </div>
     </div>
   </section>
   </div>
-
 </div>
-
-
-  
-
-  
 </body>
 
 <script>
