@@ -18,7 +18,7 @@
 }
 
 .caption {
-  background: #eee;
+  /*background: #eee;*/
   overflow: hidden;
   width: 100%;
 }
@@ -47,7 +47,7 @@ height: auto;
    margin-top: 60px;
    margin-right: auto;
    left: auto;
-   /*background: #E4E6EB;*/" 
+   /*background: #E4E6EB;*/
 }
 
 div .col-xs-3{
