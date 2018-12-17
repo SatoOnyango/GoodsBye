@@ -195,7 +195,9 @@ section#post>div.container {
     padding: 0px;
 }
 
-
+.thumbnail {
+    height: 300px; margin-bottom: 30px;
+}
 
 
 

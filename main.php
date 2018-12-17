@@ -144,10 +144,53 @@ if ($cnt!=0) {
 * {box-sizing: border-box}
 body {font-family: "Lato", sans-serif;}
 
+/* Style the tab */
+.tab {
+  float: left;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+  width: 10%;
+  height: 300px;
+}
 
+/* Style the buttons inside the tab */
+.tab button {
+  display: block;
+  background-color: inherit;
+  color: black;
+  padding: 22px 16px;
+  width: 100%;
+  border: none;
+  outline: none;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current "tab button" class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  float: left;
+  padding: 0px 12px;
+  border: 1px solid #ccc;
+  width: 90%;
+  border-left: none;
+  height:auto;
+}
 </style>
 </head>
 <!-- 参照終わり -->
+
 
 
 <body>
@@ -181,7 +224,6 @@ body {font-family: "Lato", sans-serif;}
     </div>
       <!-- スライド終了 -->
     
-    
   </div>
   <!-- ２行目 -->
   <div class="row">
@@ -203,7 +245,7 @@ body {font-family: "Lato", sans-serif;}
         <div class="thumbnail">
           <div class="caption">
             <?php if($item['done_flag']==1): ?>
-                <p class="text-danger text-center">終了しました(End)</p>
+                <p class="text-danger text-center">終了しました(End)<br></p>
             <?php endif; ?>
 
             <?php if($item['done_flag']==0): ?>
@@ -227,7 +269,7 @@ body {font-family: "Lato", sans-serif;}
         <div class="thumbnail">
           <div class="caption">
             <?php if($time['done_flag']==1): ?>
-                <p class="text-danger text-center">終了しました(End)</p>
+                <p class="text-danger text-center">終了しました(End)<br></p>
             <?php endif; ?>
 
             <?php if($time['done_flag']==0): ?>
@@ -298,25 +340,29 @@ body {font-family: "Lato", sans-serif;}
 
               <form method="POST" action="main.php#post" enctype="multipart/form-data">
                 <div class="form-group" style="margin-bottom: 0px;">
-                    <textarea name="content" class="form-control" rows="2" placeholder=" アイテムの説明/ The details about item" style="font-size: 24px; text-align: center;"></textarea><br>
+                  <div class="col-xs-6 col-xs-offset-3 border">
+                    <textarea name="content" class="form-control" rows="2" placeholder=" アイテムの説明/ The details about item" style="font-size: 22px; text-align: center;"></textarea><br>
                     <?php if (isset($errors['content'])&& $errors['content'] == 'blank'):?>
-                      <p class="text-danger">アイテムの説明を入力してください/ Please write the details about item</p>
+                      <p class="text-danger">アイテムの説明を入力してください/<br>Please write the details about item</p>
                     <?php endif; ?>
+                  </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="img_name">Your item image</label>
+                    
                     <input type="file" name="input_img_name" id="img_name" accept="image/*">
+                    <label for="img_name">Your item image</label>
                     <?php if(isset($errors['input_img_name']) && $errors['input_img_name'] == 'blank'): ?>
                         <p class="text-danger">Imageを選択してください/ Please choose item image</p>
                     <?php endif; ?>
+                    
                 </div>
 
-                <div class="form-group" style="margin-bottom: 0px;">
+                <div class="form-group" style="margin-bottom: 0px; height: 30px;">
                     <?php if(isset($errors['input_img_name']) && $errors['input_img_name'] == 'type'): ?>
                         <p class="text-danger">拡張子が違います/ Wrong file extension</p>
                     <?php endif; ?>
-                    <br>
+                    <!-- <br> -->
                     <label for="img_name">掲載期限/ Publication period </label>
                 </div>
 
@@ -328,8 +374,8 @@ body {font-family: "Lato", sans-serif;}
                     <input type="submit" value="POST (投稿する)" class="btn btn-primary">
                 </div>
               </form>
-            </div>
 
+            </div><!-- end / content_form thumbnail -->
           </div>
       </div>
     </div>
