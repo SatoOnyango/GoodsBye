@@ -8,5 +8,6 @@
     <link rel="stylesheet" type="text/css" href="assets/font-awesome/css/font-awesome.css">
     <link rel="stylesheet" type="text/css" href="assets/css/navbar.css">
     <link rel="stylesheet" type="text/css" href="assets/css/main.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/mypage.css">
 </head>
 </head>

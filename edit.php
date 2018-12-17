@@ -69,7 +69,7 @@ if(!empty($_POST)){
                         Updated/<?php echo $item['updated'];?><br>
                     <img src="user_profile_img/<?php echo $item['item_img'];?>" width="500" style="padding-left: auto;padding-right: auto;"><br>
 
-                        <div class="content_form thumbnail" style="font-size: 24px;text-align: center border 100px;padding-left: auto;padding-right: auto;width: 500.988636px;height: 109.988636px;">
+                        <div class="content_form thumbnail" style="text-align: center; border :100px;padding-left: auto;padding-right: auto;width: 500.988636px;height: 109.988636px;">
                             <textarea name="content" class="form-control" placeholder="Edit your comment agout your item" style="height: 68.988636px;"><?php echo $item['content']?></textarea>
                             <?php if (isset($errors['content'])&& $errors
                                 ['content'] == 'blank'):?>
