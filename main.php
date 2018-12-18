@@ -66,12 +66,6 @@ if (!empty($_POST)){
     }
 }
 
-$sql = 'SELECT `i`.*, `u`.`name` FROM `items` AS `i` LEFT JOIN `users` AS `u` ON `i`.`user_id` = `u`.`id` WHERE`deadline`>= CURRENT_DATE()';
-$data = [];
-$stmt = $dbh->prepare($sql);
-$stmt->execute($data);
-
-
 if (isset($_GET['page'])) {
     // ページの指定がある場合
     $page = $_GET['page'];
@@ -101,8 +95,11 @@ $start = ($page - 1) * CONTENT_PER_PAGE;
 $items=[];
 $times=[];
 
+$date_str = date('Ymd');
+
 if ($cnt!=0) {
-    $sql = 'SELECT `i`.*, `u`.`name` FROM `items` AS `i` LEFT JOIN `users` AS `u` ON `i`.`user_id` = `u`.`id` ORDER BY `i`.`created` DESC LIMIT ' . CONTENT_PER_PAGE . ' OFFSET ' . $start;
+    // deadlineまだのもの全件  new
+    $sql = 'SELECT `i`.*, `u`.`name` FROM `items` AS `i` LEFT JOIN `users` AS `u` ON `i`.`user_id` = `u`.`id` WHERE `deadline` >= CURRENT_DATE() ORDER BY `i`.`created` DESC LIMIT ' . CONTENT_PER_PAGE . ' OFFSET ' . $start;
     $items_stmt = $dbh->prepare($sql);
     $items_stmt->execute();
 
@@ -115,7 +112,8 @@ if ($cnt!=0) {
         $items[] = $record;
     }
 
-    $sql = 'SELECT `i`.*, `u`.`name` FROM `items` AS `i` LEFT JOIN `users` AS `u` ON `i`.`user_id` = `u`.`id` ORDER BY `i`.`deadline` LIMIT ' . CONTENT_PER_PAGE . ' OFFSET ' . $start;
+    // 期日が近いもの順  Almost Expired
+    $sql = 'SELECT `i`.*, `u`.`name` FROM `items` AS `i` LEFT JOIN `users` AS `u` ON `i`.`user_id` = `u`.`id` WHERE `deadline` >= CURRENT_DATE() ORDER BY `i`.`deadline` LIMIT ' . CONTENT_PER_PAGE . ' OFFSET ' . $start;
     $times_stmt = $dbh->prepare($sql);
     $times_stmt->execute();
 
@@ -127,25 +125,25 @@ if ($cnt!=0) {
         }
         $times[] = $record;
     }
+
+    // 期日切れのもの  Expired
+    $sql = 'SELECT * FROM `items` WHERE `deadline` < ? AND `user_id` = ? ORDER BY `created` DESC';
+    $data = [$date_str,$signin_user['id']];
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute($data);
+
+    $before_deadline_items = [];
+    while(true){
+        $record = $stmt->fetch(PDO::FETCH_ASSOC);
+        if($record == false){
+            break;
+        }
+        $before_deadline_items[] = $record;
+    }
+
 } else{
     $page=1;
     $last_page=1;
-}
-
-$date_str = date('Ymd');
-
-$sql = 'SELECT * FROM `items` WHERE `deadline` < ? AND `user_id` = ? ORDER BY `created` DESC';
-$data = [$date_str,$signin_user['id']];
-$stmt = $dbh->prepare($sql);
-$stmt->execute($data);
-
-$before_deadline_items = [];
-while(true){
-    $record = $stmt->fetch(PDO::FETCH_ASSOC);
-    if($record == false){
-        break;
-    }
-    $before_deadline_items[] = $record;
 }
 
 
