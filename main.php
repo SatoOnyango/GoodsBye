@@ -246,7 +246,7 @@ body {font-family: "Lato", sans-serif;}
   <!-- 左横タブ -->
   <div class="tab">
     <button class="tablinks" onclick="openCity(event, 'New')" id="defaultOpen">New</button>
-    <button class="tablinks" onclick="openCity(event, 'Dead')">Almost Expired</button>
+    <button class="tablinks" onclick="openCity(event, 'Dead')">Expire Soon</button>
     <button class="tablinks" onclick="openCity(event, 'Expired')">Expired</button>
     <button class="tablinks" onclick="openCity(event, 'guide')">Guide</button>
   </div>
@@ -260,7 +260,7 @@ body {font-family: "Lato", sans-serif;}
         <div class="thumbnail">
           <div class="caption">
             <?php if($item['done_flag']==1): ?>
-                <p class="text-danger text-center">終了しました(End)<br></p>
+                <p class="text-danger text-center">取引が完了しています<br>(The trade completed)</p>
             <?php endif; ?>
 
             <?php if($item['done_flag']==0): ?>
@@ -284,7 +284,7 @@ body {font-family: "Lato", sans-serif;}
         <div class="thumbnail">
           <div class="caption">
             <?php if($time['done_flag']==1): ?>
-                <p class="text-danger text-center">終了しました(End)<br></p>
+                <p class="text-danger text-center">取引が完了しています<br>(The trade completed)</p>
             <?php endif; ?>
 
             <?php if($time['done_flag']==0): ?>
@@ -302,14 +302,14 @@ body {font-family: "Lato", sans-serif;}
   </div>
 
   <div id="Expired" class="tabcontent">
-    <h2 style="color: #0099E8">Before trade</h2>
+    <h2 style="color: #0099E8">Expired</h2>
     <p>These items are expired.</p>
     <?php foreach($before_deadline_items as $before_deadline_item): ?>
       <div class="col-sm-4">
         <div class="thumbnail">
           <div class="caption">
             <?php if($before_deadline_item['done_flag']==1): ?>
-                <p class="text-danger text-center">終了しました(End)<br></p>
+                <p class="text-danger text-center">取引が完了しています<br>(The trade completed)</p>
             <?php endif; ?>
 
             <?php if($before_deadline_item['done_flag']==0): ?>
@@ -385,13 +385,11 @@ body {font-family: "Lato", sans-serif;}
                 </div>
 
                 <div class="form-group">
-                    
-                    <input type="file" name="input_img_name" id="img_name" accept="image/*">
+                  <input type="file" name="input_img_name" id="img_name" accept="image/*">
                     <label for="img_name">Your item image</label>
-                    <?php if(isset($errors['input_img_name']) && $errors['input_img_name'] == 'blank'): ?>
+                      <?php if(isset($errors['input_img_name']) && $errors['input_img_name'] == 'blank'): ?>
                         <p class="text-danger">Imageを選択してください/ Please choose item image</p>
-                    <?php endif; ?>
-                    
+                      <?php endif; ?>
                 </div>
 
                 <div class="form-group" style="margin-bottom: 0px; height: 30px;">
