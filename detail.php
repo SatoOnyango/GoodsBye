@@ -134,7 +134,7 @@ $sold=$stmt->fetch(PDO::FETCH_ASSOC);
                             </p>
                         </div>
                     <?php endforeach; ?>
-                <a href="detail.php?item_id=<?php echo $item_id; ?>#detail_top" class="back-to-top">Back</a>
+                <a href="detail.php?item_id=<?php echo $item_id; ?>#detail_top" class="back-to-top">Top</a>
             </form>
     </div>
 </body>
