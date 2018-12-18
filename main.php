@@ -132,6 +132,22 @@ if ($cnt!=0) {
     $last_page=1;
 }
 
+$date_str = date('Ymd');
+
+$sql = 'SELECT * FROM `items` WHERE `deadline` < ? AND `user_id` = ? ORDER BY `created` DESC';
+$data = [$date_str,$signin_user['id']];
+$stmt = $dbh->prepare($sql);
+$stmt->execute($data);
+
+$before_deadline_items = [];
+while(true){
+    $record = $stmt->fetch(PDO::FETCH_ASSOC);
+    if($record == false){
+        break;
+    }
+    $before_deadline_items[] = $record;
+}
+
 
 ?>
 
@@ -230,8 +246,8 @@ body {font-family: "Lato", sans-serif;}
   <!-- 左横タブ -->
   <div class="tab">
     <button class="tablinks" onclick="openCity(event, 'New')" id="defaultOpen">New</button>
-    <button class="tablinks" onclick="openCity(event, 'Dead')">Deadline</button>
-    <button class="tablinks" onclick="openCity(event, 'End')">End</button>
+    <button class="tablinks" onclick="openCity(event, 'Dead')">Almost Expired</button>
+    <button class="tablinks" onclick="openCity(event, 'Expired')">Expired</button>
     <button class="tablinks" onclick="openCity(event, 'guide')">Guide</button>
   </div>
   <!-- 左横タブ　終了 -->
@@ -285,15 +301,36 @@ body {font-family: "Lato", sans-serif;}
     <?php endforeach; ?>
   </div>
 
-  <div id="End" class="tabcontent">
-    <h2 style="color: #0099E8">過去の取引</h2>
-    <h3>Tokyo</h3>
-    <p>Tokyo is the capital of Japan.</p>
+  <div id="Expired" class="tabcontent">
+    <h2 style="color: #0099E8">Before trade</h2>
+    <p>These items are expired.</p>
+    <?php foreach($before_deadline_items as $before_deadline_item): ?>
+      <div class="col-sm-4">
+        <div class="thumbnail">
+          <div class="caption">
+            <?php if($before_deadline_item['done_flag']==1): ?>
+                <p class="text-danger text-center">終了しました(End)<br></p>
+            <?php endif; ?>
+
+            <?php if($before_deadline_item['done_flag']==0): ?>
+                created: <?php echo $before_deadline_item['created']; ?><br>
+                deadline: <?php echo $before_deadline_item['deadline']; ?><br>
+            <?php endif; ?>
+            <a href="detail.php?item_id=<?php echo $before_deadline_item['id'];?>" class="">
+                <p class=""></p>
+                <img src="user_profile_img/<?php echo $before_deadline_item['item_img'];?>" alt="..." class="thumbnail">
+            </a>
+          </div>
+        </div>
+      </div>
+    <?php endforeach; ?>
   </div>
+
+
   <div id="guide" class="tabcontent">
     <h2 style="color: #0099E8">Guidance</h2>
-    <h3>Tokyo</h3>
-    <p>Tokyo is the capital of Japan.</p>
+    <h3>How to use</h3>
+    <p>This service can reduce your wastefull.</p>
   </div>
     
   </div>

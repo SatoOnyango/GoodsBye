@@ -93,7 +93,7 @@ if(!empty($_POST)){
   <link rel="stylesheet" type="text/css" href="assets/font-awesome/css/font-awesome.css">
 
 </head>
-<body style="margin-top: 60px;background-color:#E6E6E6">
+<body style="margin-top: 60px;background-color:#F8F8F8">
     <h1 class="text-center content_header">Goodsbye</h1>
     <div class="container">
         <div class="row">

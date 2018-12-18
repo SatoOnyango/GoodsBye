@@ -195,8 +195,20 @@ section#post>div.container {
     padding: 0px;
 }
 
-.thumbnail {
+#New>div.col-sm-4 {
     height: 300px; margin-bottom: 30px;
+}
+#Dead>div.col-sm-4 {
+    height: 300px; margin-bottom: 30px;
+}
+#Expired>div.col-sm-4 {
+    height: 300px; margin-bottom: 30px;
+}
+
+#Expired {
+    display: block;
+    border-right-width: 0px;
+    width: 80%;
 }
 
 
