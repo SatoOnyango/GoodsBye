@@ -124,7 +124,7 @@ while(true){
             </div>
 
             <div class="col-xs-12" style="height: 25px;">
-                <hr>
+                <br>
             </div>
 
             <div class="col-xs-9">
