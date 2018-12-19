@@ -66,12 +66,6 @@ if (!empty($_POST)){
     }
 }
 
-$sql = 'SELECT `i`.*, `u`.`name` FROM `items` AS `i` LEFT JOIN `users` AS `u` ON `i`.`user_id` = `u`.`id` WHERE`deadline`>= CURRENT_DATE()';
-$data = [];
-$stmt = $dbh->prepare($sql);
-$stmt->execute($data);
-
-
 if (isset($_GET['page'])) {
     // ページの指定がある場合
     $page = $_GET['page'];
@@ -101,8 +95,11 @@ $start = ($page - 1) * CONTENT_PER_PAGE;
 $items=[];
 $times=[];
 
+$date_str = date('Ymd');
+
 if ($cnt!=0) {
-    $sql = 'SELECT `i`.*, `u`.`name` FROM `items` AS `i` LEFT JOIN `users` AS `u` ON `i`.`user_id` = `u`.`id` ORDER BY `i`.`created` DESC LIMIT ' . CONTENT_PER_PAGE . ' OFFSET ' . $start;
+    // deadlineまだのもの全件  new
+    $sql = 'SELECT `i`.*, `u`.`name` FROM `items` AS `i` LEFT JOIN `users` AS `u` ON `i`.`user_id` = `u`.`id` WHERE `deadline` >= CURRENT_DATE() ORDER BY `i`.`created` DESC LIMIT ' . CONTENT_PER_PAGE . ' OFFSET ' . $start;
     $items_stmt = $dbh->prepare($sql);
     $items_stmt->execute();
 
@@ -115,7 +112,8 @@ if ($cnt!=0) {
         $items[] = $record;
     }
 
-    $sql = 'SELECT `i`.*, `u`.`name` FROM `items` AS `i` LEFT JOIN `users` AS `u` ON `i`.`user_id` = `u`.`id` ORDER BY `i`.`deadline` LIMIT ' . CONTENT_PER_PAGE . ' OFFSET ' . $start;
+    // 期日が近いもの順  Almost Expired
+    $sql = 'SELECT `i`.*, `u`.`name` FROM `items` AS `i` LEFT JOIN `users` AS `u` ON `i`.`user_id` = `u`.`id` WHERE `deadline` >= CURRENT_DATE() ORDER BY `i`.`deadline` LIMIT ' . CONTENT_PER_PAGE . ' OFFSET ' . $start;
     $times_stmt = $dbh->prepare($sql);
     $times_stmt->execute();
 
@@ -127,25 +125,25 @@ if ($cnt!=0) {
         }
         $times[] = $record;
     }
+
+    // 期日切れのもの  Expired
+    $sql = 'SELECT * FROM `items` WHERE `deadline` < ? AND `user_id` = ? ORDER BY `created` DESC';
+    $data = [$date_str,$signin_user['id']];
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute($data);
+
+    $before_deadline_items = [];
+    while(true){
+        $record = $stmt->fetch(PDO::FETCH_ASSOC);
+        if($record == false){
+            break;
+        }
+        $before_deadline_items[] = $record;
+    }
+
 } else{
     $page=1;
     $last_page=1;
-}
-
-$date_str = date('Ymd');
-
-$sql = 'SELECT * FROM `items` WHERE `deadline` < ? AND `user_id` = ? ORDER BY `created` DESC';
-$data = [$date_str,$signin_user['id']];
-$stmt = $dbh->prepare($sql);
-$stmt->execute($data);
-
-$before_deadline_items = [];
-while(true){
-    $record = $stmt->fetch(PDO::FETCH_ASSOC);
-    if($record == false){
-        break;
-    }
-    $before_deadline_items[] = $record;
 }
 
 
@@ -246,7 +244,7 @@ body {font-family: "Lato", sans-serif;}
   <!-- 左横タブ -->
   <div class="tab">
     <button class="tablinks" onclick="openCity(event, 'New')" id="defaultOpen">New</button>
-    <button class="tablinks" onclick="openCity(event, 'Dead')">Almost Expired</button>
+    <button class="tablinks" onclick="openCity(event, 'Dead')">Expire Soon</button>
     <button class="tablinks" onclick="openCity(event, 'Expired')">Expired</button>
     <button class="tablinks" onclick="openCity(event, 'guide')">Guide</button>
   </div>
@@ -260,7 +258,7 @@ body {font-family: "Lato", sans-serif;}
         <div class="thumbnail">
           <div class="caption">
             <?php if($item['done_flag']==1): ?>
-                <p class="text-danger text-center">終了しました(End)<br></p>
+                <p class="text-danger text-center">取引が完了しています<br>(The trade completed)</p>
             <?php endif; ?>
 
             <?php if($item['done_flag']==0): ?>
@@ -284,7 +282,7 @@ body {font-family: "Lato", sans-serif;}
         <div class="thumbnail">
           <div class="caption">
             <?php if($time['done_flag']==1): ?>
-                <p class="text-danger text-center">終了しました(End)<br></p>
+                <p class="text-danger text-center">取引が完了しています<br>(The trade completed)</p>
             <?php endif; ?>
 
             <?php if($time['done_flag']==0): ?>
@@ -302,14 +300,14 @@ body {font-family: "Lato", sans-serif;}
   </div>
 
   <div id="Expired" class="tabcontent">
-    <h2 style="color: #0099E8">Before trade</h2>
+    <h2 style="color: #0099E8">Expired</h2>
     <p>These items are expired.</p>
     <?php foreach($before_deadline_items as $before_deadline_item): ?>
       <div class="col-sm-4">
         <div class="thumbnail">
           <div class="caption">
             <?php if($before_deadline_item['done_flag']==1): ?>
-                <p class="text-danger text-center">終了しました(End)<br></p>
+                <p class="text-danger text-center">取引が完了しています<br>(The trade completed)</p>
             <?php endif; ?>
 
             <?php if($before_deadline_item['done_flag']==0): ?>
@@ -385,13 +383,11 @@ body {font-family: "Lato", sans-serif;}
                 </div>
 
                 <div class="form-group">
-                    
-                    <input type="file" name="input_img_name" id="img_name" accept="image/*">
+                  <input type="file" name="input_img_name" id="img_name" accept="image/*">
                     <label for="img_name">Your item image</label>
-                    <?php if(isset($errors['input_img_name']) && $errors['input_img_name'] == 'blank'): ?>
+                      <?php if(isset($errors['input_img_name']) && $errors['input_img_name'] == 'blank'): ?>
                         <p class="text-danger">Imageを選択してください/ Please choose item image</p>
-                    <?php endif; ?>
-                    
+                      <?php endif; ?>
                 </div>
 
                 <div class="form-group" style="margin-bottom: 0px; height: 30px;">
