@@ -211,13 +211,23 @@ section#post>div.container {
     width: 80%;
 }
 
+.form-group-main {
+    margin-bottom: 0px;
+    height: 85px;
 
+}
 
+.form-group-main2 {
+    text-align: left;
+}
 
+input#img_name {
+     margin-left: 0px;
+}
 
-
-
-
+.col-sm-4>.thumnail {
+  height: 300px;
+}
 
 
 
