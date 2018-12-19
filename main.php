@@ -44,10 +44,11 @@ if (!empty($_POST)){
         $file_type = substr($file_name, -3);
         $file_type = strtolower($file_type);
         // 3. jpg,png,gifと比較し、当てはまらない場合$errors['img_name']に格納
-        if ($file_type != 'png' && $file_type != 'jpg' && $file_type != 'gif') {
-            $errors['input_img_name'] = 'type';
-        }
-    } else {
+        // if ($file_type != 'png' && $file_type != 'jpg' && $file_type != 'gif') {
+        //     $errors['input_img_name'] = 'type';
+        // }
+    // } 
+        else {
         $errors['input_img_name'] = 'blank';
     }
     //アイテム投稿時エラーがなければデータベースに登録する
