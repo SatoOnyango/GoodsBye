@@ -127,7 +127,7 @@ $sold=$stmt->fetch(PDO::FETCH_ASSOC);
                                 <span style="line-height:300%; word-break: break-all; border-radius: 100px!important; -webkit-appearance:none;padding:10px;margin-top:10px;">
                                     <?php echo $content['name']; ?>:<?php echo $content['created']; ?>
                                     <?php echo "<br>"; ?>
-                                    <div style="margin-top:1">
+                                    <div style="word-break: break-all; margin-top:1">
                                         <?php echo $content['comment']; ?>
                                     </div>
                                 </span>
