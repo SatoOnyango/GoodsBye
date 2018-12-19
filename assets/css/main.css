@@ -195,7 +195,7 @@ section#post>div.container {
     padding: 0px;
 }
 
-#New>div.col-sm-4 {
+#New>div.col-sm-4 .thumbnail{
     height: 300px; margin-bottom: 30px;
 }
 #Dead>div.col-sm-4 {
