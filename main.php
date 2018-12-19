@@ -327,10 +327,28 @@ body {font-family: "Lato", sans-serif;}
   </div>
 
 
-  <div id="guide" class="tabcontent">
-    <h2 style="color: #0099E8">Guidance</h2>
-    <h3>How to use</h3>
-    <p>This service can reduce your wastefull.</p>
+  <div id="guide" class="tabcontent" style="text-align: center;">
+    <div>
+      <img id="mypic2" style="margin-top: 30px "src="img/sample2.png" width="auto" height="500">
+      <input type="button" value="＞" onclick="slideshow_timer2()">
+          <script>
+          var pics_src2 = new Array("img/sample2.png","img/sample3.png");
+          var num2 = -1;
+
+          slideshow_timer2();
+
+          function slideshow_timer2(){
+              if (num2 == 1){
+                  num2 = 0;
+              } 
+              else {
+                  num2 ++;
+              }
+              document.getElementById("mypic2").src=pics_src2[num2];
+              setTimeout2("slideshow2_timer()",4000); 
+          }
+          </script>
+    </div>
   </div>
     
   </div>

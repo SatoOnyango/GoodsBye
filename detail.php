@@ -15,7 +15,9 @@ $item_id =$_GET['item_id'];
 // echo '</pre>';
 
 
-$sql = 'SELECT * FROM `items` WHERE `id` = ?';
+$sql = 'SELECT `i`.*, `u`.`name` ,`u`.`img_name`
+FROM `items` AS `i` LEFT JOIN `users` AS `u` 
+ON `i`.`user_id` = `u`.`id` WHERE `i`.`id`= ?';
 $data = [$item_id];
 $stmt = $dbh->prepare($sql);
 $stmt->execute($data);
@@ -27,6 +29,7 @@ $data=[$_SESSION['GoodsBye']['id']];
 $stmt=$dbh->prepare($sql);
 $stmt->execute($data);
 $signin_user=$stmt->fetch(PDO::FETCH_ASSOC);
+
 
 $errors = [];
 $comment = '';
@@ -87,8 +90,13 @@ $sold=$stmt->fetch(PDO::FETCH_ASSOC);
     <div class="container col-lg-auto col-md-auto col-sm-auto col-xs-auto" id="detail_top" name="detail_top">
         <div class="sidebar__item sidebar__item--fixed">
 
-            <div class="col-xs-5 col-xs-offset-auto">
-                <img class="col-xs-5 center-block " src="user_profile_img/<?php echo $detail['item_img'];?>" style="margin-top:30px; float: center; margin: center; max-width: auto; max-height:auto;">
+            <div class="col-xs-5 col-xs-offset-auto" text="center">
+
+                    <img src="user_profile_img/<?php echo $detail['img_name']; ?>" width="70" height="70" class="img-circle">
+                    name : <?php echo $detail['name']; ?>
+
+                created : <?php echo $detail['created']; ?>
+                <img class="col-xs-5 center-block " src="user_profile_img/<?php echo $detail['item_img'];?>" style="margin-top:30px; float: center; margin: center; max-width: 500px; max-height:500px;">
                 <div style="margin-top:30px; word-break: break-all;" class="col-xs-7 text-left"><?php echo $detail['content']?><br><?php if($signin_user['id']==$detail['user_id']): ?>
                     <?php if($sold['done_flag'] == 0): ?>
                         <div class="form-group center-block">
