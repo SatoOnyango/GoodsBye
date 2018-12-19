@@ -87,7 +87,8 @@
 
 
 .form-group{
-    text-align: center;
+    text-align: -webkit-left;
+}
 
 
 }
@@ -214,6 +215,7 @@ section#post>div.container {
 .form-group-main {
     margin-bottom: 0px;
     height: 85px;
+    text-align: -webkit-left;
 
 }
 
@@ -227,6 +229,11 @@ input#img_name {
 
 .col-sm-4>.thumnail {
   height: 300px;
+}
+
+
+.btn btn-primary{
+  text-align: center;
 }
 
 

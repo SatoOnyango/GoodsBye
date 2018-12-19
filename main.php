@@ -44,10 +44,11 @@ if (!empty($_POST)){
         $file_type = substr($file_name, -3);
         $file_type = strtolower($file_type);
         // 3. jpg,png,gifと比較し、当てはまらない場合$errors['img_name']に格納
-        if ($file_type != 'png' && $file_type != 'jpg' && $file_type != 'gif' && $file_type!='peg') {
-            $errors['input_img_name'] = 'type';
-        }
-    } else {
+        // if ($file_type != 'png' && $file_type != 'jpg' && $file_type != 'gif') {
+        //     $errors['input_img_name'] = 'type';
+        // }
+    // } 
+    }else {
         $errors['input_img_name'] = 'blank';
     }
     //アイテム投稿時エラーがなければデータベースに登録する
@@ -383,31 +384,30 @@ body {font-family: "Lato", sans-serif;}
 
                   <div class="form-group" style="margin-bottom: 0px; height: 30px;">
                     <?php if (isset($errors['content'])&& $errors['content'] == 'blank'):?>
-                      <p class="text-danger" style="text-align: left;">アイテムの説明を入力してください/Please write the details about item</p><br><br>
+                      <p class="text-danger" style="text-align: left;">アイテムの説明を入力してください/Please write the details about item</p>
                     <?php endif; ?>
                       <?php if(isset($errors['input_img_name']) && $errors['input_img_name'] == 'type'): ?>
                           <p class="text-danger">拡張子が違います/ Wrong file extension</p>
                       <?php endif; ?>
                       <!-- <br> -->
-                      <label for="img_name" style="margin-right: 365px;"><br>掲載期限/ Publication period </label>
-                  </div>
-
-                  <input type="date" name="deadline" value="today" min="<?php echo $current_date; ?>" style="margin-top: 15px;"><br>
-                  <?php if (isset($errors['deadline']) && $errors['deadline'] =='blank'): ?>
-                          <p class="text-danger" style="text-align: left; margin-bottom: 0px; margin-right: 0px;">日付を選択してください/Pleae choose date</p>
-                      <?php endif; ?>
-                  <div class="form-group" style="float: right;">
-                      
-                      <input type="submit" value="POST (投稿する)" class="btn btn-primary">
-                    </div>
-                    <div class=" border" style="height: 180px;">
+                    <div class=" border">
                   <div class="form-group-main2">
-                    <label for="img_name" style="margin-top: 20px;">Your item image</label>
+                    <label for="img_name">Your item image</label>
                       <input type="file" name="input_img_name" id="img_name" accept="image/*">
                           <?php if(isset($errors['input_img_name']) && $errors['input_img_name'] == 'blank'): ?>
                             <p class="text-danger">Imageを選択してください/ Please choose item image</p>
                           <?php endif; ?>
                           
+                  </div>
+                      <label for="img_name" style="margin-right: 365px;">掲載期限/ Publication period </label>
+                  <input type="date" name="deadline" value="today" min="<?php echo $current_date; ?>">
+                  </div>
+
+                  <?php if (isset($errors['deadline']) && $errors['deadline'] =='blank'): ?>
+                          <p class="text-danger" style="text-align: left; margin-bottom: 0px; margin-right: 0px;">日付を選択してください/Pleae choose date</p>
+                      <?php endif; ?>
+                  <div class="form-group" style="margin-top: 10px">
+                      <input type="submit" value="POST (投稿する)" class="btn btn-primary">
                     </div>
 
                 </div>
