@@ -93,12 +93,12 @@ $sold=$stmt->fetch(PDO::FETCH_ASSOC);
                 <?php if($sold['done_flag'] == 0): ?>
                     <div class="form-group center-block">
                     <a href="done.php?item_id=<?php echo $item_id; ?>">
-                    <button type="submit" class="btn btn-sm btn-success center-block" style="margin-top: 10px">取引完了</button></a>
+                    <button type="submit" class="btn btn-sm btn-success center-block" style="margin-top: 10px">Done</button></a>
                     </div>
                 <?php else: ?>
                     <div class="form-group center-block">
                     <a href="done.php?item_id=<?php echo $item_id; ?>& unsold=true">
-                    <button type="submit" class="btn btn-sm btn-success center-block" style="margin-top: 10px">完了取り消し</button></a>
+                    <button type="submit" class="btn btn-sm btn-success center-block" style="margin-top: 10px">Cancel</button></a>
                     </div>
                 <?php endif; ?>
             <?php endif; ?>
@@ -111,7 +111,7 @@ $sold=$stmt->fetch(PDO::FETCH_ASSOC);
                     <textarea name="comment" class="center-block" style="width:100%;height:60px; margin-top: 5px;" placeholder="コメントを入力してください(Please comment)" cols="80" rows="4" ></textarea>
                     <?php if($sold['done_flag'] == 0): ?>
                     <div class="form-group center-block">
-                        <button type="submit" class="btn btn-sm btn-primary center-block" style="margin-top: 10px; float: left;">返信する</button>
+                        <button type="submit" class="btn btn-sm btn-primary center-block" style="margin-top: 10px; float: left;">comment</button>
                     </div>
                     <?php endif; ?>
                         <?php if (isset($errors['comment'])&& $errors
@@ -127,7 +127,7 @@ $sold=$stmt->fetch(PDO::FETCH_ASSOC);
                                 <span style="line-height:300%; word-break: break-all; border-radius: 100px!important; -webkit-appearance:none;padding:10px;margin-top:10px;">
                                     <?php echo $content['name']; ?>:<?php echo $content['created']; ?>
                                     <?php echo "<br>"; ?>
-                                    <div style="margin-top:1">
+                                    <div style="word-break: break-all; margin-top:1">
                                         <?php echo $content['comment']; ?>
                                     </div>
                                 </span>
