@@ -44,7 +44,7 @@ if (!empty($_POST)){
         $file_type = substr($file_name, -3);
         $file_type = strtolower($file_type);
         // 3. jpg,png,gifと比較し、当てはまらない場合$errors['img_name']に格納
-        if ($file_type != 'png' && $file_type != 'jpg' && $file_type != 'gif') {
+        if ($file_type != 'png' && $file_type != 'jpg' && $file_type != 'gif' && $file_type!='peg') {
             $errors['input_img_name'] = 'type';
         }
     } else {
@@ -65,12 +65,6 @@ if (!empty($_POST)){
         header('Location:main.php');
     }
 }
-
-$sql = 'SELECT `i`.*, `u`.`name` FROM `items` AS `i` LEFT JOIN `users` AS `u` ON `i`.`user_id` = `u`.`id` WHERE`deadline`>= CURRENT_DATE()';
-$data = [];
-$stmt = $dbh->prepare($sql);
-$stmt->execute($data);
-
 
 if (isset($_GET['page'])) {
     // ページの指定がある場合
@@ -100,9 +94,14 @@ $start = ($page - 1) * CONTENT_PER_PAGE;
 
 $items=[];
 $times=[];
+$before_deadline_items = [];
+
+$date_str = date('Ymd');
+
 
 if ($cnt!=0) {
-    $sql = 'SELECT `i`.*, `u`.`name` FROM `items` AS `i` LEFT JOIN `users` AS `u` ON `i`.`user_id` = `u`.`id` ORDER BY `i`.`created` DESC LIMIT ' . CONTENT_PER_PAGE . ' OFFSET ' . $start;
+    // deadlineまだのもの全件  new
+    $sql = 'SELECT `i`.*, `u`.`name` FROM `items` AS `i` LEFT JOIN `users` AS `u` ON `i`.`user_id` = `u`.`id` WHERE `deadline` >= CURRENT_DATE() ORDER BY `i`.`created` DESC LIMIT ' . CONTENT_PER_PAGE . ' OFFSET ' . $start;
     $items_stmt = $dbh->prepare($sql);
     $items_stmt->execute();
 
@@ -115,7 +114,8 @@ if ($cnt!=0) {
         $items[] = $record;
     }
 
-    $sql = 'SELECT `i`.*, `u`.`name` FROM `items` AS `i` LEFT JOIN `users` AS `u` ON `i`.`user_id` = `u`.`id` ORDER BY `i`.`deadline` LIMIT ' . CONTENT_PER_PAGE . ' OFFSET ' . $start;
+    // 期日が近いもの順  Almost Expired
+    $sql = 'SELECT `i`.*, `u`.`name` FROM `items` AS `i` LEFT JOIN `users` AS `u` ON `i`.`user_id` = `u`.`id` WHERE `deadline` >= CURRENT_DATE() ORDER BY `i`.`deadline` LIMIT ' . CONTENT_PER_PAGE . ' OFFSET ' . $start;
     $times_stmt = $dbh->prepare($sql);
     $times_stmt->execute();
 
@@ -127,25 +127,24 @@ if ($cnt!=0) {
         }
         $times[] = $record;
     }
+
+    // 期日切れのもの  Expired
+    $sql = 'SELECT * FROM `items` WHERE `deadline` < ? AND `user_id` = ? ORDER BY `created` DESC';
+    $data = [$date_str,$signin_user['id']];
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute($data);
+
+    while(true){
+        $record = $stmt->fetch(PDO::FETCH_ASSOC);
+        if($record == false){
+            break;
+        }
+        $before_deadline_items[] = $record;
+    }
+
 } else{
     $page=1;
     $last_page=1;
-}
-
-$date_str = date('Ymd');
-
-$sql = 'SELECT * FROM `items` WHERE `deadline` < ? AND `user_id` = ? ORDER BY `created` DESC';
-$data = [$date_str,$signin_user['id']];
-$stmt = $dbh->prepare($sql);
-$stmt->execute($data);
-
-$before_deadline_items = [];
-while(true){
-    $record = $stmt->fetch(PDO::FETCH_ASSOC);
-    if($record == false){
-        break;
-    }
-    $before_deadline_items[] = $record;
 }
 
 
@@ -246,7 +245,7 @@ body {font-family: "Lato", sans-serif;}
   <!-- 左横タブ -->
   <div class="tab">
     <button class="tablinks" onclick="openCity(event, 'New')" id="defaultOpen">New</button>
-    <button class="tablinks" onclick="openCity(event, 'Dead')">Almost Expired</button>
+    <button class="tablinks" onclick="openCity(event, 'Dead')">Expire Soon</button>
     <button class="tablinks" onclick="openCity(event, 'Expired')">Expired</button>
     <button class="tablinks" onclick="openCity(event, 'guide')">Guide</button>
   </div>
@@ -260,7 +259,7 @@ body {font-family: "Lato", sans-serif;}
         <div class="thumbnail">
           <div class="caption">
             <?php if($item['done_flag']==1): ?>
-                <p class="text-danger text-center">終了しました(End)<br></p>
+                <p class="text-danger text-center">取引が完了しています<br>(The trade completed)</p>
             <?php endif; ?>
 
             <?php if($item['done_flag']==0): ?>
@@ -284,7 +283,7 @@ body {font-family: "Lato", sans-serif;}
         <div class="thumbnail">
           <div class="caption">
             <?php if($time['done_flag']==1): ?>
-                <p class="text-danger text-center">終了しました(End)<br></p>
+                <p class="text-danger text-center">取引が完了しています<br>(The trade completed)</p>
             <?php endif; ?>
 
             <?php if($time['done_flag']==0): ?>
@@ -302,14 +301,14 @@ body {font-family: "Lato", sans-serif;}
   </div>
 
   <div id="Expired" class="tabcontent">
-    <h2 style="color: #0099E8">Before trade</h2>
+    <h2 style="color: #0099E8">Expired</h2>
     <p>These items are expired.</p>
     <?php foreach($before_deadline_items as $before_deadline_item): ?>
       <div class="col-sm-4">
         <div class="thumbnail">
           <div class="caption">
             <?php if($before_deadline_item['done_flag']==1): ?>
-                <p class="text-danger text-center">終了しました(End)<br></p>
+                <p class="text-danger text-center">取引が完了しています<br>(The trade completed)</p>
             <?php endif; ?>
 
             <?php if($before_deadline_item['done_flag']==0): ?>
@@ -373,43 +372,49 @@ body {font-family: "Lato", sans-serif;}
                 </ul>
               </div>
 
-
-              <form method="POST" action="main.php#post" enctype="multipart/form-data">
-                <div class="form-group" style="margin-bottom: 0px;">
-                  <div class="col-xs-6 col-xs-offset-3 border">
-                    <textarea name="content" class="form-control" rows="2" placeholder=" アイテムの説明/ The details about item" style="font-size: 22px; text-align: center;"></textarea><br>
-                    <?php if (isset($errors['content'])&& $errors['content'] == 'blank'):?>
-                      <p class="text-danger">アイテムの説明を入力してください/<br>Please write the details about item</p>
-                    <?php endif; ?>
+              <div class="col-xs-6 col-xs-offset-3 border">
+                <form method="POST" action="main.php#post" enctype="multipart/form-data" style="text-align: left;">
+                  <div class="form-group-main">
+                    <textarea name="content" class="form-control" rows="2" placeholder=" アイテムの説明/ The details about item" style="font-size: 22px; text-align: start;"></textarea><br>
+                    
                   </div>
-                </div>
 
-                <div class="form-group">
-                    
-                    <input type="file" name="input_img_name" id="img_name" accept="image/*">
-                    <label for="img_name">Your item image</label>
-                    <?php if(isset($errors['input_img_name']) && $errors['input_img_name'] == 'blank'): ?>
-                        <p class="text-danger">Imageを選択してください/ Please choose item image</p>
-                    <?php endif; ?>
-                    
-                </div>
+                  
 
-                <div class="form-group" style="margin-bottom: 0px; height: 30px;">
-                    <?php if(isset($errors['input_img_name']) && $errors['input_img_name'] == 'type'): ?>
-                        <p class="text-danger">拡張子が違います/ Wrong file extension</p>
+                  <div class="form-group" style="margin-bottom: 0px; height: 30px;">
+                    <?php if (isset($errors['content'])&& $errors['content'] == 'blank'):?>
+                      <p class="text-danger" style="text-align: left;">アイテムの説明を入力してください/Please write the details about item</p><br><br>
                     <?php endif; ?>
-                    <!-- <br> -->
-                    <label for="img_name">掲載期限/ Publication period </label>
-                </div>
+                      <?php if(isset($errors['input_img_name']) && $errors['input_img_name'] == 'type'): ?>
+                          <p class="text-danger">拡張子が違います/ Wrong file extension</p>
+                      <?php endif; ?>
+                      <!-- <br> -->
+                      <label for="img_name" style="margin-right: 365px;"><br>掲載期限/ Publication period </label>
+                  </div>
 
-                <input type="date" name="deadline" value="today" min="<?php echo $current_date; ?>"><br>
-                <div class="form-group">
-                    <?php if (isset($errors['deadline']) && $errors['deadline'] =='blank'): ?>
-                        <p class="text-danger">日付を選択してください/Pleae choose date</p>
-                    <?php endif; ?>
-                    <input type="submit" value="POST (投稿する)" class="btn btn-primary">
+                  <input type="date" name="deadline" value="today" min="<?php echo $current_date; ?>" style="margin-top: 15px;"><br>
+                  <?php if (isset($errors['deadline']) && $errors['deadline'] =='blank'): ?>
+                          <p class="text-danger" style="text-align: left; margin-bottom: 0px; margin-right: 0px;">日付を選択してください/Pleae choose date</p>
+                      <?php endif; ?>
+                  <div class="form-group" style="float: right;">
+                      
+                      <input type="submit" value="POST (投稿する)" class="btn btn-primary">
+                    </div>
+                    <div class=" border" style="height: 180px;">
+                  <div class="form-group-main2">
+                    <label for="img_name" style="margin-top: 20px;">Your item image</label>
+                      <input type="file" name="input_img_name" id="img_name" accept="image/*">
+                          <?php if(isset($errors['input_img_name']) && $errors['input_img_name'] == 'blank'): ?>
+                            <p class="text-danger">Imageを選択してください/ Please choose item image</p>
+                          <?php endif; ?>
+                          
+                    </div>
+
                 </div>
-              </form>
+                </form>
+                </div><!-- end / class="col-xs-6 col-xs-offset-3 border -->
+
+                
 
             </div><!-- end / content_form thumbnail -->
           </div>
