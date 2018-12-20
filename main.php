@@ -166,7 +166,7 @@ body {font-family: "Lato", sans-serif;}
   border: 1px solid #ccc;
   background-color: #f1f1f1;
   width: 10%;
-  height: 300px;
+  height: 230px;
 }
 
 /* Style the buttons inside the tab */
@@ -215,7 +215,6 @@ body {font-family: "Lato", sans-serif;}
 <div class="container">
   <!-- １行目 -->
   <div class="row">
-    
   <!-- 上部スライド -->
     <div>
       <img id="mypic" class="center" style="margin-top: 30px"src="img/how1.png" width="auto" height="350">
@@ -238,120 +237,95 @@ body {font-family: "Lato", sans-serif;}
         </script>
     </div>
       <!-- スライド終了 -->
-    
   </div>
+  <!-- class=row -->
+
   <!-- ２行目 -->
   <div class="row">
     <p class="text-center">Click on the buttons inside the tabbed menu:</p>
   <!-- 左横タブ -->
-  <div class="tab">
-    <button class="tablinks" onclick="openCity(event, 'New')" id="defaultOpen">New</button>
-    <button class="tablinks" onclick="openCity(event, 'Dead')">Expire Soon</button>
-    <button class="tablinks" onclick="openCity(event, 'Expired')">Expired</button>
-    <button class="tablinks" onclick="openCity(event, 'guide')">Guide</button>
-  </div>
+    <div class="tab">
+      <button class="tablinks" onclick="openCity(event, 'New')" id="defaultOpen">New</button>
+      <button class="tablinks" onclick="openCity(event, 'Dead')">Expire Soon</button>
+      <button class="tablinks" onclick="openCity(event, 'Expired')">Expired</button>
+    </div>
   <!-- 左横タブ　終了 -->
 
   <!-- タブの中身 -->
-  <div id="New" class="tabcontent" style="width: 80%; border-right-width: 0px;border-bottom-width: 0px;">
-    <h2 style="color: #0099E8">New!</h2>
-    <?php foreach($items as $item): ?>
-      <div class="col-sm-4">
-        <div class="thumbnail">
-          <div class="caption">
-            <?php if($item['done_flag']==1): ?>
-                <p class="text-danger text-center">取引が完了しています<br>(The trade completed)</p>
-            <?php endif; ?>
+    <div id="New" class="tabcontent" style="width: 80%; border-right-width: 0px;border-bottom-width: 0px;">
+      <h2 style="color: #0099E8">New!</h2>
+      <?php foreach($items as $item): ?>
+        <div class="col-sm-4">
+          <div class="thumbnail">
+            <div class="caption">
+              <?php if($item['done_flag']==1): ?>
+                  <p class="text-danger text-center">取引が完了しています<br>(The trade completed)</p>
+              <?php endif; ?>
 
-            <?php if($item['done_flag']==0): ?>
-                created: <?php echo $item['created']; ?><br>
-                deadline: <?php echo $item['deadline']; ?><br>
-            <?php endif; ?>
-            <a href="detail.php?item_id=<?php echo$item['id'];?>" class="">
-                <p class=""></p>
-                <img src="user_profile_img/<?php echo $item['item_img'];?>" alt="..." class="thumbnail">
-            </a>
+              <?php if($item['done_flag']==0): ?>
+                  created: <?php echo $item['created']; ?><br>
+                  deadline: <?php echo $item['deadline']; ?><br>
+              <?php endif; ?>
+              <a href="detail.php?item_id=<?php echo$item['id'];?>" class="">
+                  <p class=""></p>
+                  <img src="user_profile_img/<?php echo $item['item_img'];?>" alt="..." class="thumbnail">
+              </a>
+            </div>
           </div>
         </div>
-      </div>
-    <?php endforeach; ?>
-  </div>
+      <?php endforeach; ?>
+    </div>
 
-  <div id="Dead" class="tabcontent">
-    <h2 style="color: #0099E8">Expire Soon!</h2>
-    <?php foreach($times as $time): ?>
-      <div class="col-sm-4">
-        <div class="thumbnail">
-          <div class="caption">
-            <?php if($time['done_flag']==1): ?>
-                <p class="text-danger text-center">取引が完了しています<br>(The trade completed)</p>
-            <?php endif; ?>
+    <div id="Dead" class="tabcontent">
+      <h2 style="color: #0099E8">Expire Soon!</h2>
+      <?php foreach($times as $time): ?>
+        <div class="col-sm-4">
+          <div class="thumbnail">
+            <div class="caption">
+              <?php if($time['done_flag']==1): ?>
+                  <p class="text-danger text-center">取引が完了しています<br>(The trade completed)</p>
+              <?php endif; ?>
 
-            <?php if($time['done_flag']==0): ?>
-                created: <?php echo $time['created']; ?><br>
-                deadline: <?php echo $time['deadline']; ?><br>
-            <?php endif; ?>
-            <a href="detail.php?item_id=<?php echo $time['id'];?>" class="">
-                <p class=""></p>
-                <img src="user_profile_img/<?php echo $time['item_img'];?>" alt="..." class="thumbnail">
-            </a>
+              <?php if($time['done_flag']==0): ?>
+                  created: <?php echo $time['created']; ?><br>
+                  deadline: <?php echo $time['deadline']; ?><br>
+              <?php endif; ?>
+              <a href="detail.php?item_id=<?php echo $time['id'];?>" class="">
+                  <p class=""></p>
+                  <img src="user_profile_img/<?php echo $time['item_img'];?>" alt="..." class="thumbnail">
+              </a>
+            </div>
           </div>
         </div>
-      </div>
-    <?php endforeach; ?>
-  </div>
+      <?php endforeach; ?>
+    </div>
 
-  <div id="Expired" class="tabcontent">
-    <h2 style="color: #0099E8">Expired</h2>
-    <p>These items are expired.</p>
-    <?php foreach($before_deadline_items as $before_deadline_item): ?>
-      <div class="col-sm-4">
-        <div class="thumbnail">
-          <div class="caption">
-            <?php if($before_deadline_item['done_flag']==1): ?>
-                <p class="text-danger text-center">取引が完了しています<br>(The trade completed)</p>
-            <?php endif; ?>
+    <div id="Expired" class="tabcontent">
+      <h2 style="color: #0099E8">Expired</h2>
+      <p>These items are expired.</p>
+      <?php foreach($before_deadline_items as $before_deadline_item): ?>
+        <div class="col-sm-4">
+          <div class="thumbnail">
+            <div class="caption">
+              <?php if($before_deadline_item['done_flag']==1): ?>
+                  <p class="text-danger text-center">取引が完了しています<br>(The trade completed)</p>
+              <?php endif; ?>
 
-            <?php if($before_deadline_item['done_flag']==0): ?>
-                created: <?php echo $before_deadline_item['created']; ?><br>
-                deadline: <?php echo $before_deadline_item['deadline']; ?><br>
-            <?php endif; ?>
-            <a href="detail.php?item_id=<?php echo $before_deadline_item['id'];?>" class="">
-                <p class=""></p>
-                <img src="user_profile_img/<?php echo $before_deadline_item['item_img'];?>" alt="..." class="thumbnail">
-            </a>
+              <?php if($before_deadline_item['done_flag']==0): ?>
+                  created: <?php echo $before_deadline_item['created']; ?><br>
+                  deadline: <?php echo $before_deadline_item['deadline']; ?><br>
+              <?php endif; ?>
+              <a href="detail.php?item_id=<?php echo $before_deadline_item['id'];?>" class="">
+                  <p class=""></p>
+                  <img src="user_profile_img/<?php echo $before_deadline_item['item_img'];?>" alt="..." class="thumbnail">
+              </a>
+            </div>
           </div>
         </div>
-      </div>
-    <?php endforeach; ?>
-  </div>
-
-
-  <div id="guide" class="tabcontent" style="text-align: center;">
-    <div>
-      <img id="mypic2" style="margin-top: 30px "src="img/sample2.png" width="auto" height="500">
-      <input type="button" value="＞" onclick="slideshow_timer2()">
-          <script>
-          var pics_src2 = new Array("img/sample2.png","img/sample3.png");
-          var num2 = -1;
-
-          slideshow_timer2();
-
-          function slideshow_timer2(){
-              if (num2 == 1){
-                  num2 = 0;
-              } 
-              else {
-                  num2 ++;
-              }
-              document.getElementById("mypic2").src=pics_src2[num2];
-              setTimeout2("slideshow2_timer()",4000); 
-          }
-          </script>
+      <?php endforeach; ?>
     </div>
   </div>
-    
-  </div>
+
   <!-- ３行目 -->
   <div class="row">
     <!-- 投稿エリア -->
@@ -392,48 +366,41 @@ body {font-family: "Lato", sans-serif;}
               </div>
 
               <div class="col-xs-6 col-xs-offset-3 border">
+
                 <form method="POST" action="main.php#post" enctype="multipart/form-data" style="text-align: left;">
                   <div class="form-group-main">
                     <textarea name="content" class="form-control" rows="2" placeholder=" アイテムの説明/ The details about item" style="font-size: 22px; text-align: start;"></textarea><br>
-                    
                   </div>
-
-                  
 
                   <div class="form-group" style="margin-bottom: 0px; height: 30px;">
                     <?php if (isset($errors['content'])&& $errors['content'] == 'blank'):?>
                       <p class="text-danger" style="text-align: left;">アイテムの説明を入力してください/Please write the details about item</p>
                     <?php endif; ?>
-                      <?php if(isset($errors['input_img_name']) && $errors['input_img_name'] == 'type'): ?>
-                          <p class="text-danger">拡張子が違います/ Wrong file extension</p>
-                      <?php endif; ?>
+                    <?php if(isset($errors['input_img_name']) && $errors['input_img_name'] == 'type'): ?>
+                        <p class="text-danger">拡張子が違います/ Wrong file extension</p>
+                    <?php endif; ?>
                       <!-- <br> -->
                     <div class=" border">
-                  <div class="form-group-main2">
-                    <label for="img_name">Your item image</label>
-                      <input type="file" name="input_img_name" id="img_name" accept="image/*">
-                          <?php if(isset($errors['input_img_name']) && $errors['input_img_name'] == 'blank'): ?>
-                            <p class="text-danger">Imageを選択してください/ Please choose item image</p>
-                          <?php endif; ?>
-                          
-                  </div>
+                      <div class="form-group-main2">
+                        <label for="img_name">Your item image</label>
+                          <input type="file" name="input_img_name" id="img_name" accept="image/*">
+                            <?php if(isset($errors['input_img_name']) && $errors['input_img_name'] == 'blank'): ?>
+                              <p class="text-danger">Imageを選択してください/ Please choose item image</p>
+                            <?php endif; ?>
+                      </div>
                       <label for="img_name" style="margin-right: 365px;">掲載期限/ Publication period </label>
-                  <input type="date" name="deadline" value="today" min="<?php echo $current_date; ?>">
-                  </div>
-
-                  <?php if (isset($errors['deadline']) && $errors['deadline'] =='blank'): ?>
-                          <p class="text-danger" style="text-align: left; margin-bottom: 0px; margin-right: 0px;">日付を選択してください/Pleae choose date</p>
-                      <?php endif; ?>
-                  <div class="form-group" style="margin-top: 10px">
-                      <input type="submit" value="POST (投稿する)" class="btn btn-primary">
+                      <input type="date" name="deadline" value="today" min="<?php echo $current_date; ?>">
                     </div>
 
-                </div>
+                      <?php if (isset($errors['deadline']) && $errors['deadline'] =='blank'): ?>
+                          <p class="text-danger" style="text-align: left; margin-bottom: 0px; margin-right: 0px;">日付を選択してください/Pleae choose date</p>
+                      <?php endif; ?>
+                    <div class="form-group" style="margin-top: 10px">
+                        <input type="submit" value="POST (投稿する)" class="btn btn-primary">
+                    </div>
+                  </div>
                 </form>
-                </div><!-- end / class="col-xs-6 col-xs-offset-3 border -->
-
-                
-
+              </div><!-- end / class="col-xs-6 col-xs-offset-3 border -->
             </div><!-- end / content_form thumbnail -->
           </div>
       </div>

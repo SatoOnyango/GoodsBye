@@ -8,11 +8,18 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="main.php">GoodsBye</a>
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse1">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a class="smothscroll" href="main.php#post" title="post">POST(投稿)</a></li>
+                    <?php if (strpos($_SERVER['REQUEST_URI'], 'main.php') !== false): ?>
+                        <li class="active"><a class="navbar-brand"" href="main.php" title="post">GoodsBye</a></li>
+                        <li class=""><a class="smothscroll" href="main.php#post" title="post">POST(投稿)</a></li>
+                        <li class=""><a class="smothscroll" href="how.php" title="post">GUIDE(使い方)</a></li>
+                    <?php else: ?>
+                        <li class=""><a class="navbar-brand"" href="main.php" title="post">GoodsBye</a></li>
+                        <li class=""><a class="smothscroll" href="main.php#post" title="post">POST(投稿)</a></li>
+                        <li class="active"><a class="smothscroll" href="how.php" title="post">GUIDE(使い方)</a></li>
+                    <?php endif; ?>
                 </ul>
                 
                 <ul class="nav navbar-nav navbar-right">
