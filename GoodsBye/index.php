@@ -45,28 +45,28 @@
                       <p class="txt-contents">created: 2018-12-19 10:29:40<br>
                         deadline: 2018-12-27</p>
                       <div class="lesson-icon">
-                          <img src="img_us/christmas.jpg">
+                          <img src="user_profile_img/jesustree.jpg">
                       </div>
                   </div>
                   <div class="lesson">
                       <p class="txt-contents">created: 2018-12-19 10:29:40<br>
                         deadline: 2018-12-27</p>
                       <div class="lesson-icon">
-                          <img src="img_us/shampoo.jpg">
+                          <img src="user_profile_img/shampoo.jpg">
                       </div>
                   </div>
                   <div class="lesson">
                       <p class="txt-contents">created: 2018-12-19 10:29:40<br>
                         deadline: 2018-12-27</p>
                       <div class="lesson-icon">
-                          <img src="img_us/wifi.jpg">
+                          <img src="user_profile_img/wifi.jpg">
                       </div>
                   </div>
                   <div class="lesson">
                       <p class="txt-contents">created: 2018-12-19 10:29:40<br>
                         deadline: 2018-12-27</p>
                       <div class="lesson-icon">
-                          <img src="img_us/truelove.jpg">
+                          <img src="user_profile_img/truelove.jpg">
                       </div>
                   </div>
               </div>
@@ -80,7 +80,7 @@
                 </div>
                 <div class="heading">
                     <div class="lesson-icon">
-                      <img src="img_us/register.jpg">
+                      <img src="user_profile_img/register.jpg">
                     </div>
                     <p class="txt-contents">いらない所持品をGoodsByeに投稿することができます。投稿された所持品はサイトを通して閲覧することが可能です。<br>
                         <br>
@@ -88,7 +88,7 @@
                 </div>
                 <div class="heading">
                    <div class="lesson-icon">
-                      <img src="img_us/negotiate.jpg">
+                      <img src="user_profile_img/negotiate.jpg">
                     </div>
                     <p class="txt-contents">投稿された誰かの所持品に対しコメントすることで、所有者と交渉することができます。<br>
                         <br>
@@ -96,7 +96,7 @@
                 </div>
                 <div class="heading">
                     <div class="lesson-icon">
-                      <img src="img_us/complete.jpg">
+                      <img src="user_profile_img/complete.jpg">
                    </div>
                     <p class="txt-contents">合意に至れば交渉成立です。あとは会って商品を手にするだけです。やったね。<br>
                         <br>
@@ -104,7 +104,7 @@
                 </div>
                 <div class="heading">
                     <div class="lesson-icon">
-                      <img src="img_us/ramen.jpg">
+                      <img src="user_profile_img/ramen.jpg">
                     </div>
                     <p class="txt-contents">浮いたお金でラーメンでも食べに行きましょう<br>
                         <br>
