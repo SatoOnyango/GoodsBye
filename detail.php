@@ -10,6 +10,7 @@ if(!isset($_SESSION['GoodsBye']['id'])){
 
 $item_id =$_GET['item_id'];
 
+$items=$_SESSION['GoodsBye'];
 // echo '<pre>';
 // var_dump($_GET['item_id']);
 // echo '</pre>';
@@ -66,6 +67,13 @@ $data = [$item_id];
 $stmt = $dbh->prepare($sql);
 $stmt->execute($data);
 $sold=$stmt->fetch(PDO::FETCH_ASSOC);
+
+
+$sql='SELECT `user_id` FROM `items` WHERE `id`=?';
+$data = [$detail['user_id']];
+$stmt = $dbh->prepare($sql);
+$stmt->execute($data);
+$item_user=$stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 <head>
     <meta charset="utf-8">
@@ -89,7 +97,9 @@ $sold=$stmt->fetch(PDO::FETCH_ASSOC);
 
             <div class="col-xs-5 col-xs-offset-auto">
                 <img class="col-xs-5 center-block " src="user_profile_img/<?php echo $detail['item_img'];?>" style="margin-top:30px; float: center; margin: center; max-width: auto; max-height:auto;">
-                <div style="margin-top:30px; word-break: break-all;" class="col-xs-7 text-left"><?php echo $detail['content']?><br><?php if($signin_user['id']==$detail['user_id']): ?>
+                <div style="margin-top:30px; word-break: break-all;" class="col-xs-7 text-left">
+                    <?php echo $detail['created']; ?><br>
+                    <?php echo $detail['content']?><br><?php if($signin_user['id']==$detail['user_id']): ?>
                     <?php if($sold['done_flag'] == 0): ?>
                         <div class="form-group center-block">
                         <a href="done.php?item_id=<?php echo $item_id; ?>"class="btn btn-sm btn-success center-block>
@@ -98,12 +108,11 @@ $sold=$stmt->fetch(PDO::FETCH_ASSOC);
                     <?php else: ?>
                         <div class="form-group center-block">
                         <a href="done.php?item_id=<?php echo $item_id; ?>& unsold=true"class="btn btn-sm btn-success center-block>
-                        <button type="submit" style="float: left;"  margin-top: 10px">Cancel</button></a>
+                        <button type="submit" style="float: left; margin-top: 10px">Cancel</button></a>
                         </div>
                     <?php endif; ?>
                 <?php endif; ?></div>
             </div>
-
 
         </div>
 
