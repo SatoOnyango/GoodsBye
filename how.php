@@ -26,7 +26,7 @@ $signin_user=$stmt->fetch(PDO::FETCH_ASSOC);
         <img id="mypic2" style="margin-top: 100px "src="img/sample2.png" width="auto" height="500">
         <input type="button" value="＞" onclick="slideshow_timer2()" style="width: 50px; height: 50px;">
             <script>
-            var pics_src2 = new Array("img/sample2.png","img/sample5.png");
+            var pics_src2 = new Array("img/sample2.png","img/sample4.png");
             var num2 = -1;
 
             slideshow_timer2();
