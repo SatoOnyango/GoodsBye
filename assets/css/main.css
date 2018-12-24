@@ -87,7 +87,8 @@
 
 
 .form-group{
-    text-align: center;
+    text-align: -webkit-left;
+}
 
 
 }
@@ -198,13 +199,18 @@ section#post>div.container {
 #New>div.col-sm-4 .thumbnail{
     height: 300px; margin-bottom: 30px;
 }
-#Dead>div.col-sm-4 {
+#Dead>div.col-sm-4 .thumbnail{
     height: 300px; margin-bottom: 30px;
 }
-#Expired>div.col-sm-4 {
+#Expired>div.col-sm-4 .thumbnail{
     height: 300px; margin-bottom: 30px;
 }
-
+#POST>div.col-sm-4 .thumbnail{
+    height: 400px; margin-bottom: 30px;
+}
+#EXPIRED>div.col-sm-4 .thumbnail{
+    height: 400px; margin-bottom: 30px;
+}
 #Expired {
     display: block;
     border-right-width: 0px;
@@ -214,8 +220,10 @@ section#post>div.container {
 .form-group-main {
     margin-bottom: 0px;
     height: 85px;
+    text-align: -webkit-left;
 
 }
+
 
 .form-group-main2 {
     text-align: left;
@@ -227,6 +235,11 @@ input#img_name {
 
 .col-sm-4>.thumnail {
   height: 300px;
+}
+
+
+.btn btn-primary{
+  text-align: center;
 }
 
 

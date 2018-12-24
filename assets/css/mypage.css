@@ -7,7 +7,7 @@
 #wrapper:before {
     content:"";
     display: block;
-    padding-top: 75%; /* 高さを幅の75%に固定 */
+    padding-top: 15%; /* 高さを幅の75%に固定 */
 }
 #content {
     position: absolute;
@@ -16,7 +16,10 @@
     bottom: 0;
     right: 0;
 }
-
+div.thumbnail>div.bottom {
+  position: absolute;
+  bottom: 40px;
+}
 .caption {
   /*background: #eee;*/
   overflow: hidden;
